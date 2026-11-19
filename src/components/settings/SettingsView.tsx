@@ -116,7 +116,7 @@ export function SettingsView() {
           Your account, your data.
         </h2>
         <p className="mt-2 max-w-[560px] text-[12.5px] leading-relaxed text-muted">
-          You're signed in with Google. Your call history and blocklist are saved to your account
+          You&apos;re signed in with Google. Your call history and blocklist are saved to your account
           and follow you across devices.
         </p>
       </div>
@@ -125,7 +125,7 @@ export function SettingsView() {
         <div className="space-y-3">
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <UserRound className="h-3.5 w-3.5 text-ink/40" />
+              <UserRound className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Profile</h3>
             </div>
             <p className="mt-0.5 text-[11px] text-muted">
@@ -200,7 +200,7 @@ export function SettingsView() {
 
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <RotateCcw className="h-3.5 w-3.5 text-ink/40" />
+              <RotateCcw className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Data controls</h3>
             </div>
             <p className="mt-0.5 text-[11px] leading-relaxed text-muted">
@@ -258,7 +258,7 @@ export function SettingsView() {
         <div className="space-y-3">
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <Smartphone className="h-3.5 w-3.5 text-ink/40" />
+              <Smartphone className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Install the app</h3>
             </div>
             <p className="mt-1 text-[11px] leading-relaxed text-muted">
@@ -272,22 +272,22 @@ export function SettingsView() {
             <div className="mt-3 space-y-1.5 border-t border-line pt-3">
               <p className="flex items-center justify-between text-[9.5px] text-muted">
                 <span>Manifest &amp; icons</span>
-                <span className="text-ink/55">Ready</span>
+                <span className="text-ink/70">Ready</span>
               </p>
               <p className="flex items-center justify-between text-[9.5px] text-muted">
                 <span>Service worker</span>
-                <span className="text-ink/55">Caching enabled</span>
+                <span className="text-ink/70">Caching enabled</span>
               </p>
               <p className="flex items-center justify-between text-[9.5px] text-muted">
                 <span>Offline fallback</span>
-                <span className="text-ink/55">Available</span>
+                <span className="text-ink/70">Available</span>
               </p>
             </div>
           </section>
 
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <Lock className="h-3.5 w-3.5 text-ink/40" />
+              <Lock className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Privacy &amp; storage</h3>
             </div>
             <p className="mt-1 text-[11px] leading-relaxed text-muted">
@@ -310,7 +310,7 @@ export function SettingsView() {
             </div>
             <Link
               href="/legal#privacy"
-              className="mt-3 inline-flex items-center gap-1 text-[10px] font-medium text-ink/50 transition-colors hover:text-ink"
+              className="mt-3 inline-flex items-center gap-1 text-[10px] font-medium text-ink/70 transition-colors hover:text-ink"
             >
               <Info className="h-3 w-3" />
               Read the prototype privacy notes
@@ -322,13 +322,13 @@ export function SettingsView() {
               <ShieldCheck className="h-3.5 w-3.5 text-signal" />
               <h3 className="text-[13.5px] font-semibold">Prototype reminder</h3>
             </div>
-            <p className="mt-1 text-[10.5px] leading-relaxed text-ink/60">
+            <p className="mt-1 text-[10.5px] leading-relaxed text-ink/70">
               CallShield does not intercept real cellular calls, and no caller in this workspace is
               a real person or organisation. Risk labels are heuristic signals, not proof of fraud.
             </p>
             <Link
               href="/app/assistant"
-              className="mt-3 inline-flex text-[10px] font-medium text-ink/55 underline decoration-signal/60 underline-offset-4 hover:text-ink"
+              className="mt-3 inline-flex text-[10px] font-medium text-ink/70 underline decoration-signal/60 underline-offset-4 hover:text-ink"
             >
               Review assistant settings
             </Link>

@@ -88,7 +88,7 @@ export function ScenarioPicker({
                 {scenario.blurb}
               </p>
               <div className="mt-2.5 flex items-center justify-between border-t border-line/80 pt-2">
-                <span className="font-display text-[11px] tabular-nums text-ink/60">
+                <span className="font-display text-[11px] tabular-nums text-ink/70">
                   {scenario.number}
                 </span>
                 <span
@@ -109,7 +109,7 @@ export function ScenarioPicker({
         {selected ? (
           <>
             <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-signal" />
-            <p className="text-[10.5px] leading-relaxed text-ink/60">
+            <p className="text-[10.5px] leading-relaxed text-ink/70">
               <span className="font-semibold text-ink">Demo note:</span> these are fictional callers
               and scripts. CallShield cannot answer or intercept real calls in this prototype.
             </p>

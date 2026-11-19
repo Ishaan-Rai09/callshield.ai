@@ -151,7 +151,7 @@ export function AssistantView() {
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-white">
-                  <Bot className="h-4 w-4 text-ink/60" />
+                  <Bot className="h-4 w-4 text-ink/70" />
                 </span>
                 <div>
                   <h3 className="text-[13.5px] font-semibold">AI screening</h3>
@@ -172,7 +172,7 @@ export function AssistantView() {
                 "mt-4 rounded-lg border px-3.5 py-2.5 text-[10.5px] leading-relaxed",
                 assistant.screeningEnabled
                   ? "border-line bg-white/60 text-muted"
-                  : "border-signal/35 bg-signal/[0.06] text-ink/65"
+                  : "border-signal/35 bg-signal/[0.06] text-ink/70"
               )}
             >
               {assistant.screeningEnabled
@@ -224,13 +224,13 @@ export function AssistantView() {
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <MessageSquareText className="h-3.5 w-3.5 text-ink/40" />
+                <MessageSquareText className="h-3.5 w-3.5 text-ink/70" />
                 <h3 className="text-[13.5px] font-semibold">Assistant greeting</h3>
               </div>
               <button
                 type="button"
                 onClick={resetGreeting}
-                className="inline-flex items-center gap-1 text-[10px] font-medium text-ink/45 transition-colors hover:text-ink"
+                className="inline-flex items-center gap-1 text-[10px] font-medium text-ink/70 transition-colors hover:text-ink"
               >
                 <RotateCcw className="h-3 w-3" />
                 Restore default
@@ -263,7 +263,7 @@ export function AssistantView() {
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-white">
-                  <Volume2 className="h-4 w-4 text-ink/60" />
+                  <Volume2 className="h-4 w-4 text-ink/70" />
                 </span>
                 <div>
                   <h3 className="text-[13.5px] font-semibold">Call voice</h3>
@@ -322,7 +322,7 @@ export function AssistantView() {
                   : "Add GNANI_API_KEY to .env.local to enable spoken calls. Until then, calls run in captions-only mode."}
             </p>
             {voice.error && (
-              <p className="mt-2 rounded-lg border border-signal/30 bg-signal/[0.07] px-3 py-2 text-[10px] leading-relaxed text-ink/65">
+              <p className="mt-2 rounded-lg border border-signal/30 bg-signal/[0.07] px-3 py-2 text-[10px] leading-relaxed text-ink/70">
                 {voice.error}
               </p>
             )}
@@ -332,7 +332,7 @@ export function AssistantView() {
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-white">
-                  <Languages className="h-4 w-4 text-ink/60" />
+                  <Languages className="h-4 w-4 text-ink/70" />
                 </span>
                 <div>
                   <h3 className="text-[13.5px] font-semibold">Hinglish flavour</h3>
@@ -353,7 +353,7 @@ export function AssistantView() {
 
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <ListChecks className="h-3.5 w-3.5 text-ink/40" />
+              <ListChecks className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Caller information questions</h3>
             </div>
             <p className="mt-0.5 text-[11px] text-muted">
@@ -384,7 +384,7 @@ export function AssistantView() {
 
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <Siren className="h-3.5 w-3.5 text-ink/40" />
+              <Siren className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">When something looks suspicious</h3>
             </div>
             <p className="mt-0.5 text-[11px] text-muted">
@@ -426,7 +426,7 @@ export function AssistantView() {
 
           <section className="rounded-xl border border-line bg-paper p-5">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-3.5 w-3.5 text-ink/40" />
+              <Sparkles className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[13.5px] font-semibold">Notification preferences</h3>
             </div>
             <p className="mt-0.5 text-[11px] text-muted">
@@ -469,10 +469,10 @@ export function AssistantView() {
                   </span>
                   <div>
                     <p className="font-display text-[12px] font-medium">+91 90000 00000</p>
-                    <p className="text-[9px] text-ivory/35">Unknown caller</p>
+                    <p className="text-[9px] text-ivory/70">Unknown caller</p>
                   </div>
                 </div>
-                <span className="rounded-full border border-white/15 px-1.5 py-0.5 text-[8px] uppercase tracking-[0.1em] text-ivory/40">
+                <span className="rounded-full border border-white/15 px-1.5 py-0.5 text-[8px] uppercase tracking-[0.1em] text-ivory/70">
                   Simulated
                 </span>
               </div>
@@ -482,7 +482,7 @@ export function AssistantView() {
                   <span className="flex h-4 w-4 items-center justify-center rounded-full bg-signal text-[8px] font-bold text-ink">
                     AI
                   </span>
-                  <p className="text-[8.5px] font-semibold uppercase tracking-[0.12em] text-ivory/35">
+                  <p className="text-[8.5px] font-semibold uppercase tracking-[0.12em] text-ivory/70">
                     CallShield assistant
                   </p>
                 </div>
@@ -501,17 +501,17 @@ export function AssistantView() {
               </div>
 
               <div className="mt-3 border-t border-white/10 pt-3">
-                <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-ivory/30">
+                <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-ivory/70">
                   Will ask
                 </p>
                 <div className="mt-1.5 flex flex-wrap gap-1">
                   {activeQuestions.length === 0 ? (
-                    <span className="text-[9px] text-ivory/35">Only the greeting</span>
+                    <span className="text-[9px] text-ivory/70">Only the greeting</span>
                   ) : (
                     activeQuestions.map((question) => (
                       <span
                         key={question.key}
-                        className="rounded border border-white/12 px-1.5 py-0.5 text-[8.5px] text-ivory/50"
+                        className="rounded border border-white/12 px-1.5 py-0.5 text-[8.5px] text-ivory/70"
                       >
                         {question.label.replace("Ask for the ", "").replace("Ask which ", "").replace("Ask the ", "")}
                       </span>
@@ -520,7 +520,7 @@ export function AssistantView() {
                 </div>
               </div>
 
-              <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2.5 text-[8.5px] text-ivory/30">
+              <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-2.5 text-[8.5px] text-ivory/70">
                 <span className="inline-flex items-center gap-1">
                   <Globe2 className="h-2.5 w-2.5" />
                   {assistant.language}
@@ -537,7 +537,7 @@ export function AssistantView() {
 
           <div className="rounded-xl border border-line bg-paper p-4">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-3.5 w-3.5 text-ink/40" />
+              <ShieldCheck className="h-3.5 w-3.5 text-ink/70" />
               <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
                 Voice integration
               </p>
@@ -554,7 +554,7 @@ export function AssistantView() {
                 className={cx(
                   "rounded-full border px-2 py-0.5 text-[8.5px] font-medium uppercase tracking-[0.08em]",
                   voice.configured
-                    ? "border-signal/40 bg-signal/10 text-ink/60"
+                    ? "border-signal/40 bg-signal/10 text-ink/70"
                     : "border-line text-muted"
                 )}
               >
@@ -569,13 +569,13 @@ export function AssistantView() {
             <div className="mt-3 space-y-1.5 border-t border-line pt-2.5">
               <div className="flex items-center justify-between text-[9px] text-muted">
                 <span>Text-to-speech</span>
-                <span className="font-medium text-ink/60">
+                <span className="font-medium text-ink/70">
                   {voice.configured ? voice.ttsModel ?? "Timbre" : "Not configured"}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[9px] text-muted">
                 <span>Speech-to-text</span>
-                <span className="font-medium text-ink/60">
+                <span className="font-medium text-ink/70">
                   {voice.configured ? voice.sttModel ?? "Prisma" : "Not configured"}
                 </span>
               </div>
@@ -583,7 +583,7 @@ export function AssistantView() {
           </div>
 
           <div className="rounded-xl border border-signal/25 bg-signal/[0.05] p-4">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/40">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/70">
               Language note
             </p>
             <label htmlFor="assistant-language" className="sr-only">

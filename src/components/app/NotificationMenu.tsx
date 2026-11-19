@@ -48,7 +48,7 @@ export function NotificationMenu() {
         onClick={() => setOpen((value) => !value)}
         aria-label={`Notifications${unreadCount ? `, ${unreadCount} unread` : ""}`}
         aria-expanded={open}
-        className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink/60 transition-colors hover:bg-ink/[0.05] hover:text-ink"
+        className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/[0.05] hover:text-ink"
       >
         <Bell className="h-[17px] w-[17px]" />
         {unreadCount > 0 && (
@@ -80,7 +80,7 @@ export function NotificationMenu() {
                 <button
                   type="button"
                   onClick={markAllNotificationsRead}
-                  className="inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/50 transition-colors hover:text-ink"
+                  className="inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
                 >
                   <CheckCheck className="h-3 w-3" />
                   Mark all read
@@ -91,7 +91,7 @@ export function NotificationMenu() {
             <div className="max-h-[360px] overflow-y-auto">
               {notifications.length === 0 && (
                 <div className="px-4 py-10 text-center">
-                  <Bell className="mx-auto h-5 w-5 text-ink/20" />
+                  <Bell className="mx-auto h-5 w-5 text-ink/70" />
                   <p className="mt-2 text-[12px] text-muted">No notifications yet.</p>
                 </div>
               )}
@@ -115,7 +115,7 @@ export function NotificationMenu() {
                         "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border",
                         item.tone === "risk"
                           ? "border-signal/30 bg-signal/10 text-signal"
-                          : "border-line bg-white text-ink/45"
+                          : "border-line bg-white text-ink/70"
                       )}
                     >
                       <Icon className="h-3 w-3" />
@@ -135,7 +135,7 @@ export function NotificationMenu() {
                       <span className="mt-0.5 block text-[11px] leading-relaxed text-muted">
                         {item.body}
                       </span>
-                      <span className="mt-1 block text-[9.5px] uppercase tracking-[0.1em] text-ink/30">
+                      <span className="mt-1 block text-[9.5px] uppercase tracking-[0.1em] text-ink/70">
                         {relativeTime(item.createdAt)}
                       </span>
                     </span>
@@ -148,7 +148,7 @@ export function NotificationMenu() {
               <Link
                 href="/app/history"
                 onClick={() => setOpen(false)}
-                className="text-[10.5px] font-medium text-ink/50 transition-colors hover:text-ink"
+                className="text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
               >
                 View all screened calls →
               </Link>

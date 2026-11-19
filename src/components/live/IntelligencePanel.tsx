@@ -52,7 +52,7 @@ export function IntelligencePanel({
             "rounded-full border px-2 py-0.5 text-[8.5px] font-medium uppercase tracking-[0.1em]",
             stillListening
               ? "border-line text-muted"
-              : "border-signal/30 bg-signal/[0.07] text-ink/60"
+              : "border-signal/30 bg-signal/[0.07] text-ink/70"
           )}
         >
           {stillListening ? "Assessing" : "Updated"}
@@ -90,7 +90,7 @@ export function IntelligencePanel({
         <div className="border-b border-line px-4 py-4">
           <div className="flex items-center justify-between">
             <p className="label-micro">Suspicious indicators</p>
-            <span className="font-display text-[11px] tabular-nums text-ink/40">
+            <span className="font-display text-[11px] tabular-nums text-ink/70">
               {String(indicators.length).padStart(2, "0")}
             </span>
           </div>
@@ -129,7 +129,7 @@ export function IntelligencePanel({
             </AnimatePresence>
             {indicators.length === 0 && (
               <div className="flex items-start gap-2 rounded-lg border border-dashed border-line px-3 py-3">
-                <ShieldQuestion className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ink/25" />
+                <ShieldQuestion className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ink/70" />
                 <p className="text-[10px] leading-relaxed text-muted">
                   No suspicious signals yet. The assistant is still asking questions.
                 </p>
@@ -140,7 +140,7 @@ export function IntelligencePanel({
 
         <div className="border-b border-line px-4 py-4">
           <div className="flex items-center gap-2">
-            <CreditCard className="h-3 w-3 text-ink/35" />
+            <CreditCard className="h-3 w-3 text-ink/70" />
             <p className="label-micro">Information requested</p>
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -152,7 +152,7 @@ export function IntelligencePanel({
                   key={item}
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="border border-line bg-white px-2 py-1 text-[9.5px] font-medium text-ink/60"
+                  className="border border-line bg-white px-2 py-1 text-[9.5px] font-medium text-ink/70"
                 >
                   {item}
                 </motion.span>
@@ -164,7 +164,7 @@ export function IntelligencePanel({
         <div className="border-b border-line px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Fingerprint className="h-3 w-3 text-ink/35" />
+              <Fingerprint className="h-3 w-3 text-ink/70" />
               <p className="label-micro">Caller identity</p>
             </div>
             <span className="text-[9px] font-medium text-muted">
@@ -177,7 +177,7 @@ export function IntelligencePanel({
               style={{ width: `${Math.max(4, confidence)}%` }}
             />
           </div>
-          <p className="mt-2 text-[10.5px] text-ink/60">
+          <p className="mt-2 text-[10.5px] text-ink/70">
             {session.callerName ?? "No name provided"}
             {session.claimedOrg ? ` · ${session.claimedOrg}` : ""}
           </p>
@@ -192,7 +192,7 @@ export function IntelligencePanel({
             <p className="label-micro">AI summary</p>
           </div>
           <div className="mt-2 border-l-2 border-signal/50 pl-3">
-            <p className="text-[10.5px] leading-[1.7] text-ink/65">{session.summary}</p>
+            <p className="text-[10.5px] leading-[1.7] text-ink/70">{session.summary}</p>
           </div>
           <p className="mt-2.5 text-[8.5px] leading-relaxed text-muted">
             Signal-based analysis, not proof of fraud. Verify independently before acting.

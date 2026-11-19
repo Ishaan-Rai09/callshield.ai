@@ -89,7 +89,7 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
           </span>
           <Link
             href="/app/live"
-            className="rounded-full border border-line bg-paper px-3 py-1.5 text-[10.5px] font-medium text-ink/60 transition-colors hover:border-ink/30 hover:text-ink"
+            className="rounded-full border border-line bg-paper px-3 py-1.5 text-[10.5px] font-medium text-ink/70 transition-colors hover:border-ink/30 hover:text-ink"
           >
             Start a simulation
           </Link>
@@ -133,14 +133,14 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
                       "shrink-0 rounded-full border px-2.5 py-1.5 text-[10.5px] font-medium transition-colors",
                       risk === filter.key
                         ? "border-ink bg-ink text-ivory"
-                        : "border-line bg-white text-ink/55 hover:border-ink/25 hover:text-ink"
+                        : "border-line bg-white text-ink/70 hover:border-ink/25 hover:text-ink"
                     )}
                   >
                     {filter.label}
                     <span
                       className={cx(
                         "ml-1.5 tabular-nums",
-                        risk === filter.key ? "text-ivory/50" : "text-muted"
+                        risk === filter.key ? "text-ivory/70" : "text-muted"
                       )}
                     >
                       {counts[filter.key]}
@@ -152,7 +152,7 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
               <button
                 type="button"
                 onClick={() => setSort((value) => (value === "newest" ? "oldest" : "newest"))}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line bg-white px-2.5 py-1.5 text-[10.5px] font-medium text-ink/55 transition-colors hover:border-ink/25 hover:text-ink"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line bg-white px-2.5 py-1.5 text-[10.5px] font-medium text-ink/70 transition-colors hover:border-ink/25 hover:text-ink"
               >
                 {sort === "newest" ? (
                   <ArrowDownWideNarrow className="h-3 w-3" />
@@ -223,14 +223,14 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="line-clamp-2 text-[11px] leading-relaxed text-ink/65">
+                      <p className="line-clamp-2 text-[11px] leading-relaxed text-ink/70">
                         {call.summary}
                       </p>
                       <p className="mt-0.5 text-[9px] text-muted">{call.intent}</p>
                     </div>
 
                     <div>
-                      <p className="text-[10.5px] text-ink/60">{formatDateTime(call.startedAt)}</p>
+                      <p className="text-[10.5px] text-ink/70">{formatDateTime(call.startedAt)}</p>
                       <p className="mt-0.5 text-[9px] text-muted">{formatDuration(call.durationSec)}</p>
                     </div>
 
@@ -238,7 +238,7 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
 
                     <ActionTag action={call.action} withIcon={false} />
 
-                    <ChevronRight className="h-3.5 w-3.5 text-ink/25" />
+                    <ChevronRight className="h-3.5 w-3.5 text-ink/70" />
                   </div>
 
                   <div className="lg:hidden">
@@ -256,7 +256,7 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
                       </div>
                       <RiskBadge level={call.riskLevel} showIcon={false} />
                     </div>
-                    <p className="mt-2.5 line-clamp-2 text-[10.5px] leading-relaxed text-ink/60">
+                    <p className="mt-2.5 line-clamp-2 text-[10.5px] leading-relaxed text-ink/70">
                       {call.summary}
                     </p>
                     <div className="mt-2 flex items-center justify-between border-t border-line/60 pt-2 text-[9.5px] text-muted">

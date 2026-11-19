@@ -84,7 +84,7 @@ export function CallDetailView({ id }: { id: string }) {
     <div className="mx-auto w-full max-w-[1240px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
       <Link
         href="/app/history"
-        className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-ink/45 transition-colors hover:text-ink"
+        className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
       >
         <ArrowLeft className="h-3 w-3" />
         Call history
@@ -129,7 +129,7 @@ export function CallDetailView({ id }: { id: string }) {
           )}
           <Link
             href="/app/blocklist"
-            className="rounded-full border border-line bg-paper px-3 py-2 text-[11px] font-medium text-ink/55 transition-colors hover:border-ink/25 hover:text-ink"
+            className="rounded-full border border-line bg-paper px-3 py-2 text-[11px] font-medium text-ink/70 transition-colors hover:border-ink/25 hover:text-ink"
           >
             View blocklist
           </Link>
@@ -140,7 +140,7 @@ export function CallDetailView({ id }: { id: string }) {
         <section className="overflow-hidden rounded-xl border border-line bg-paper">
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
             <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-ink/40" />
+              <FileText className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[12.5px] font-semibold">Full transcript</h3>
             </div>
             <span className="text-[9.5px] text-muted">
@@ -150,7 +150,7 @@ export function CallDetailView({ id }: { id: string }) {
 
           {call.transcript.length === 0 ? (
             <div className="px-5 py-14 text-center">
-              <PhoneOff className="mx-auto h-5 w-5 text-ink/20" />
+              <PhoneOff className="mx-auto h-5 w-5 text-ink/70" />
               <p className="mt-3 text-[12px] font-medium">No conversation took place</p>
               <p className="mt-1 text-[10.5px] text-muted">
                 The call was declined before the assistant answered.
@@ -177,17 +177,17 @@ export function CallDetailView({ id }: { id: string }) {
                         "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-[9px] font-semibold",
                         isAi && "border-signal/40 bg-signal/10 text-signal",
                         isUser && "border-ink bg-ink text-ivory",
-                        !isAi && !isUser && "border-line bg-ash text-ink/50"
+                        !isAi && !isUser && "border-line bg-ash text-ink/70"
                       )}
                     >
                       {isAi ? "AI" : isUser ? "You" : "?"}
                     </span>
                     <div className={cx("max-w-[85%]", !isAi && !isUser && "text-right")}>
                       <div className={cx("mb-1 flex items-baseline gap-2", !isAi && !isUser && "justify-end")}>
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-ink/40">
+                        <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-ink/70">
                           {speakerLabel[entry.speaker]}
                         </span>
-                        <span className="font-display text-[8.5px] tabular-nums text-ink/25">
+                        <span className="font-display text-[8.5px] tabular-nums text-ink/70">
                           {formatClock(entry.at)}
                         </span>
                       </div>
@@ -238,7 +238,7 @@ export function CallDetailView({ id }: { id: string }) {
           <section className="rounded-xl border border-line bg-paper p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="h-3.5 w-3.5 text-ink/40" />
+                <ShieldCheck className="h-3.5 w-3.5 text-ink/70" />
                 <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
                   Risk assessment
                 </h3>
@@ -290,7 +290,7 @@ export function CallDetailView({ id }: { id: string }) {
                   {call.infoRequested.map((item) => (
                     <span
                       key={item}
-                      className="border border-line bg-white px-2 py-1 text-[9px] text-ink/55"
+                      className="border border-line bg-white px-2 py-1 text-[9px] text-ink/70"
                     >
                       {item}
                     </span>
@@ -302,7 +302,7 @@ export function CallDetailView({ id }: { id: string }) {
 
           <section className="rounded-xl border border-line bg-paper p-4">
             <div className="flex items-center gap-2">
-              <Fingerprint className="h-3.5 w-3.5 text-ink/40" />
+              <Fingerprint className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
                 Caller identity
               </h3>
@@ -326,7 +326,7 @@ export function CallDetailView({ id }: { id: string }) {
 
           <section className="rounded-xl border border-line bg-paper p-4">
             <div className="flex items-center gap-2">
-              <Clock className="h-3.5 w-3.5 text-ink/40" />
+              <Clock className="h-3.5 w-3.5 text-ink/70" />
               <h3 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
                 Event timeline
               </h3>
@@ -356,7 +356,7 @@ export function CallDetailView({ id }: { id: string }) {
 
           <div className="rounded-xl border border-line bg-white/70 p-4">
             <div className="flex items-center gap-2">
-              <Check className="h-3.5 w-3.5 text-ink/40" />
+              <Check className="h-3.5 w-3.5 text-ink/70" />
               <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted">
                 Final action
               </p>

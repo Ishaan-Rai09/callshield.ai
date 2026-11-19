@@ -32,7 +32,6 @@ export function LiveView() {
     if (session.phase === "ringing") {
       content = (
         <IncomingCall
-          session={session}
           scenario={scenario}
           screeningEnabled={assistant.screeningEnabled}
           onAnswer={answerWithAI}

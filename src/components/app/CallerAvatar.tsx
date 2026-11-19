@@ -20,7 +20,7 @@ export function CallerAvatar({
   return (
     <span
       className={cx(
-        "flex shrink-0 items-center justify-center rounded-full border border-line bg-ash font-display font-semibold text-ink/60",
+        "flex shrink-0 items-center justify-center rounded-full border border-line bg-ash font-display font-semibold text-ink/70",
         size === "sm" && "h-8 w-8 text-[10px]",
         size === "md" && "h-9 w-9 text-[11px]",
         size === "lg" && "h-12 w-12 text-[13px]",

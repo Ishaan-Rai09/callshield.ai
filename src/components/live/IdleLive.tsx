@@ -59,20 +59,20 @@ export function IdleLive({ onOpenPicker }: { onOpenPicker: () => void }) {
             <span className="absolute inset-[156px] rounded-full bg-signal" />
           </div>
           <div className="relative max-w-[470px]">
-            <p className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ivory/40">
+            <p className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ivory/70">
               Simulated calling environment
             </p>
             <h3 className="mt-3 font-display text-[26px] font-medium leading-[1.15] tracking-[-0.03em] sm:text-[30px]">
               Answer with an assistant, not with your guard up.
             </h3>
-            <p className="mt-3 text-[12px] leading-relaxed text-ivory/45">
+            <p className="mt-3 text-[12px] leading-relaxed text-ivory/70">
               Each scenario has a caller script, an intent classification, and a set of suspicious
               signals that reveal themselves as the conversation moves.
             </p>
             <Button variant="primary" className="mt-5" onClick={onOpenPicker}>
               Simulate Incoming Call
             </Button>
-            <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-ivory/25">
+            <p className="mt-3 text-[9px] uppercase tracking-[0.12em] text-ivory/70">
               No cellular interception · reversible decisions
             </p>
           </div>
@@ -102,7 +102,7 @@ export function IdleLive({ onOpenPicker }: { onOpenPicker: () => void }) {
               return (
                 <div key={step.title} className="flex gap-3">
                   <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line bg-white">
-                    <Icon className="h-3.5 w-3.5 text-ink/50" />
+                    <Icon className="h-3.5 w-3.5 text-ink/70" />
                   </span>
                   <div>
                     <p className="text-[11.5px] font-semibold text-ink/80">{step.title}</p>
@@ -153,12 +153,12 @@ export function IdleLive({ onOpenPicker }: { onOpenPicker: () => void }) {
                 {scenario.blurb}
               </p>
               <div className="mt-4 flex items-center justify-between border-t border-line/80 pt-2.5">
-                <span className="font-display text-[10.5px] tabular-nums text-ink/50">
+                <span className="font-display text-[10.5px] tabular-nums text-ink/70">
                   {scenario.number}
                 </span>
                 <span
                   className={cx(
-                    "inline-flex items-center gap-1 text-[10px] font-medium text-ink/40 transition-colors group-hover:text-ink"
+                    "inline-flex items-center gap-1 text-[10px] font-medium text-ink/70 transition-colors group-hover:text-ink"
                   )}
                 >
                   Start

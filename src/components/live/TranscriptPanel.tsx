@@ -83,7 +83,7 @@ function CaptionLine({ entry, live }: { entry: TranscriptEntry; live: boolean })
         <p
           className={cx(
             "text-[8.5px] font-semibold uppercase tracking-[0.14em]",
-            ai ? "text-signal/80" : "text-ivory/40"
+            ai ? "text-signal/80" : "text-ivory/70"
           )}
         >
           {SPEAKER_LABEL[entry.speaker]}
@@ -91,7 +91,7 @@ function CaptionLine({ entry, live }: { entry: TranscriptEntry; live: boolean })
         <p
           className={cx(
             "mt-1 text-[12.5px] leading-relaxed",
-            live ? "text-ivory" : "text-ivory/65"
+            live ? "text-ivory" : "text-ivory/70"
           )}
         >
           {entry.text}
@@ -130,12 +130,12 @@ function TranscriptLog({ session }: { session: LiveSession }) {
         }
         return (
           <div key={entry.id} className="flex gap-2.5">
-            <span className="mt-0.5 w-[86px] shrink-0 pt-0.5 text-[8.5px] font-semibold uppercase tracking-[0.1em] text-ink/40">
+            <span className="mt-0.5 w-[86px] shrink-0 pt-0.5 text-[8.5px] font-semibold uppercase tracking-[0.1em] text-ink/70">
               {SPEAKER_LABEL[entry.speaker]}
             </span>
             <div className="min-w-0 flex-1">
               <p className="text-[11.5px] leading-relaxed text-ink/75">{entry.text}</p>
-              <p className="mt-0.5 font-display text-[8.5px] tabular-nums text-ink/25">
+              <p className="mt-0.5 font-display text-[8.5px] tabular-nums text-ink/70">
                 {formatClock(entry.at)}
               </p>
             </div>
@@ -170,24 +170,34 @@ export function TranscriptPanel({
     enabled: handling && voice.configured && !disabled,
     onTranscript: (text) => onSend(text),
   });
+  const {
+    state: pttState,
+    level: pttLevel,
+    error: pttError,
+    elapsedMs: pttElapsedMs,
+    maxMs: pttMaxMs,
+    start: startPtt,
+    stop: stopPtt,
+    reset: resetPtt,
+  } = ptt;
 
   // Auto-arm the mic in hands-free mode. It waits for caller audio to finish
   // (echo cancellation is on, but not transcribing the caller is still nicer).
   useEffect(() => {
     if (!handling || !handsFree || disabled || !voice.configured) return;
-    if (ptt.state === "idle" && !ptt.error && !voice.speaking) {
-      const timer = window.setTimeout(() => void ptt.start(), 700);
+    if (pttState === "idle" && !pttError && !voice.speaking) {
+      const timer = window.setTimeout(() => void startPtt(), 700);
       return () => window.clearTimeout(timer);
     }
     return undefined;
-  }, [handling, handsFree, disabled, voice.configured, voice.speaking, ptt.state, ptt.error, ptt.start]);
+  }, [handling, handsFree, disabled, voice.configured, voice.speaking, pttState, pttError, startPtt]);
 
   // Leaving the call, disabling hands-free, or losing voice support stops the mic.
   useEffect(() => {
-    if ((!handling || !handsFree || disabled || !voice.configured) && ptt.state === "recording") {
-      ptt.stop();
+    if ((!handling || !handsFree || disabled || !voice.configured) && pttState === "recording") {
+      stopPtt();
     }
-  }, [handling, handsFree, disabled, voice.configured, ptt.state, ptt.stop]);
+  }, [handling, handsFree, disabled, voice.configured, pttState, stopPtt]);
 
   const visibleLines = session.transcript.filter((entry) => entry.speaker !== "system");
   const captions = visibleLines.slice(-3);
@@ -196,8 +206,8 @@ export function TranscriptPanel({
     : undefined;
   const lastUserLine = [...visibleLines].reverse().find((entry) => entry.speaker === "user");
 
-  const recording = ptt.state === "recording";
-  const transcribing = ptt.state === "transcribing";
+  const recording = pttState === "recording";
+  const transcribing = pttState === "transcribing";
 
   let statusLabel = "Assistant is listening";
   if (recording) statusLabel = handsFree ? "Mic is live — just speak, it auto-sends" : "Listening — pause to send";
@@ -247,7 +257,7 @@ export function TranscriptPanel({
             <button
               type="button"
               onClick={() => voice.setEnabled(!voice.enabled)}
-              className="flex h-7 w-7 items-center justify-center rounded-full border border-line text-ink/55 transition-colors hover:border-ink/30 hover:text-ink"
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-line text-ink/70 transition-colors hover:border-ink/30 hover:text-ink"
               aria-label={voice.enabled ? "Mute call audio" : "Play call audio"}
               title={voice.enabled ? "Mute call audio" : "Play call audio"}
             >
@@ -259,11 +269,11 @@ export function TranscriptPanel({
 
       <div className="relative overflow-hidden bg-ink px-4 pb-4 pt-3.5 text-ivory">
         <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.16em] text-ivory/40">
+          <span className="inline-flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.16em] text-ivory/70">
             <span className={cx("h-1.5 w-1.5 rounded-full", handling ? "bg-ivory/60" : "bg-signal")} />
             {handling ? "You're on the call" : "AI screening call"}
           </span>
-          <span className="font-display text-[10px] tabular-nums text-ivory/35">
+          <span className="font-display text-[10px] tabular-nums text-ivory/70">
             {formatClock(session.elapsedSec)}
           </span>
         </div>
@@ -275,7 +285,7 @@ export function TranscriptPanel({
                 "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold transition-colors",
                 callerActive
                   ? "border-signal/60 bg-signal/15 text-signal"
-                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/60"
+                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70"
               )}
             >
               {callerActive && (
@@ -287,18 +297,18 @@ export function TranscriptPanel({
               <p className="truncate text-[12px] font-medium text-ivory/90">
                 {session.callerName ?? "Unknown caller"}
               </p>
-              <p className="truncate text-[9px] text-ivory/35">
+              <p className="truncate text-[9px] text-ivory/70">
                 {session.claimedOrg ? `Claims ${session.claimedOrg}` : "No organisation given"}
               </p>
             </div>
           </div>
 
           <div className="flex flex-1 flex-col items-center">
-            <Waveform active={recording || voice.speaking} level={ptt.level} />
+            <Waveform active={recording || voice.speaking} level={pttLevel} />
             <p
               className={cx(
                 "mt-1.5 text-[9px] font-medium tracking-wide",
-                recording ? "text-signal" : "text-ivory/45"
+                recording ? "text-signal" : "text-ivory/70"
               )}
               aria-live="polite"
             >
@@ -312,7 +322,7 @@ export function TranscriptPanel({
                 "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors",
                 aiActive
                   ? "border-signal/60 bg-signal/15 text-signal"
-                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/60"
+                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70"
               )}
             >
               {aiActive && (
@@ -322,14 +332,14 @@ export function TranscriptPanel({
             </span>
             <div className="min-w-0">
               <p className="truncate text-[11.5px] font-medium text-ivory/90">CallShield AI</p>
-              <p className="truncate text-[9px] text-ivory/35">{handling ? "Taking notes" : "Screening"}</p>
+              <p className="truncate text-[9px] text-ivory/70">{handling ? "Taking notes" : "Screening"}</p>
             </div>
           </div>
         </div>
 
         <div className="mt-3.5 min-h-[92px] space-y-2.5 rounded-lg border border-ivory/10 bg-ivory/[0.04] px-3 py-2.5" aria-live="polite">
           {captions.length === 0 ? (
-            <p className="text-[11.5px] text-ivory/40">Connecting call audio…</p>
+            <p className="text-[11.5px] text-ivory/70">Connecting call audio…</p>
           ) : (
             captions.map((entry, index) => (
               <CaptionLine key={entry.id} entry={entry} live={index === captions.length - 1} />
@@ -337,11 +347,11 @@ export function TranscriptPanel({
           )}
         </div>
 
-        {(voice.error || ptt.error) && (
+        {(voice.error || pttError) && (
           <div className="mt-2.5 flex items-start gap-2 rounded-lg border border-signal/30 bg-signal/10 px-2.5 py-2">
             <AlertCircle className="mt-0.5 h-3 w-3 shrink-0 text-signal" />
             <p className="flex-1 text-[10px] leading-relaxed text-ivory/70">
-              {ptt.error ?? voice.error}
+              {pttError ?? voice.error}
             </p>
             {voice.error && (
               <button
@@ -354,10 +364,10 @@ export function TranscriptPanel({
                 Retry
               </button>
             )}
-            {!voice.error && ptt.error && (
+            {!voice.error && pttError && (
               <button
                 type="button"
-                onClick={ptt.reset}
+                onClick={resetPtt}
                 className="shrink-0 text-[9px] font-semibold uppercase tracking-[0.08em] text-signal hover:text-ivory"
               >
                 Dismiss
@@ -373,7 +383,7 @@ export function TranscriptPanel({
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => (recording ? ptt.stop() : void ptt.start())}
+                onClick={() => (recording ? stopPtt() : void startPtt())}
                 disabled={disabled || transcribing || !voice.configured}
                 className={cx(
                   "relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-all",
@@ -398,7 +408,7 @@ export function TranscriptPanel({
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-medium text-ink/75">
                   {recording
-                    ? `Recording · ${Math.ceil((ptt.maxMs - ptt.elapsedMs) / 1000)}s left`
+                    ? `Recording · ${Math.ceil((pttMaxMs - pttElapsedMs) / 1000)}s left`
                     : transcribing
                       ? "Sending your reply to Gnani…"
                       : voice.configured
@@ -442,7 +452,7 @@ export function TranscriptPanel({
                   type="button"
                   onClick={() => submit(reply)}
                   disabled={disabled || recording || transcribing}
-                  className="rounded-full border border-line bg-white px-2.5 py-1 text-[9.5px] text-ink/55 transition-colors hover:border-ink/30 hover:text-ink disabled:opacity-40"
+                  className="rounded-full border border-line bg-white px-2.5 py-1 text-[9.5px] text-ink/70 transition-colors hover:border-ink/30 hover:text-ink disabled:opacity-40"
                 >
                   {reply}
                 </button>

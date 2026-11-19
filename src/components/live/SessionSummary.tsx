@@ -114,7 +114,7 @@ export function SessionSummary({
                 {indicators.map((indicator) => (
                   <span
                     key={indicator.key}
-                    className="border border-line bg-white px-2 py-1 text-[9.5px] text-ink/60"
+                    className="border border-line bg-white px-2 py-1 text-[9.5px] text-ink/70"
                   >
                     {indicator.label}
                   </span>
@@ -127,7 +127,7 @@ export function SessionSummary({
         <div className="space-y-3">
           <div className="rounded-xl border border-line bg-paper p-5">
             <p className="label-micro">What happens now</p>
-            <p className="mt-2 text-[12px] leading-relaxed text-ink/65">
+            <p className="mt-2 text-[12px] leading-relaxed text-ink/70">
               {session.outcome === "blocked"
                 ? "This number is on your blocklist. You can remove it at any time, and the full transcript is available in call history."
                 : session.outcome === "allowed"
@@ -147,25 +147,25 @@ export function SessionSummary({
             </div>
 
             <div className="mt-4 flex flex-wrap gap-3 border-t border-line pt-3 text-[10px] font-medium">
-              <Link href="/app/history" className="text-ink/50 hover:text-ink">
+              <Link href="/app/history" className="text-ink/70 hover:text-ink">
                 Call history
               </Link>
               {session.outcome === "blocked" && (
-                <Link href="/app/blocklist" className="text-ink/50 hover:text-ink">
+                <Link href="/app/blocklist" className="text-ink/70 hover:text-ink">
                   Blocklist
                 </Link>
               )}
-              <Link href="/app" className="text-ink/50 hover:text-ink">
+              <Link href="/app" className="text-ink/70 hover:text-ink">
                 Overview
               </Link>
             </div>
           </div>
 
           <div className="rounded-xl border border-signal/25 bg-signal/[0.05] p-4">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/40">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/70">
               Prototype reminder
             </p>
-            <p className="mt-1.5 text-[10.5px] leading-relaxed text-ink/55">
+            <p className="mt-1.5 text-[10.5px] leading-relaxed text-ink/70">
               This call was simulated. CallShield does not intercept real cellular calls, and the
               caller is fictional.
             </p>

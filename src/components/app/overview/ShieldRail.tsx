@@ -33,7 +33,7 @@ export function ShieldRail() {
       <section className="rounded-xl border border-line bg-paper p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Bot className="h-3.5 w-3.5 text-ink/40" />
+            <Bot className="h-3.5 w-3.5 text-ink/70" />
             <h2 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
               AI assistant
             </h2>
@@ -56,17 +56,17 @@ export function ShieldRail() {
         </p>
 
         <div className="mt-3 rounded-lg border border-line bg-white/70 px-3 py-2.5">
-          <p className="text-[8.5px] font-semibold uppercase tracking-[0.12em] text-ink/30">
+          <p className="text-[8.5px] font-semibold uppercase tracking-[0.12em] text-ink/70">
             Live greeting
           </p>
-          <p className="mt-1 line-clamp-2 text-[10.5px] leading-relaxed text-ink/60">
+          <p className="mt-1 line-clamp-2 text-[10.5px] leading-relaxed text-ink/70">
             &ldquo;{assistant.greeting}&rdquo;
           </p>
         </div>
 
         <Link
           href="/app/assistant"
-          className="mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/50 transition-colors hover:text-ink"
+          className="mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
         >
           Configure assistant
           <ArrowUpRight className="h-3 w-3" />
@@ -76,12 +76,12 @@ export function ShieldRail() {
       <section className="rounded-xl border border-line bg-paper p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Radar className="h-3.5 w-3.5 text-ink/40" />
+            <Radar className="h-3.5 w-3.5 text-ink/70" />
             <h2 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
               Signal mix
             </h2>
           </div>
-          <span className="font-display text-[13px] tabular-nums text-ink/60">{totalSignals}</span>
+          <span className="font-display text-[13px] tabular-nums text-ink/70">{totalSignals}</span>
         </div>
         <p className="mt-1 text-[9.5px] text-muted">Across all screened calls</p>
 
@@ -89,7 +89,7 @@ export function ShieldRail() {
           {counts.map((item, index) => (
             <div key={item.key}>
               <div className="flex items-center justify-between text-[10px]">
-                <span className="text-ink/60">{item.short}</span>
+                <span className="text-ink/70">{item.short}</span>
                 <span className="tabular-nums text-muted">{item.count}</span>
               </div>
               <div className="mt-1 h-[3px] w-full overflow-hidden bg-ink/[0.06]">
@@ -109,7 +109,7 @@ export function ShieldRail() {
       <section className="rounded-xl border border-line bg-paper p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Ban className="h-3.5 w-3.5 text-ink/40" />
+            <Ban className="h-3.5 w-3.5 text-ink/70" />
             <h2 className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
               Blocklist
             </h2>
@@ -138,7 +138,7 @@ export function ShieldRail() {
 
         <Link
           href="/app/blocklist"
-          className="mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/50 transition-colors hover:text-ink"
+          className="mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
         >
           Manage blocklist
           <ArrowUpRight className="h-3 w-3" />

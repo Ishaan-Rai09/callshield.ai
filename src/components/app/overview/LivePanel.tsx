@@ -40,10 +40,10 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
               {active && <span className="absolute inline-flex h-full w-full animate-ring-pulse rounded-full bg-signal" />}
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
             </span>
-            <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ivory/45">
+            <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ivory/70">
               {active ? "Live screening" : "Live screening · ready"}
             </span>
-            <span className="border border-white/15 px-1.5 py-0.5 text-[8.5px] uppercase tracking-[0.12em] text-ivory/35">
+            <span className="border border-white/15 px-1.5 py-0.5 text-[8.5px] uppercase tracking-[0.12em] text-ivory/70">
               Simulated
             </span>
           </div>
@@ -56,16 +56,16 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
                 </h2>
                 <RiskBadge level={session.riskLevel} />
               </div>
-              <p className="mt-1 font-display text-[12.5px] tabular-nums text-ivory/45">
+              <p className="mt-1 font-display text-[12.5px] tabular-nums text-ivory/70">
                 {SCENARIOS.find((item) => item.id === session.scenarioId)?.number} ·{" "}
                 {formatClock(session.elapsedSec)}
               </p>
               {latestLine && (
                 <div className="mt-4 border-l border-signal/40 pl-3">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/30">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
                     {latestLine.speaker === "caller" ? "Caller" : latestLine.speaker === "user" ? "You" : "Assistant"}
                   </p>
-                  <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-ivory/55">
+                  <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-ivory/70">
                     {latestLine.text}
                   </p>
                 </div>
@@ -80,7 +80,7 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
               <h2 className="mt-4 max-w-[380px] font-display text-[25px] font-medium leading-[1.12] tracking-[-0.03em]">
                 Unknown caller? Let the assistant answer first.
               </h2>
-              <p className="mt-2 max-w-[390px] text-[12px] leading-relaxed text-ivory/45">
+              <p className="mt-2 max-w-[390px] text-[12px] leading-relaxed text-ivory/70">
                 Start a scripted scenario and watch the assistant collect identity, intent, and
                 risk signals in real time.
               </p>
@@ -94,7 +94,7 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
                       key={id}
                       type="button"
                       onClick={() => quickStart(id)}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1.5 text-[10.5px] text-ivory/60 transition-colors hover:border-white/30 hover:text-ivory"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1.5 text-[10.5px] text-ivory/70 transition-colors hover:border-white/30 hover:text-ivory"
                     >
                       <span
                         className={cx(
@@ -106,7 +106,7 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
                     </button>
                   );
                 })}
-                <span className="text-[9.5px] text-ivory/25">+3 more</span>
+                <span className="text-[9.5px] text-ivory/70">+3 more</span>
               </div>
 
               <div className="mt-5">
@@ -121,20 +121,20 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
 
         <div className="relative z-10 hidden w-[150px] shrink-0 sm:block">
           <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3">
-            <p className="text-[8.5px] font-semibold uppercase tracking-[0.14em] text-ivory/30">
+            <p className="text-[8.5px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
               Shield status
             </p>
             <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-ivory/75">
               <ShieldCheck className="h-3 w-3 text-signal" />
               {assistant.screeningEnabled ? "Screening on" : "Screening paused"}
             </p>
-            <p className="mt-1 text-[9.5px] leading-relaxed text-ivory/30">
+            <p className="mt-1 text-[9.5px] leading-relaxed text-ivory/70">
               You approve every outcome.
             </p>
           </div>
           <Link
             href="/app/history?risk=high"
-            className="mt-2 flex items-center justify-between border border-white/10 px-3 py-2 text-[10px] text-ivory/45 transition-colors hover:border-white/25 hover:text-ivory/80"
+            className="mt-2 flex items-center justify-between border border-white/10 px-3 py-2 text-[10px] text-ivory/70 transition-colors hover:border-white/25 hover:text-ivory/80"
           >
             View reports
             <ArrowRight className="h-3 w-3" />
@@ -142,7 +142,7 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
         </div>
       </div>
 
-      <p className="relative mt-6 border-t border-white/10 pt-3 text-[9px] uppercase tracking-[0.12em] text-ivory/25">
+      <p className="relative mt-6 border-t border-white/10 pt-3 text-[9px] uppercase tracking-[0.12em] text-ivory/70">
         No cellular interception · scripted demo callers · reversible actions
       </p>
     </section>

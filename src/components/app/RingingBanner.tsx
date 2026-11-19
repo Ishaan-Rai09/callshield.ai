@@ -46,7 +46,7 @@ export function RingingBanner() {
                 {session.callerName ?? "Unknown caller"} · {formatClock(session.elapsedSec)}
               </span>
             </span>
-            <ArrowRight className="h-4 w-4 shrink-0 text-ivory/40" />
+            <ArrowRight className="h-4 w-4 shrink-0 text-ivory/70" />
           </Link>
         </motion.div>
       )}

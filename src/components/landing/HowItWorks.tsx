@@ -10,7 +10,7 @@ const steps = [
       <div className="flex items-center justify-between gap-3 border border-line bg-white px-3 py-2.5">
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-ink">
-            <PhoneIncoming className="h-3.5 w-3.5 text-signal" />
+            <PhoneIncoming className="h-3.5 w-3.5 text-signalInk" />
           </div>
           <div>
             <p className="font-display text-[13px] font-medium leading-none">+91 80 4712 9931</p>
@@ -29,15 +29,15 @@ const steps = [
     preview: (
       <div className="space-y-1.5 border border-line bg-white px-3 py-2.5">
         <p className="text-[10px] leading-relaxed text-ink/70">
-          <span className="mr-1.5 font-semibold text-signal">AI</span>
+          <span className="mr-1.5 font-semibold text-signalInk">AI</span>
           Who&apos;s calling, and what is this regarding?
         </p>
-        <p className="text-[10px] leading-relaxed text-ink/45">
-          <span className="mr-1.5 font-semibold text-ink/40">Caller</span>
+        <p className="text-[10px] leading-relaxed text-ink/70">
+          <span className="mr-1.5 font-semibold text-ink/70">Caller</span>
           I need the OTP to stop a pending debit…
         </p>
         <div className="flex gap-1 pt-1">
-          <span className="border border-signal/30 bg-signal/10 px-1.5 py-0.5 text-[8.5px] text-signal">
+          <span className="border border-signal/30 bg-signal/10 px-1.5 py-0.5 text-[8.5px] text-signalInk">
             OTP request
           </span>
           <span className="border border-line px-1.5 py-0.5 text-[8.5px] text-muted">High risk</span>
@@ -55,7 +55,7 @@ const steps = [
         <p className="text-[9.5px] uppercase tracking-[0.12em] text-muted">Your decision</p>
         <div className="mt-2 grid grid-cols-3 gap-1.5">
           <span className="rounded-full bg-ink py-1 text-center text-[9px] font-medium text-ivory">Take over</span>
-          <span className="rounded-full border border-line py-1 text-center text-[9px] font-medium text-ink/60">Allow</span>
+          <span className="rounded-full border border-line py-1 text-center text-[9px] font-medium text-ink/70">Allow</span>
           <span className="rounded-full bg-signal py-1 text-center text-[9px] font-medium text-ink">Block</span>
         </div>
       </div>
@@ -93,10 +93,10 @@ export function HowItWorks() {
                 }
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-[13px] font-semibold tabular-nums text-signal">
+                  <span className="font-display text-[13px] font-semibold tabular-nums text-signalInk">
                     {step.number}
                   </span>
-                  <Icon className="h-4 w-4 text-ink/35" />
+                  <Icon className="h-4 w-4 text-ink/70" />
                 </div>
                 <div className="mt-8 border-t border-ink/15 pt-3">
                   <h3 className="text-[17px] font-semibold text-ink">{step.title}</h3>

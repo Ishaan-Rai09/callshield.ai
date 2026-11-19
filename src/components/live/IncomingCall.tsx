@@ -4,16 +4,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Bot, PhoneIncoming, PhoneOff, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import type { LiveSession, Scenario } from "@/lib/types";
+import type { Scenario } from "@/lib/types";
 
 export function IncomingCall({
-  session,
   scenario,
   screeningEnabled,
   onAnswer,
   onDecline,
 }: {
-  session: LiveSession;
   scenario: Scenario;
   screeningEnabled: boolean;
   onAnswer: () => void;
@@ -37,7 +35,7 @@ export function IncomingCall({
               <span className="absolute inline-flex h-full w-full animate-ring-pulse rounded-full bg-signal" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-signal" />
             </span>
-            <p className="text-[9.5px] font-semibold uppercase tracking-[0.2em] text-ivory/50">
+            <p className="text-[9.5px] font-semibold uppercase tracking-[0.2em] text-ivory/70">
               Incoming simulated call
             </p>
           </div>
@@ -54,17 +52,17 @@ export function IncomingCall({
           <h2 className="mt-5 font-display text-[30px] font-medium leading-none tracking-[-0.03em] sm:text-[38px]">
             {scenario.number}
           </h2>
-          <p className="mt-2.5 text-[12.5px] text-ivory/45">
+          <p className="mt-2.5 text-[12.5px] text-ivory/70">
             Caller identity: Unknown · not in your contacts
           </p>
 
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/12 px-3 py-1.5">
-            <span className="text-[9px] uppercase tracking-[0.12em] text-ivory/30">Demo scenario</span>
+            <span className="text-[9px] uppercase tracking-[0.12em] text-ivory/70">Demo scenario</span>
             <span className="h-2.5 w-px bg-white/15" />
-            <span className="text-[10.5px] text-ivory/60">{scenario.name}</span>
+            <span className="text-[10.5px] text-ivory/70">{scenario.name}</span>
           </div>
 
-          <div className="mx-auto mt-6 flex max-w-[380px] items-center justify-center gap-2 text-[10.5px] text-ivory/40">
+          <div className="mx-auto mt-6 flex max-w-[380px] items-center justify-center gap-2 text-[10.5px] text-ivory/70">
             <span className="flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
               Ringing
@@ -112,7 +110,7 @@ export function IncomingCall({
       <p className="mt-4 text-center text-[10px] leading-relaxed text-muted">
         This is a scripted demo call from a fictional caller. CallShield cannot access your phone
         or cellular network.{" "}
-        <Link href="/app/live" className="text-ink/50 underline underline-offset-4">
+        <Link href="/app/live" className="text-ink/70 underline underline-offset-4">
           Live screening
         </Link>{" "}
         starts only after you answer.

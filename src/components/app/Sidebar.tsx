@@ -23,7 +23,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </div>
 
       <div className="flex-1 overflow-y-auto px-3 py-5">
-        <p className="px-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-ivory/30">
+        <p className="px-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-ivory/70">
           Workspace
         </p>
         <nav className="mt-3 space-y-0.5" aria-label="Dashboard">
@@ -40,13 +40,13 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors duration-150",
                   active
                     ? "bg-signal text-ink"
-                    : "text-ivory/55 hover:bg-white/[0.05] hover:text-ivory"
+                    : "text-ivory/70 hover:bg-white/[0.05] hover:text-ivory"
                 )}
               >
                 <Icon
                   className={cx(
                     "h-[16px] w-[16px] shrink-0",
-                    active ? "text-ink" : "text-ivory/40 group-hover:text-ivory/70"
+                    active ? "text-ink" : "text-ivory/70 group-hover:text-ivory/70"
                   )}
                   strokeWidth={1.9}
                 />
@@ -54,7 +54,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                 {item.href === "/app/live" && session && session.phase !== "ended" && !active && (
                   <span className="h-1.5 w-1.5 rounded-full bg-signal" />
                 )}
-                {active && <ChevronRight className="h-3.5 w-3.5 text-ink/50" />}
+                {active && <ChevronRight className="h-3.5 w-3.5 text-ink/70" />}
               </Link>
             );
           })}
@@ -63,7 +63,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <div className="mt-7 border-t border-white/10 pt-5">
           <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3.5">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-ivory/35">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-ivory/70">
                 Shield status
               </span>
               <ShieldCheck className="h-3.5 w-3.5 text-signal" />
@@ -71,7 +71,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             <p className="mt-2 text-[12.5px] font-medium text-ivory/85">
               {assistant.screeningEnabled ? "AI screening is on" : "AI screening is paused"}
             </p>
-            <p className="mt-0.5 text-[10.5px] text-ivory/35">
+            <p className="mt-0.5 text-[10.5px] text-ivory/70">
               {assistant.screeningEnabled
                 ? "Unknown callers are answered by your assistant."
                 : "Unknown callers will ring through to you."}
@@ -83,7 +83,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   assistant.screeningEnabled ? "bg-signal" : "bg-white/25"
                 )}
               />
-              <span className="text-[9.5px] uppercase tracking-[0.12em] text-ivory/30">
+              <span className="text-[9.5px] uppercase tracking-[0.12em] text-ivory/70">
                 {assistant.screeningMode} mode
               </span>
             </div>
@@ -104,9 +104,9 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             <span className="block truncate text-[12.5px] font-medium text-ivory/90">
               {profile.name}
             </span>
-            <span className="block truncate text-[10px] text-ivory/35">{profile.plan}</span>
+            <span className="block truncate text-[10px] text-ivory/70">{profile.plan}</span>
           </span>
-          <ChevronRight className="h-3.5 w-3.5 text-ivory/25" />
+          <ChevronRight className="h-3.5 w-3.5 text-ivory/70" />
         </Link>
         <button
           type="button"
@@ -114,12 +114,12 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             onNavigate?.();
             void signOutAndClear();
           }}
-          className="mt-1 flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-[11.5px] font-medium text-ivory/45 transition-colors hover:bg-white/[0.05] hover:text-ivory"
+          className="mt-1 flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-[11.5px] font-medium text-ivory/70 transition-colors hover:bg-white/[0.05] hover:text-ivory"
         >
           <LogOut className="h-3.5 w-3.5" />
           Sign out
         </button>
-        <p className="mt-2 flex items-center justify-center gap-1.5 px-2 text-[9px] text-ivory/20">
+        <p className="mt-2 flex items-center justify-center gap-1.5 px-2 text-[9px] text-ivory/70">
           <Lock className="h-2.5 w-2.5" />
           Simulated environment · account data synced
         </p>

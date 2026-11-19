@@ -11,12 +11,6 @@ const toneIcon: Record<ToastTone, typeof Info> = {
   neutral: Info,
 };
 
-const toneAccent: Record<ToastTone, string> = {
-  success: "text-ink",
-  risk: "text-signal",
-  neutral: "text-muted",
-};
-
 export function ToastViewport() {
   const { toasts, dismissToast } = useCallShield();
 
@@ -46,14 +40,14 @@ export function ToastViewport() {
               <div className="min-w-0 flex-1">
                 <p className="text-[13px] font-semibold leading-snug">{toast.title}</p>
                 {toast.description && (
-                  <p className="mt-0.5 text-[12px] leading-relaxed text-ivory/60">{toast.description}</p>
+                  <p className="mt-0.5 text-[12px] leading-relaxed text-ivory/70">{toast.description}</p>
                 )}
               </div>
               <button
                 type="button"
                 aria-label="Dismiss notification"
                 onClick={() => dismissToast(toast.id)}
-                className="rounded-full p-1 text-ivory/50 transition-colors hover:bg-white/10 hover:text-ivory"
+                className="rounded-full p-1 text-ivory/70 transition-colors hover:bg-white/10 hover:text-ivory"
               >
                 <X className="h-3.5 w-3.5" />
               </button>

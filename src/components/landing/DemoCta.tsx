@@ -11,7 +11,7 @@ export function DemoCta() {
           <div>
             <h2 className="max-w-[560px] text-[27px] font-semibold leading-[1.1] tracking-[-0.035em] sm:text-[34px]">
               Unknown callers talk to your AI first.
-              <span className="block text-ink/40">You decide who gets through.</span>
+              <span className="block text-ink/70">You decide who gets through.</span>
             </h2>
             <p className="mt-3 text-[12.5px] text-muted">
               Six realistic scenarios. Full transcripts. One decision that stays yours.

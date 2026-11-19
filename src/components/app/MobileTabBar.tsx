@@ -30,7 +30,7 @@ export function MobileTabBar() {
             >
               <span className="relative">
                 <Icon
-                  className={cx("h-[18px] w-[18px]", active ? "text-signal" : "text-ink/40")}
+                  className={cx("h-[18px] w-[18px]", active ? "text-signal" : "text-ink/70")}
                   strokeWidth={active ? 2.1 : 1.8}
                 />
                 {item.href === "/app/live" && session && session.phase !== "ended" && (
@@ -40,7 +40,7 @@ export function MobileTabBar() {
               <span
                 className={cx(
                   "text-[9px] font-medium",
-                  active ? "text-ink" : "text-ink/40"
+                  active ? "text-ink" : "text-ink/70"
                 )}
               >
                 {item.short}

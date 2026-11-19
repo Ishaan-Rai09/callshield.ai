@@ -42,7 +42,7 @@ export function ScreeningRoom({
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <Link
           href="/app"
-          className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-ink/45 transition-colors hover:text-ink"
+          className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
         >
           <ArrowLeft className="h-3 w-3" />
           Overview
@@ -73,7 +73,7 @@ export function ScreeningRoom({
                     You are handling
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-signal/30 bg-signal/[0.07] px-2 py-0.5 text-[9.5px] font-medium text-ink/60">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-signal/30 bg-signal/[0.07] px-2 py-0.5 text-[9.5px] font-medium text-ink/70">
                     <Radio className="h-2.5 w-2.5 text-signal" />
                     AI screening
                   </span>

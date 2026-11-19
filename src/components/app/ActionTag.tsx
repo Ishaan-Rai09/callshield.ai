@@ -8,8 +8,8 @@ const META: Record<
 > = {
   blocked: { label: "Blocked", icon: Ban, className: "border-ink bg-ink text-ivory" },
   allowed: { label: "Allowed", icon: Check, className: "border-ink/25 bg-white text-ink" },
-  ended: { label: "Ended", icon: PhoneOff, className: "border-line bg-white text-ink/60" },
-  declined: { label: "Declined", icon: X, className: "border-line bg-white text-ink/60" },
+  ended: { label: "Ended", icon: PhoneOff, className: "border-line bg-white text-ink/70" },
+  declined: { label: "Declined", icon: X, className: "border-line bg-white text-ink/70" },
 };
 
 export function ActionTag({

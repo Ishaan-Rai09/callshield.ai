@@ -26,7 +26,7 @@ export function RecentActivity() {
         </div>
         <Link
           href="/app/history"
-          className="inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/50 transition-colors hover:text-ink"
+          className="inline-flex items-center gap-1 text-[10.5px] font-medium text-ink/70 transition-colors hover:text-ink"
         >
           View all
           <ArrowUpRight className="h-3 w-3" />
@@ -35,7 +35,7 @@ export function RecentActivity() {
 
       {recent.length === 0 ? (
         <div className="flex flex-col items-center px-5 py-12 text-center">
-          <History className="h-5 w-5 text-ink/25" />
+          <History className="h-5 w-5 text-ink/70" />
           <p className="mt-3 text-[13px] font-semibold">No screened calls yet</p>
           <p className="mt-1 max-w-xs text-[11.5px] text-muted">
             Load sample calls to explore transcripts, summaries, and decisions.
@@ -75,12 +75,12 @@ export function RecentActivity() {
                     </div>
                   </div>
                   <RiskBadge level={call.riskLevel} showIcon={false} />
-                  <span className="font-display text-[11px] tabular-nums text-ink/55">
+                  <span className="font-display text-[11px] tabular-nums text-ink/70">
                     {formatDuration(call.durationSec)}
                   </span>
                   <ActionTag action={call.action} />
                   <span className="text-[10px] text-muted">{relativeTime(call.startedAt)}</span>
-                  <ChevronRight className="h-3.5 w-3.5 text-ink/25" />
+                  <ChevronRight className="h-3.5 w-3.5 text-ink/70" />
                 </div>
 
                 <div className="md:hidden">

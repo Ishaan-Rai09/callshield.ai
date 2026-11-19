@@ -140,11 +140,11 @@ export function HeroCallDemo() {
             <span className="text-[10.5px] font-semibold uppercase tracking-micro text-ivory/70">
               Live screening
             </span>
-            <span className="rounded-full border border-white/15 px-2 py-0.5 text-[9.5px] font-medium uppercase tracking-[0.12em] text-ivory/45">
+            <span className="rounded-full border border-white/15 px-2 py-0.5 text-[9.5px] font-medium uppercase tracking-[0.12em] text-ivory/70">
               Simulated
             </span>
           </div>
-          <span className="font-display text-[11px] tabular-nums text-ivory/45">
+          <span className="font-display text-[11px] tabular-nums text-ivory/70">
             {String(Math.floor(elapsed / 60)).padStart(2, "0")}:{String(elapsed % 60).padStart(2, "0")}
           </span>
         </div>
@@ -158,7 +158,7 @@ export function HeroCallDemo() {
               <p className="font-display text-[20px] font-medium leading-none tracking-tight text-ivory">
                 {scenario.number}
               </p>
-              <p className="mt-1.5 text-[11px] text-ivory/45">{scenario.claimed}</p>
+              <p className="mt-1.5 text-[11px] text-ivory/70">{scenario.claimed}</p>
             </div>
           </div>
           <span
@@ -166,13 +166,13 @@ export function HeroCallDemo() {
               "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-semibold",
               risk.level === "high" && "border-signal/60 bg-signal/15 text-ivory",
               risk.level === "attention" && "border-signal/40 bg-signal/10 text-ivory",
-              risk.level === "low" && "border-white/15 text-ivory/60"
+              risk.level === "low" && "border-white/15 text-ivory/70"
             )}
           >
             {risk.level === "high" ? (
               <TriangleAlert className="h-3 w-3 text-signal" />
             ) : (
-              <ShieldCheck className="h-3 w-3 text-ivory/50" />
+              <ShieldCheck className="h-3 w-3 text-ivory/70" />
             )}
             {RISK_META[risk.level].label}
           </span>
@@ -197,7 +197,7 @@ export function HeroCallDemo() {
                       "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold",
                       line.speaker === "ai"
                         ? "bg-signal text-ink"
-                        : "border border-white/20 text-ivory/60"
+                        : "border border-white/20 text-ivory/70"
                     )}
                   >
                     {line.speaker === "ai" ? <Bot className="h-3 w-3" /> : "C"}
@@ -207,10 +207,10 @@ export function HeroCallDemo() {
                       "max-w-[85%] rounded-lg px-3 py-2 text-[12px] leading-relaxed",
                       line.speaker === "ai"
                         ? "bg-white/[0.06] text-ivory/80"
-                        : "border border-white/10 text-ivory/65"
+                        : "border border-white/10 text-ivory/70"
                     )}
                   >
-                    <span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/35">
+                    <span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
                       {line.speaker === "ai" ? "CallShield AI" : "Unknown caller"}
                     </span>
                     {line.text}
@@ -235,13 +235,13 @@ export function HeroCallDemo() {
         <div className="px-5 py-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-ivory/35">
+              <p className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
                 Caller intent
               </p>
               <p className="mt-1 text-[12.5px] text-ivory/80">{scenario.intent}</p>
             </div>
             <div className="text-right">
-              <p className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-ivory/35">
+              <p className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
                 Signals
               </p>
               <p className="mt-1 font-display text-[15px] tabular-nums text-ivory">
@@ -266,7 +266,7 @@ export function HeroCallDemo() {
                 ))}
             </AnimatePresence>
             {revealed.length === 0 && (
-              <span className="text-[10.5px] text-ivory/30">Listening for suspicious requests…</span>
+              <span className="text-[10.5px] text-ivory/70">Listening for suspicious requests…</span>
             )}
           </div>
         </div>
@@ -283,7 +283,7 @@ export function HeroCallDemo() {
                 onClick={() => selectScenario(index)}
                 className={cx(
                   "rounded-full px-2 py-1 text-[9.5px] font-medium transition-colors",
-                  index === scenarioIndex ? "bg-white/10 text-ivory/80" : "text-ivory/30 hover:text-ivory/60"
+                  index === scenarioIndex ? "bg-white/10 text-ivory/80" : "text-ivory/70 hover:text-ivory/70"
                 )}
               >
                 {demo.tab}
@@ -293,7 +293,7 @@ export function HeroCallDemo() {
           <button
             type="button"
             onClick={replay}
-            className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[10px] text-ivory/40 transition-colors hover:text-ivory"
+            className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[10px] text-ivory/70 transition-colors hover:text-ivory"
             aria-label="Replay screener demo"
           >
             <RotateCcw className="h-3 w-3" />

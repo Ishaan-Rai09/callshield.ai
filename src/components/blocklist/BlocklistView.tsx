@@ -98,10 +98,10 @@ export function BlocklistView() {
           <p className="mt-1.5 text-[10px] text-muted">From screening and manual entries</p>
         </div>
         <div className="rounded-xl border border-signal/30 bg-signal/[0.06] p-4">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/50">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ink/70">
             Safety note
           </p>
-          <p className="mt-2 flex items-start gap-2 text-[10.5px] leading-relaxed text-ink/60">
+          <p className="mt-2 flex items-start gap-2 text-[10.5px] leading-relaxed text-ink/70">
             <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-signal" />
             Blocking hides the caller in this demo. It does not notify them or affect a real phone
             line.
@@ -175,7 +175,7 @@ export function BlocklistView() {
                         {item.source === "call" ? "From screening" : "Manual"}
                       </span>
                     </div>
-                    <p className="mt-1 text-[11px] font-medium text-ink/60">{item.label}</p>
+                    <p className="mt-1 text-[11px] font-medium text-ink/70">{item.label}</p>
                     <p className="mt-1 max-w-[520px] text-[10.5px] leading-relaxed text-muted">
                       {item.reason}
                     </p>
@@ -188,7 +188,7 @@ export function BlocklistView() {
                 <button
                   type="button"
                   onClick={() => setPendingRemoval(item)}
-                  className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-line bg-white px-2.5 py-1.5 text-[10px] font-medium text-ink/50 transition-colors hover:border-ink/30 hover:text-ink"
+                  className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-line bg-white px-2.5 py-1.5 text-[10px] font-medium text-ink/70 transition-colors hover:border-ink/30 hover:text-ink"
                 >
                   <Trash2 className="h-3 w-3" />
                   Remove

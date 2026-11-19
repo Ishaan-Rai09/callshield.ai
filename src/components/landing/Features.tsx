@@ -69,7 +69,7 @@ export function Features() {
             </p>
             <div className="mt-8 flex items-center gap-3">
               <OrangeRule className="w-10" />
-              <span className="text-[10px] font-semibold uppercase tracking-micro text-ink/50">
+              <span className="text-[10px] font-semibold uppercase tracking-micro text-ink/70">
                 Signal-based, never a verdict
               </span>
             </div>
@@ -88,7 +88,7 @@ export function Features() {
                       <div className="flex h-9 w-9 items-center justify-center border border-line bg-white text-ink/70 transition-colors group-hover:border-ink/25 group-hover:text-ink">
                         <Icon className="h-[17px] w-[17px]" strokeWidth={1.7} />
                       </div>
-                      <span className="font-display text-[10px] tabular-nums text-ink/25">
+                      <span className="font-display text-[10px] tabular-nums text-ink/70">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>

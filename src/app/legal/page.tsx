@@ -56,7 +56,7 @@ export default function LegalPage() {
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink/60 transition-colors hover:text-ink"
+            className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-ink/70 transition-colors hover:text-ink"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to site
@@ -78,7 +78,7 @@ export default function LegalPage() {
             <a
               key={section.id}
               href={`#${section.id}`}
-              className="rounded-full border border-line bg-paper px-3 py-1.5 text-[11px] font-medium text-ink/60 transition-colors hover:border-ink/30 hover:text-ink"
+              className="rounded-full border border-line bg-paper px-3 py-1.5 text-[11px] font-medium text-ink/70 transition-colors hover:border-ink/30 hover:text-ink"
             >
               {section.title}
             </a>
@@ -89,14 +89,14 @@ export default function LegalPage() {
           {sections.map((section, index) => (
             <section key={section.id} id={section.id} className="scroll-mt-24">
               <div className="flex items-baseline gap-4">
-                <span className="font-display text-[12px] tabular-nums text-signal">
+                <span className="font-display text-[12px] tabular-nums text-signalInk">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h2 className="text-[22px] font-semibold tracking-[-0.02em]">{section.title}</h2>
               </div>
               <div className="mt-4 space-y-3 border-l border-line pl-4 sm:ml-[26px] sm:pl-6">
                 {section.body.map((paragraph) => (
-                  <p key={paragraph} className="text-[13.5px] leading-[1.8] text-ink/60">
+                  <p key={paragraph} className="text-[13.5px] leading-[1.8] text-ink/70">
                     {paragraph}
                   </p>
                 ))}

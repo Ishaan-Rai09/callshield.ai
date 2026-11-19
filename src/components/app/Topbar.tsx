@@ -45,7 +45,7 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
         </div>
 
         <div className="flex items-center gap-1.5 sm:gap-3">
-          <span className="hidden items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1.5 text-[9.5px] font-medium uppercase tracking-[0.1em] text-ink/45 sm:inline-flex">
+          <span className="hidden items-center gap-1.5 rounded-full border border-line bg-paper px-2.5 py-1.5 text-[9.5px] font-medium uppercase tracking-[0.1em] text-ink/70 sm:inline-flex">
             <Smartphone className="h-3 w-3" />
             Simulated calls
           </span>
@@ -83,7 +83,7 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
             onClick={() => void signOutAndClear()}
             aria-label="Sign out"
             title="Sign out"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-ink/45 transition-colors hover:bg-ink/[0.05] hover:text-ink"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-ink/70 transition-colors hover:bg-ink/[0.05] hover:text-ink"
           >
             <LogOut className="h-4 w-4" />
           </button>
