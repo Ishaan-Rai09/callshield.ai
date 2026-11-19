@@ -36,6 +36,11 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    // The landing page's only render-blocking request is a 10 KB stylesheet.
+    // Inlining it removes that round trip on throttled mobile connections.
+    inlineCss: true,
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
