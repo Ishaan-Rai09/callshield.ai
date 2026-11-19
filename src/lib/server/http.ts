@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { RateLimitResult } from "@/lib/server/rateLimitCore";
 
 /**
  * JSON response that must never be replayed from a shared cache or the
@@ -34,4 +35,23 @@ export function isSameOrigin(request: Request): boolean {
 
 export function forbiddenOrigin(): NextResponse {
   return jsonNoStore({ error: "FORBIDDEN_ORIGIN" }, 403);
+}
+
+/**
+ * Converts a limiter result into a safe response: 429 when the caller is over
+ * budget, 503 when the shared limiter is unavailable in production. Never
+ * reveals the hashed key or backend internals.
+ */
+export function rateLimited(result: RateLimitResult, message: string): NextResponse {
+  const response = jsonNoStore(
+    {
+      error: result.unavailable ? "RATE_LIMIT_UNAVAILABLE" : "RATE_LIMITED",
+      message: result.unavailable
+        ? "Request protection is temporarily unavailable. Try again shortly."
+        : message,
+    },
+    result.unavailable ? 503 : 429
+  );
+  response.headers.set("Retry-After", String(result.retryAfterSec));
+  return response;
 }

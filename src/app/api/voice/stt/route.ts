@@ -1,5 +1,6 @@
+import { AudioValidationError, probeAudio } from "@/lib/server/audio";
 import { GnaniError, gnaniConfig, transcribeSpeech } from "@/lib/server/gnani";
-import { forbiddenOrigin, isSameOrigin, jsonNoStore } from "@/lib/server/http";
+import { forbiddenOrigin, isSameOrigin, jsonNoStore, rateLimited } from "@/lib/server/http";
 import { rateLimit } from "@/lib/server/rateLimit";
 import { currentUserId, unauthorized } from "@/lib/server/session";
 
@@ -7,7 +8,6 @@ export const runtime = "nodejs";
 
 const MAX_BYTES = 8 * 1024 * 1024;
 const MAX_REQUEST_BYTES = MAX_BYTES + 512 * 1024;
-const EXTENSIONS = /\.(wav|mp3|ogg|flac|aac|m4a)$/i;
 
 /**
  * Authenticated proxy for Gnani Prisma speech-to-text.
@@ -20,14 +20,9 @@ export async function POST(request: Request) {
   const userId = await currentUserId();
   if (!userId) return unauthorized();
 
-  const limit = rateLimit(`stt:${userId}`, 40, 60_000);
+  const limit = await rateLimit(`stt:${userId}`, 40, 60_000);
   if (!limit.ok) {
-    const response = jsonNoStore(
-      { error: "RATE_LIMITED", message: "Too many transcription requests. Wait a moment and try again." },
-      429
-    );
-    response.headers.set("Retry-After", String(limit.retryAfterSec));
-    return response;
+    return rateLimited(limit, "Too many transcription requests. Wait a moment and try again.");
   }
 
   if (!gnaniConfig().configured) {
@@ -69,9 +64,42 @@ export async function POST(request: Request) {
     return jsonNoStore({ error: "INVALID_LANGUAGE" }, 400);
   }
 
-  const named = new File([audio], `reply.${(audio.name.match(EXTENSIONS)?.[1] ?? "wav").toLowerCase()}`, {
-    type: audio.type || "audio/wav",
-  });
+  // The MIME type is client-controlled. Inspect the actual container, reject
+  // non-audio payloads, and enforce the provider's 30 second limit ourselves
+  // before spending an upstream call.
+  let bytes: Uint8Array;
+  try {
+    bytes = new Uint8Array(await audio.arrayBuffer());
+  } catch {
+    return jsonNoStore({ error: "INVALID_AUDIO" }, 400);
+  }
+
+  let probe: ReturnType<typeof probeAudio>;
+  try {
+    probe = probeAudio(bytes);
+  } catch (error) {
+    if (error instanceof AudioValidationError) {
+      return jsonNoStore({ error: error.code, message: error.message }, error.status);
+    }
+    return jsonNoStore({ error: "INVALID_AUDIO" }, 400);
+  }
+
+  const declaredType = audio.type.toLowerCase();
+  const typeMatches =
+    !declaredType ||
+    declaredType === "application/octet-stream" ||
+    (probe.format === "wav"
+      ? ["audio/wav", "audio/x-wav", "audio/wave", "audio/vnd.wave"].includes(declaredType)
+      : ["audio/mpeg", "audio/mp3"].includes(declaredType));
+  if (!typeMatches) {
+    return jsonNoStore(
+      { error: "AUDIO_TYPE_MISMATCH", message: "The file contents do not match the declared audio type." },
+      415
+    );
+  }
+
+  // `.slice()` guarantees an ArrayBuffer-backed copy for the File blob part.
+  const named = new File([bytes.slice().buffer], `reply.${probe.format}`, { type: probe.mime });
 
   try {
     const result = await transcribeSpeech(named, language);

@@ -1,43 +1,76 @@
+import { collections } from "@/lib/server/db";
+import {
+  evaluateRateLimit,
+  MemoryWindowStore,
+  rateWindow,
+  type RateLimitResult,
+} from "@/lib/server/rateLimitCore";
+
 /**
- * Tiny in-process rate limiter for the routes that cost real money upstream
- * (Gnani TTS/STT) or write bulk data. Serverless instances each keep their own
- * counter, so this is abuse mitigation rather than a hard quota.
+ * Fixed-window rate limiting shared across serverless instances.
+ *
+ * Backend order:
+ *   1. MongoDB (already required for account data) — atomic `$inc` per hashed
+ *      key and window. A TTL index reaps old windows.
+ *   2. In-memory map, development only.
+ *
+ * In production, if MongoDB is missing or the limiter write fails, the request
+ * is refused (`unavailable`) instead of silently running unlimited. Keys are
+ * hashed, so user ids never appear in the limiter collection or logs.
  */
 
-interface Bucket {
-  count: number;
-  resetAt: number;
-}
+const WINDOW_GRACE_MS = 60_000;
+const memory = new MemoryWindowStore();
 
-const buckets = new Map<string, Bucket>();
-const MAX_KEYS = 5_000;
-
-function sweep(now: number) {
-  if (buckets.size < MAX_KEYS) return;
-  for (const [key, bucket] of buckets) {
-    if (bucket.resetAt <= now) buckets.delete(key);
+async function mongoIncrement(id: string, expiresAt: number): Promise<number> {
+  const limits = await collections.rateLimits;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const doc = await limits.findOneAndUpdate(
+        { _id: id },
+        {
+          $inc: { count: 1 },
+          $setOnInsert: { expiresAt: new Date(expiresAt) },
+        },
+        { upsert: true, returnDocument: "after" }
+      );
+      return doc?.count ?? 1;
+    } catch (error) {
+      // Two concurrent first requests can race the upsert's unique _id.
+      const duplicate =
+        error instanceof Error && (error as { code?: number }).code === 11000;
+      if (!duplicate || attempt === 1) throw error;
+    }
   }
+  throw new Error("rate limit increment failed");
 }
 
-export interface RateLimitResult {
-  ok: boolean;
-  retryAfterSec: number;
-}
-
-export function rateLimit(key: string, limit: number, windowMs: number): RateLimitResult {
+export async function rateLimit(
+  key: string,
+  limit: number,
+  windowMs: number
+): Promise<RateLimitResult> {
   const now = Date.now();
-  sweep(now);
+  const window = rateWindow(key, now, windowMs);
+  const isProduction = process.env.NODE_ENV === "production";
+  const sharedConfigured = Boolean(process.env.MONGODB_URI?.trim());
 
-  const existing = buckets.get(key);
-  if (!existing || existing.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + windowMs });
-    return { ok: true, retryAfterSec: 0 };
+  if (sharedConfigured) {
+    try {
+      const count = await mongoIncrement(window.id, window.resetAt + WINDOW_GRACE_MS);
+      return evaluateRateLimit(count, limit, window.resetAt, now);
+    } catch {
+      // Never echo the key or Mongo error: it can contain connection details.
+      console.warn("[rate-limit] shared counter unavailable");
+      if (isProduction) {
+        return evaluateRateLimit(0, limit, window.resetAt, now, true);
+      }
+    }
+  } else if (isProduction) {
+    console.warn("[rate-limit] MONGODB_URI missing; refusing billable requests");
+    return evaluateRateLimit(0, limit, window.resetAt, now, true);
   }
 
-  if (existing.count >= limit) {
-    return { ok: false, retryAfterSec: Math.max(1, Math.ceil((existing.resetAt - now) / 1000)) };
-  }
-
-  existing.count += 1;
-  return { ok: true, retryAfterSec: 0 };
+  const count = memory.increment(window.id, window.resetAt, now);
+  return evaluateRateLimit(count, limit, window.resetAt, now);
 }

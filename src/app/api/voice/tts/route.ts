@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { GnaniError, gnaniConfig, synthesizeSpeech } from "@/lib/server/gnani";
-import { forbiddenOrigin, isSameOrigin, jsonNoStore } from "@/lib/server/http";
+import { forbiddenOrigin, isSameOrigin, jsonNoStore, rateLimited } from "@/lib/server/http";
 import { rateLimit } from "@/lib/server/rateLimit";
 import { currentUserId, unauthorized } from "@/lib/server/session";
 
@@ -20,15 +20,8 @@ export async function POST(request: Request) {
   const userId = await currentUserId();
   if (!userId) return unauthorized();
 
-  const limit = rateLimit(`tts:${userId}`, 120, 60_000);
-  if (!limit.ok) {
-    const response = jsonNoStore(
-      { error: "RATE_LIMITED", message: "Too many voice requests. Wait a moment and try again." },
-      429
-    );
-    response.headers.set("Retry-After", String(limit.retryAfterSec));
-    return response;
-  }
+  const limit = await rateLimit(`tts:${userId}`, 120, 60_000);
+  if (!limit.ok) return rateLimited(limit, "Too many voice requests. Wait a moment and try again.");
 
   const declared = Number(request.headers.get("content-length") ?? "0");
   if (Number.isFinite(declared) && declared > 16 * 1024) {

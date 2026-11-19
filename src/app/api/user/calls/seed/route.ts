@@ -1,5 +1,5 @@
 import { collections } from "@/lib/server/db";
-import { forbiddenOrigin, isSameOrigin, jsonNoStore } from "@/lib/server/http";
+import { forbiddenOrigin, isSameOrigin, jsonNoStore, rateLimited } from "@/lib/server/http";
 import { rateLimit } from "@/lib/server/rateLimit";
 import { currentUserId, unauthorized } from "@/lib/server/session";
 import { buildSeedCalls } from "@/lib/seed";
@@ -14,10 +14,8 @@ export async function POST(request: Request) {
   const userId = await currentUserId();
   if (!userId) return unauthorized();
 
-  const limit = rateLimit(`calls-seed:${userId}`, 10, 60_000);
-  if (!limit.ok) {
-    return jsonNoStore({ error: "RATE_LIMITED", retryAfter: limit.retryAfterSec }, 429);
-  }
+  const limit = await rateLimit(`calls-seed:${userId}`, 10, 60_000);
+  if (!limit.ok) return rateLimited(limit, "Too many sample-data requests. Wait a moment and try again.");
 
   const seedCalls = buildSeedCalls();
   const now = new Date();

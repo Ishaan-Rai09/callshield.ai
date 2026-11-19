@@ -1,5 +1,5 @@
 import { collections } from "@/lib/server/db";
-import { forbiddenOrigin, isSameOrigin, jsonNoStore } from "@/lib/server/http";
+import { forbiddenOrigin, isSameOrigin, jsonNoStore, rateLimited } from "@/lib/server/http";
 import { rateLimit } from "@/lib/server/rateLimit";
 import { currentUserId, unauthorized } from "@/lib/server/session";
 import { sanitizeCallRecord } from "@/lib/server/validate";
@@ -17,10 +17,8 @@ export async function POST(request: Request) {
   const userId = await currentUserId();
   if (!userId) return unauthorized();
 
-  const limit = rateLimit(`call-save:${userId}`, 60, 60_000);
-  if (!limit.ok) {
-    return jsonNoStore({ error: "RATE_LIMITED", retryAfter: limit.retryAfterSec }, 429);
-  }
+  const limit = await rateLimit(`call-save:${userId}`, 60, 60_000);
+  if (!limit.ok) return rateLimited(limit, "Too many call saves. Wait a moment and try again.");
 
   const declared = Number(request.headers.get("content-length") ?? "0");
   if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
@@ -68,10 +66,8 @@ export async function DELETE(request: Request) {
   const userId = await currentUserId();
   if (!userId) return unauthorized();
 
-  const limit = rateLimit(`call-clear:${userId}`, 10, 60_000);
-  if (!limit.ok) {
-    return jsonNoStore({ error: "RATE_LIMITED", retryAfter: limit.retryAfterSec }, 429);
-  }
+  const limit = await rateLimit(`call-clear:${userId}`, 10, 60_000);
+  if (!limit.ok) return rateLimited(limit, "Too many clear requests. Wait a moment and try again.");
 
   await (await collections.calls).deleteMany({ userId });
   return jsonNoStore({ ok: true });

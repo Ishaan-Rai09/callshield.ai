@@ -36,6 +36,12 @@ export interface BlockedDoc {
   data: unknown;
 }
 
+export interface RateLimitDoc {
+  _id: string;
+  count: number;
+  expiresAt: Date;
+}
+
 const globalForMongo = globalThis as unknown as { mongoClient?: MongoClient };
 
 export const mongoConfigured = Boolean(process.env.MONGODB_URI?.trim());
@@ -60,6 +66,10 @@ async function getDb(): Promise<Db> {
         .createIndex({ googleSub: 1 }, { unique: true, sparse: true }),
       db.collection<CallDoc>("calls").createIndex({ userId: 1, createdAt: -1 }),
       db.collection<BlockedDoc>("blocked").createIndex({ userId: 1, createdAt: -1 }),
+      // Fixed-window counters expire automatically; the id is a hashed key.
+      db
+        .collection<RateLimitDoc>("rateLimits")
+        .createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
     ]);
   }
 
@@ -75,5 +85,8 @@ export const collections = {
   },
   get blocked(): Promise<Collection<BlockedDoc>> {
     return getDb().then((db) => db.collection<BlockedDoc>("blocked"));
+  },
+  get rateLimits(): Promise<Collection<RateLimitDoc>> {
+    return getDb().then((db) => db.collection<RateLimitDoc>("rateLimits"));
   },
 };

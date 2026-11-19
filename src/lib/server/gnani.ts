@@ -26,18 +26,39 @@ export class GnaniError extends Error {
   }
 }
 
+/**
+ * Validate a configurable provider URL before it is used for server-side
+ * fetches: https only in production, no embedded credentials, no non-http
+ * schemes. Returns null when the value is unsafe, so a typo cannot turn the
+ * proxy into an SSRF primitive.
+ */
+function safeBaseUrl(raw: string): string | null {
+  try {
+    const url = new URL(raw);
+    const dev = process.env.NODE_ENV !== "production";
+    if (url.protocol !== "https:" && !(dev && url.protocol === "http:")) return null;
+    if (url.username || url.password) return null;
+    return raw.replace(/\/+$/, "");
+  } catch {
+    return null;
+  }
+}
+
 export function gnaniConfig() {
   const apiKey = process.env.GNANI_API_KEY?.trim() || null;
-  const baseUrl = (process.env.GNANI_BASE_URL?.trim() || DEFAULT_BASE_URL).replace(/\/+$/, "");
+  const requestedBase = process.env.GNANI_BASE_URL?.trim() || DEFAULT_BASE_URL;
+  const validBase = safeBaseUrl(requestedBase);
+  const baseUrl = validBase ?? DEFAULT_BASE_URL;
   const cloneAudio = process.env.GNANI_CLONE_AUDIO?.trim() || null;
   return {
     apiKey,
     baseUrl,
+    baseUrlValid: validBase !== null,
     ttsModel: process.env.GNANI_TTS_MODEL?.trim() || DEFAULT_TTS_MODEL,
     sttModel: process.env.GNANI_STT_MODEL?.trim() || DEFAULT_STT_MODEL,
     cloneAudio,
-    configured: Boolean(apiKey),
-    cloneConfigured: Boolean(apiKey && cloneAudio),
+    configured: Boolean(apiKey && validBase),
+    cloneConfigured: Boolean(apiKey && validBase && cloneAudio),
   };
 }
 

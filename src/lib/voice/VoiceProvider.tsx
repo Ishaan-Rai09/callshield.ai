@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useSession } from "next-auth/react";
 import { TTS_LANGUAGE, speechText } from "@/lib/voice/catalog";
 
 interface GnaniStatus {
@@ -56,6 +57,7 @@ interface VoiceContextValue {
 const VoiceContext = createContext<VoiceContextValue | null>(null);
 
 export function VoiceProvider({ children }: { children: ReactNode }) {
+  const { status: sessionStatus } = useSession();
   const [checking, setChecking] = useState(true);
   const [status, setStatus] = useState<GnaniStatus | null>(null);
   const [available, setAvailable] = useState(true);
@@ -107,14 +109,21 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // Voice routes are authenticated; do not probe them on public pages.
+    if (sessionStatus !== "authenticated") {
+      setChecking(false);
+      setStatus(null);
+      return undefined;
+    }
+    const cache = cacheRef.current;
     void refreshStatus();
     return () => {
       generationRef.current += 1;
       audioRef.current?.pause();
       finishRef.current?.();
-      cacheRef.current.forEach((url) => URL.revokeObjectURL(url));
+      cache.forEach((url) => URL.revokeObjectURL(url));
     };
-  }, [refreshStatus]);
+  }, [refreshStatus, sessionStatus]);
 
   const speak = useCallback(
     async (text: string, options: SpeakOptions) => {
