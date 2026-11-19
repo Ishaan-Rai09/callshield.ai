@@ -293,9 +293,12 @@ export function CallShieldProvider({ children }: { children: ReactNode }) {
 
   /* ---------------------------- call scheduling ---------------------------- */
 
+  const liveId = session?.id;
+  const livePhase = session?.phase;
+
   useEffect(() => {
-    if (!session) return;
-    if (session.phase !== "screening" && session.phase !== "user") return;
+    if (!liveId) return;
+    if (livePhase !== "screening" && livePhase !== "user") return;
 
     const interval = window.setInterval(() => {
       setSession((prev) => {
@@ -309,30 +312,37 @@ export function CallShieldProvider({ children }: { children: ReactNode }) {
     }, 1000);
 
     return () => window.clearInterval(interval);
-  }, [session?.id, session?.phase, resolveScenario]);
+  }, [liveId, livePhase, resolveScenario]);
+
+  const sessionId = session?.id;
+  const sessionAnswered = session?.answeredByAI;
+  const sessionRisk = session?.riskLevel;
+  const sessionCaller = session?.callerName;
 
   useEffect(() => {
-    if (!session) return;
-    if (
-      session.answeredByAI &&
-      session.riskLevel === "high" &&
-      assistant.notifySuspicious &&
-      !notifiedSessions.current.has(session.id)
-    ) {
-      notifiedSessions.current.add(session.id);
-      pushNotification({
-        title: "A suspicious caller was detected",
-        body: `${session.callerName ?? "An unknown caller"} triggered high-risk signals during live screening.`,
-        tone: "risk",
-        href: "/app/live",
-      });
-      pushToast({
-        title: "High-risk signals detected",
-        description: "The intelligence panel has updated with new indicators.",
-        tone: "risk",
-      });
-    }
-  }, [session, assistant.notifySuspicious, pushNotification, pushToast]);
+    if (!sessionId || !sessionAnswered || sessionRisk !== "high") return;
+    if (!assistant.notifySuspicious || notifiedSessions.current.has(sessionId)) return;
+    notifiedSessions.current.add(sessionId);
+    pushNotification({
+      title: "A suspicious caller was detected",
+      body: `${sessionCaller ?? "An unknown caller"} triggered high-risk signals during live screening.`,
+      tone: "risk",
+      href: "/app/live",
+    });
+    pushToast({
+      title: "High-risk signals detected",
+      description: "The intelligence panel has updated with new indicators.",
+      tone: "risk",
+    });
+  }, [
+    sessionId,
+    sessionAnswered,
+    sessionRisk,
+    sessionCaller,
+    assistant.notifySuspicious,
+    pushNotification,
+    pushToast,
+  ]);
 
   /* ------------------------------- call actions ----------------------------- */
 

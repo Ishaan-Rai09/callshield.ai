@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useCallShield } from "@/lib/store";
 import { useVoice } from "@/lib/voice/VoiceProvider";
 import { callerVoiceFor, defaultAssistantVoice } from "@/lib/voice/catalog";
@@ -17,42 +17,50 @@ export function CallVoiceDriver() {
   const { session, assistant, setSpeechHold } = useCallShield();
   const voice = useVoice();
   const stopVoice = voice.stop;
+  const speak = voice.speak;
   const spokenRef = useRef<Set<string>>(new Set());
   const sessionRef = useRef<string | null>(null);
   const holdRef = useRef(false);
 
-  const setHold = (next: boolean) => {
-    if (holdRef.current === next) return;
-    holdRef.current = next;
-    setSpeechHold(next);
-  };
+  const setHold = useCallback(
+    (next: boolean) => {
+      if (holdRef.current === next) return;
+      holdRef.current = next;
+      setSpeechHold(next);
+    },
+    [setSpeechHold]
+  );
 
   const voiceActive =
     voice.configured && voice.available && voice.enabled && assistant.voiceEnabled;
 
   const voiceName = defaultAssistantVoice(assistant);
+  const transcript = session?.transcript;
+  const phase = session?.phase;
+  const scenarioId = session?.scenarioId;
+  const sessionId = session?.id;
 
   // New session: reset spoken lines and silence any previous call.
   useEffect(() => {
-    if (session?.id === sessionRef.current) return;
-    sessionRef.current = session?.id ?? null;
+    if (sessionId === sessionRef.current) return;
+    sessionRef.current = sessionId ?? null;
     spokenRef.current = new Set();
     stopVoice();
     setHold(false);
-  }, [session?.id, stopVoice]);
+  }, [sessionId, stopVoice, setHold]);
 
   // Taking over or ending the call stops the assistant mid-sentence.
   useEffect(() => {
-    if (!session) return;
-    if (session.phase === "user" || session.phase === "ended" || session.phase === "ringing") {
+    if (!sessionId) return;
+    if (phase === "user" || phase === "ended" || phase === "ringing") {
       stopVoice();
       setHold(false);
     }
-  }, [session?.phase, session?.id, stopVoice]);
+  }, [phase, sessionId, stopVoice, setHold]);
 
   // Speak each newly revealed caller / assistant line, one at a time.
   useEffect(() => {
-    if (!session || (session.phase !== "screening" && session.phase !== "user")) {
+    if (!transcript || (phase !== "screening" && phase !== "user")) {
       setHold(false);
       return;
     }
@@ -61,7 +69,7 @@ export function CallVoiceDriver() {
       return;
     }
 
-    const entry = session.transcript.find(
+    const entry = transcript.find(
       (line) =>
         (line.speaker === "ai" || line.speaker === "caller") &&
         !spokenRef.current.has(line.id)
@@ -75,17 +83,15 @@ export function CallVoiceDriver() {
     spokenRef.current.add(entry.id);
     setHold(true);
 
-    const speaker = entry.speaker === "ai" ? voiceName : callerVoiceFor(session.scenarioId);
-    void voice
-      .speak(entry.text, { voice: speaker, lineId: entry.id })
+    const speaker = entry.speaker === "ai" ? voiceName : callerVoiceFor(scenarioId ?? "");
+    void speak(entry.text, { voice: speaker, lineId: entry.id })
       .catch(() => {
         // Error state is surfaced by the voice provider; keep the call moving.
       })
       .finally(() => {
         setHold(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session?.transcript.length, session?.phase, session?.id, voiceActive, voiceName]);
+  }, [transcript, phase, voiceActive, voiceName, scenarioId, speak, setHold]);
 
   useEffect(() => {
     return () => {
