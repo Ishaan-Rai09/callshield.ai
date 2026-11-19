@@ -2,13 +2,10 @@
 // Drives /app/assistant and /app/live in headless Chrome and asserts that
 // every assistant setting actually changes live-call behaviour or persists.
 import assert from "node:assert/strict";
-import { chromium } from "playwright-core";
+import { launchBrowser } from "./browser.mjs";
 
 const BASE = process.env.CALLSHIELD_URL || "http://localhost:3000";
-const executablePath =
-  process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
-
-const browser = await chromium.launch({ executablePath, headless: true });
+const browser = await launchBrowser();
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
 const page = await context.newPage();
 

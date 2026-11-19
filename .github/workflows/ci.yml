@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+  # Dummy signing key for CI only. Never a production credential.
+  AUTH_SECRET: "ci-only-callshield-test-secret-not-for-production"
+  # Local-host smoke server is not behind Vercel's trusted-host handling.
+  AUTH_TRUST_HOST: "true"
+
+jobs:
+  quality:
+    name: Typecheck, lint, tests, audit, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      # Build-time tooling advisories (Tailwind's glob chain) are documented in
+      # docs/AUDIT_BASELINE.md. Gate on the runtime dependency tree, which must
+      # stay clean.
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Production build
+        run: npm run build
+
+  browser:
+    name: Browser smoke + accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: quality
+    env:
+      CALLSHIELD_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+
+      - name: Start server
+        run: |
+          npm start > /tmp/callshield-server.log 2>&1 &
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://localhost:3000/ > /dev/null; then
+              echo "Server ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Server failed to start"
+          cat /tmp/callshield-server.log
+          exit 1
+
+      - name: Smoke checks
+        run: npm run test:smoke
+
+      - name: Accessibility audit
+        run: npm run test:a11y
+
+      - name: Upload server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: callshield-server-log
+          path: /tmp/callshield-server.log
+          if-no-files-found: ignore

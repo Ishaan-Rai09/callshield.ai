@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "node --import tsx --test tests/unit/audio.test.ts tests/unit/rateLimit.test.ts tests/unit/http.test.ts tests/unit/validate.test.ts tests/unit/gnani.test.ts",
     "test:demo": "node scripts/demo-check.mjs",
+    "test:smoke": "node scripts/smoke-check.mjs",
+    "test:a11y": "node scripts/a11y-check.mjs",
+    "test:security": "node scripts/security-check.mjs",
+    "test:routes": "node scripts/verify-user-routes.mjs",
     "test:voice": "node scripts/voice-check.mjs"
   },
   "dependencies": {
@@ -20,13 +26,18 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
-    "playwright-core": "^1.65.0",
+    "axe-core": "^4.14.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.29",
+    "playwright": "^1.65.0",
     "postcss": "^8.5.23",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.15",
     "typescript": "^5.7.0"
   },
   "overrides": {

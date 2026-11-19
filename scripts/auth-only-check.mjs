@@ -8,14 +8,11 @@
 // Set CALLSHIELD_USER_ID and CALLSHIELD_EMAIL (the Mongo user to impersonate)
 // plus AUTH_SECRET in .env.local. Optional: CALLSHIELD_URL, CHROME_PATH.
 import assert from "node:assert/strict";
-import { chromium } from "playwright-core";
+import { launchBrowser } from "./browser.mjs";
 import { encode } from "next-auth/jwt";
 import { readFileSync } from "node:fs";
 
 const BASE = process.env.CALLSHIELD_URL || "http://localhost:3000";
-const executablePath =
-  process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
-
 function loadEnv() {
   for (const file of [".env.local", ".env"]) {
     try {
@@ -46,7 +43,7 @@ const sessionToken = await encode({
 });
 
 const step = (name) => console.log(`OK  ${name}`);
-const browser = await chromium.launch({ executablePath, headless: true });
+const browser = await launchBrowser();
 
 try {
   /* --------------------- signed-out: redirect + signin page ---------------- */
