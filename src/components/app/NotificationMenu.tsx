@@ -107,7 +107,7 @@ export function NotificationMenu() {
                     }}
                     className={cx(
                       "flex w-full items-start gap-3 border-b border-line/70 px-4 py-3 text-left transition-colors hover:bg-ash/40",
-                      !item.read && "bg-signal/[0.035]"
+                      !item.read && "bg-signal/[0.035]",
                     )}
                   >
                     <span
@@ -115,7 +115,7 @@ export function NotificationMenu() {
                         "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border",
                         item.tone === "risk"
                           ? "border-signal/30 bg-signal/10 text-signal"
-                          : "border-line bg-white text-ink/70"
+                          : "border-line bg-white text-ink/70",
                       )}
                     >
                       <Icon className="h-3 w-3" />
@@ -125,12 +125,14 @@ export function NotificationMenu() {
                         <span
                           className={cx(
                             "text-[12px] leading-snug",
-                            item.read ? "font-medium text-ink/70" : "font-semibold text-ink"
+                            item.read ? "font-medium text-ink/70" : "font-semibold text-ink",
                           )}
                         >
                           {item.title}
                         </span>
-                        {!item.read && <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />}
+                        {!item.read && (
+                          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+                        )}
                       </span>
                       <span className="mt-0.5 block text-[11px] leading-relaxed text-muted">
                         {item.body}

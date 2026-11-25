@@ -47,7 +47,7 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
       attention: calls.filter((call) => call.riskLevel === "attention").length,
       high: calls.filter((call) => call.riskLevel === "high").length,
     }),
-    [calls]
+    [calls],
   );
 
   const filtered = useMemo(() => {
@@ -133,14 +133,14 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
                       "shrink-0 rounded-full border px-2.5 py-1.5 text-[10.5px] font-medium transition-colors",
                       risk === filter.key
                         ? "border-ink bg-ink text-ivory"
-                        : "border-line bg-white text-ink/70 hover:border-ink/25 hover:text-ink"
+                        : "border-line bg-white text-ink/70 hover:border-ink/25 hover:text-ink",
                     )}
                   >
                     {filter.label}
                     <span
                       className={cx(
                         "ml-1.5 tabular-nums",
-                        risk === filter.key ? "text-ivory/70" : "text-muted"
+                        risk === filter.key ? "text-ivory/70" : "text-muted",
                       )}
                     >
                       {counts[filter.key]}
@@ -194,11 +194,21 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
         ) : (
           <>
             <div className="hidden grid-cols-[minmax(0,1.05fr)_minmax(0,1.5fr)_108px_84px_78px_16px] items-center gap-4 border-b border-line/70 bg-white/40 px-4 py-2 lg:grid">
-              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Caller</span>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">AI summary</span>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">When</span>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Risk</span>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Action</span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+                Caller
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+                AI summary
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+                When
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+                Risk
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+                Action
+              </span>
               <span />
             </div>
 
@@ -231,7 +241,9 @@ export function HistoryView({ initialRisk }: { initialRisk?: string }) {
 
                     <div>
                       <p className="text-[10.5px] text-ink/70">{formatDateTime(call.startedAt)}</p>
-                      <p className="mt-0.5 text-[9px] text-muted">{formatDuration(call.durationSec)}</p>
+                      <p className="mt-0.5 text-[9px] text-muted">
+                        {formatDuration(call.durationSec)}
+                      </p>
                     </div>
 
                     <RiskBadge level={call.riskLevel} showIcon={false} />

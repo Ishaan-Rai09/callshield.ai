@@ -33,14 +33,21 @@ export function ToastViewport() {
               transition={{ duration: 0.22, ease: [0.2, 0.7, 0.3, 1] }}
               className={cx(
                 "pointer-events-auto flex items-start gap-3 rounded-lg border bg-ink px-4 py-3 text-ivory shadow-panel",
-                toast.tone === "risk" ? "border-signal/60" : "border-white/10"
+                toast.tone === "risk" ? "border-signal/60" : "border-white/10",
               )}
             >
-              <Icon className={cx("mt-0.5 h-4 w-4 shrink-0", toast.tone === "risk" ? "text-signal" : "text-ivory/70")} />
+              <Icon
+                className={cx(
+                  "mt-0.5 h-4 w-4 shrink-0",
+                  toast.tone === "risk" ? "text-signal" : "text-ivory/70",
+                )}
+              />
               <div className="min-w-0 flex-1">
                 <p className="text-[13px] font-semibold leading-snug">{toast.title}</p>
                 {toast.description && (
-                  <p className="mt-0.5 text-[12px] leading-relaxed text-ivory/70">{toast.description}</p>
+                  <p className="mt-0.5 text-[12px] leading-relaxed text-ivory/70">
+                    {toast.description}
+                  </p>
                 )}
               </div>
               <button

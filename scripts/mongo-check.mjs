@@ -18,7 +18,12 @@ try {
   await users.createIndex({ email: 1 }, { unique: true });
   console.log("INDEX email_1: created");
 
-  const probe = { _id: "check:probe", userId: "check", email: "probe@callshield.test", createdAt: new Date() };
+  const probe = {
+    _id: "check:probe",
+    userId: "check",
+    email: "probe@callshield.test",
+    createdAt: new Date(),
+  };
   await users.insertOne(probe, { forceServerObjectId: undefined }).catch(async (e) => {
     if (e.code !== 11000) throw e;
     // duplicate from a previous run: fine, replace it
@@ -32,7 +37,10 @@ try {
 
   const names = await db.listCollections().toArray();
   console.log("DB NAME:", db.databaseName);
-  console.log("COLLECTIONS:", names.map((c) => c.name).join(", ") || "(empty — created on first sign-in)");
+  console.log(
+    "COLLECTIONS:",
+    names.map((c) => c.name).join(", ") || "(empty — created on first sign-in)",
+  );
 } finally {
   await client.close();
 }

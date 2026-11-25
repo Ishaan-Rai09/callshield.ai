@@ -5,7 +5,8 @@ import { Logo } from "@/components/brand/Logo";
 
 export const metadata: Metadata = {
   title: "Privacy, security & terms",
-  description: "How the CallShield prototype handles data, plus plain-language product terms and contact details.",
+  description:
+    "How the CallShield prototype handles data, plus plain-language product terms and contact details.",
 };
 
 const sections = [

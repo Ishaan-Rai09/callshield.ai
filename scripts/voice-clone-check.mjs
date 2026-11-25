@@ -24,11 +24,14 @@ loadEnv();
 
 const apiKey = process.env.GNANI_API_KEY?.trim();
 const cloneAudio = process.env.GNANI_CLONE_AUDIO?.trim();
-const baseUrl = (process.env.GNANI_BASE_URL?.trim() || "https://api.vachana.ai").replace(/\/+$/, "");
+const baseUrl = (process.env.GNANI_BASE_URL?.trim() || "https://api.vachana.ai").replace(
+  /\/+$/,
+  "",
+);
 
 if (!apiKey || !cloneAudio) {
   console.error(
-    "Missing config. Add to .env.local:\n  GNANI_API_KEY=...\n  GNANI_CLONE_AUDIO=assets/voice-sample.wav  (5-30 s recording of your voice)"
+    "Missing config. Add to .env.local:\n  GNANI_API_KEY=...\n  GNANI_CLONE_AUDIO=assets/voice-sample.wav  (5-30 s recording of your voice)",
   );
   process.exit(1);
 }
@@ -58,7 +61,11 @@ const embedResponse = await fetch(`${baseUrl}/api/v1/tts/voice-clone/embeddings`
   })(),
 });
 if (!embedResponse.ok) {
-  console.error("EMBEDDINGS FAILED:", embedResponse.status, (await embedResponse.text()).slice(0, 300));
+  console.error(
+    "EMBEDDINGS FAILED:",
+    embedResponse.status,
+    (await embedResponse.text()).slice(0, 300),
+  );
   process.exit(1);
 }
 const embedBody = await embedResponse.json();
@@ -67,10 +74,13 @@ if (!embedding?.embedding) {
   console.error("NO EMBEDDING in response:", JSON.stringify(embedBody).slice(0, 300));
   process.exit(1);
 }
-console.log(`EMBEDDING: ok (${Date.now() - embedStart} ms, shape ${JSON.stringify(embedding.shape)})`);
+console.log(
+  `EMBEDDING: ok (${Date.now() - embedStart} ms, shape ${JSON.stringify(embedding.shape)})`,
+);
 
 // Step 2: embedding -> cloned speech
-const text = process.argv[2] ?? "Namaste, main aapka call assistant bol raha hoon. Bataiye, kaun hai?";
+const text =
+  process.argv[2] ?? "Namaste, main aapka call assistant bol raha hoon. Bataiye, kaun hai?";
 const ttsStart = Date.now();
 const ttsResponse = await fetch(`${baseUrl}/api/v1/tts/inference`, {
   method: "POST",
@@ -79,7 +89,13 @@ const ttsResponse = await fetch(`${baseUrl}/api/v1/tts/inference`, {
     text,
     model: "vachana-vc-v1",
     speaker_embedding: embedding,
-    audio_config: { sample_rate: 24000, num_channels: 1, sample_width: 2, container: "mp3", bitrate: "64k" },
+    audio_config: {
+      sample_rate: 24000,
+      num_channels: 1,
+      sample_width: 2,
+      container: "mp3",
+      bitrate: "64k",
+    },
   }),
 });
 if (!ttsResponse.ok) {
@@ -89,5 +105,7 @@ if (!ttsResponse.ok) {
 const audio = Buffer.from(await ttsResponse.arrayBuffer());
 const out = "voice-clone-check.mp3";
 await writeFile(out, audio);
-console.log(`TTS: ok (${Date.now() - ttsStart} ms) -> ${out} (${(audio.byteLength / 1024).toFixed(0)} KB)`);
+console.log(
+  `TTS: ok (${Date.now() - ttsStart} ms) -> ${out} (${(audio.byteLength / 1024).toFixed(0)} KB)`,
+);
 console.log("VOICE CLONE PIPELINE: OK");

@@ -100,13 +100,11 @@ function sanitizeTranscriptEntry(value: unknown): TranscriptEntry | null {
 function sanitizeIndicator(value: unknown): Indicator | null {
   if (!value || typeof value !== "object") return null;
   const raw = value as Record<string, unknown>;
-  const key = INDICATOR_KEYS.includes(raw.key as IndicatorKey)
-    ? (raw.key as IndicatorKey)
-    : null;
+  const key = INDICATOR_KEYS.includes(raw.key as IndicatorKey) ? (raw.key as IndicatorKey) : null;
   const label = boundedString(raw.label, 160);
   const detail = boundedString(raw.detail, 600);
   const category = INDICATOR_CATEGORIES.includes(
-    raw.category as (typeof INDICATOR_CATEGORIES)[number]
+    raw.category as (typeof INDICATOR_CATEGORIES)[number],
   )
     ? (raw.category as Indicator["category"])
     : null;
@@ -142,9 +140,7 @@ export function sanitizeCallRecord(value: unknown): CallRecord | null {
   const riskLevel = RISK_LEVELS.includes(raw.riskLevel as RiskLevel)
     ? (raw.riskLevel as RiskLevel)
     : "low";
-  const action = ACTIONS.includes(raw.action as CallAction)
-    ? (raw.action as CallAction)
-    : "ended";
+  const action = ACTIONS.includes(raw.action as CallAction) ? (raw.action as CallAction) : "ended";
 
   const transcript = Array.isArray(raw.transcript)
     ? (raw.transcript

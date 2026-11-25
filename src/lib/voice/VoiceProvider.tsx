@@ -90,7 +90,7 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
       setEnabledState(next);
       if (!next) stop();
     },
-    [stop]
+    [stop],
   );
 
   const refreshStatus = useCallback(async () => {
@@ -202,7 +202,7 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
           setError(
             playError?.name === "NotAllowedError"
               ? "Your browser blocked autoplay. Tap “Play call audio” to continue hearing the call."
-              : "Call audio could not be played."
+              : "Call audio could not be played.",
           );
           finish();
         });
@@ -215,7 +215,7 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
         audioRef.current = null;
       }
     },
-    [stop]
+    [stop],
   );
 
   const value = useMemo<VoiceContextValue>(
@@ -247,7 +247,7 @@ export function VoiceProvider({ children }: { children: ReactNode }) {
       speak,
       stop,
       refreshStatus,
-    ]
+    ],
   );
 
   return <VoiceContext.Provider value={value}>{children}</VoiceContext.Provider>;

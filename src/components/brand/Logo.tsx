@@ -46,7 +46,7 @@ export function Logo({
         <span
           className={cx(
             "font-display text-[19px] font-bold tracking-[-0.04em]",
-            inverted ? "text-ivory" : "text-ink"
+            inverted ? "text-ivory" : "text-ink",
           )}
         >
           CallShield

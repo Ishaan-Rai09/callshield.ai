@@ -42,7 +42,9 @@ export function Trust() {
                   <div key={principle.title} className="flex gap-4 border-b border-white/10 py-5">
                     <Icon className="mt-0.5 h-4 w-4 shrink-0 text-signal" strokeWidth={1.8} />
                     <div>
-                      <h3 className="text-[13.5px] font-semibold text-ivory/90">{principle.title}</h3>
+                      <h3 className="text-[13.5px] font-semibold text-ivory/90">
+                        {principle.title}
+                      </h3>
                       <p className="mt-1 text-[12.5px] leading-relaxed text-ivory/70">
                         {principle.body}
                       </p>

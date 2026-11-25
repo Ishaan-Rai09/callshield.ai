@@ -73,9 +73,7 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
               <span className="block text-[11.5px] font-medium leading-none text-ink/80">
                 {profile.name.split(" ")[0]}
               </span>
-              <span className="mt-1 block text-[9px] leading-none text-muted">
-                Google account
-              </span>
+              <span className="mt-1 block text-[9px] leading-none text-muted">Google account</span>
             </span>
           </Link>
           <button

@@ -103,7 +103,11 @@ export function SettingsView() {
     anchor.download = "callshield-account-data.json";
     anchor.click();
     URL.revokeObjectURL(url);
-    pushToast({ title: "Data exported", description: "A JSON file was downloaded.", tone: "success" });
+    pushToast({
+      title: "Data exported",
+      description: "A JSON file was downloaded.",
+      tone: "success",
+    });
   }
 
   return (
@@ -116,8 +120,8 @@ export function SettingsView() {
           Your account, your data.
         </h2>
         <p className="mt-2 max-w-[560px] text-[12.5px] leading-relaxed text-muted">
-          You&apos;re signed in with Google. Your call history and blocklist are saved to your account
-          and follow you across devices.
+          You&apos;re signed in with Google. Your call history and blocklist are saved to your
+          account and follow you across devices.
         </p>
       </div>
 
@@ -147,7 +151,9 @@ export function SettingsView() {
                 </span>
               )}
               <div className="min-w-0">
-                <p className="truncate text-[12.5px] font-semibold">{profile.name || "Your name"}</p>
+                <p className="truncate text-[12.5px] font-semibold">
+                  {profile.name || "Your name"}
+                </p>
                 <p className="truncate text-[10px] text-muted">{profile.email}</p>
               </div>
               {accountStatus === "loading" ? null : (
@@ -159,20 +165,39 @@ export function SettingsView() {
 
             <div className="mt-4 space-y-3.5">
               <div>
-                <label htmlFor="account-name" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+                <label
+                  htmlFor="account-name"
+                  className="mb-1.5 block text-[11px] font-medium text-ink/70"
+                >
                   Full name
                 </label>
-                <input id="account-name" value={profile.name} readOnly className="input-base opacity-70" />
+                <input
+                  id="account-name"
+                  value={profile.name}
+                  readOnly
+                  className="input-base opacity-70"
+                />
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="account-email" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+                  <label
+                    htmlFor="account-email"
+                    className="mb-1.5 block text-[11px] font-medium text-ink/70"
+                  >
                     Email
                   </label>
-                  <input id="account-email" value={profile.email} readOnly className="input-base opacity-70" />
+                  <input
+                    id="account-email"
+                    value={profile.email}
+                    readOnly
+                    className="input-base opacity-70"
+                  />
                 </div>
                 <div>
-                  <label htmlFor="account-phone" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+                  <label
+                    htmlFor="account-phone"
+                    className="mb-1.5 block text-[11px] font-medium text-ink/70"
+                  >
                     Phone label
                   </label>
                   <input
@@ -185,12 +210,10 @@ export function SettingsView() {
                 </div>
               </div>
               <div className="flex items-center justify-between gap-3 pt-1">
-                <p className="text-[9.5px] text-muted">Manage your photo and name at myaccount.google.com.</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => void signOutAndClear()}
-                >
+                <p className="text-[9.5px] text-muted">
+                  Manage your photo and name at myaccount.google.com.
+                </p>
+                <Button variant="outline" size="sm" onClick={() => void signOutAndClear()}>
                   <LogOut className="h-3 w-3" />
                   Sign out
                 </Button>
@@ -305,7 +328,9 @@ export function SettingsView() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] text-muted">Notifications</span>
-                <span className="font-display text-[11px] tabular-nums">{notifications.length}</span>
+                <span className="font-display text-[11px] tabular-nums">
+                  {notifications.length}
+                </span>
               </div>
             </div>
             <Link

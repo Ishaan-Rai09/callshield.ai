@@ -22,7 +22,7 @@ export function ShieldRail() {
     count: calls.reduce(
       (sum, call) =>
         sum + call.indicators.filter((indicator) => indicator.category === category.key).length,
-      0
+      0,
     ),
   }));
   const max = Math.max(1, ...counts.map((item) => item.count));
@@ -114,7 +114,9 @@ export function ShieldRail() {
               Blocklist
             </h2>
           </div>
-          <span className="font-display text-[15px] tabular-nums text-ink/70">{blocklist.length}</span>
+          <span className="font-display text-[15px] tabular-nums text-ink/70">
+            {blocklist.length}
+          </span>
         </div>
 
         <div className="mt-3 space-y-2">

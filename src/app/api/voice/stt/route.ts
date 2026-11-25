@@ -29,9 +29,10 @@ export async function POST(request: Request) {
     return jsonNoStore(
       {
         error: "NOT_CONFIGURED",
-        message: "Add GNANI_API_KEY to .env.local and restart the server to enable speech recognition.",
+        message:
+          "Add GNANI_API_KEY to .env.local and restart the server to enable speech recognition.",
       },
-      503
+      503,
     );
   }
 
@@ -93,8 +94,11 @@ export async function POST(request: Request) {
       : ["audio/mpeg", "audio/mp3"].includes(declaredType));
   if (!typeMatches) {
     return jsonNoStore(
-      { error: "AUDIO_TYPE_MISMATCH", message: "The file contents do not match the declared audio type." },
-      415
+      {
+        error: "AUDIO_TYPE_MISMATCH",
+        message: "The file contents do not match the declared audio type.",
+      },
+      415,
     );
   }
 
@@ -114,12 +118,12 @@ export async function POST(request: Request) {
     if (error instanceof GnaniError) {
       return jsonNoStore(
         { error: error.code, message: error.message },
-        error.status >= 400 && error.status < 600 ? error.status : 502
+        error.status >= 400 && error.status < 600 ? error.status : 502,
       );
     }
     return jsonNoStore(
       { error: "TRANSCRIPTION_FAILED", message: "Speech recognition failed." },
-      502
+      502,
     );
   }
 }

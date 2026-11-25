@@ -1,12 +1,4 @@
-import {
-  Ban,
-  Bot,
-  History,
-  LayoutDashboard,
-  Radio,
-  Settings,
-  type LucideIcon,
-} from "lucide-react";
+import { Ban, Bot, History, LayoutDashboard, Radio, Settings, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   label: string;

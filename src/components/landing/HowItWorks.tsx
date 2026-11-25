@@ -14,7 +14,9 @@ const steps = [
           </div>
           <div>
             <p className="font-display text-[13px] font-medium leading-none">+91 80 4712 9931</p>
-            <p className="mt-1 text-[9.5px] uppercase tracking-[0.12em] text-muted">Unknown caller</p>
+            <p className="mt-1 text-[9.5px] uppercase tracking-[0.12em] text-muted">
+              Unknown caller
+            </p>
           </div>
         </div>
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal" />
@@ -33,14 +35,16 @@ const steps = [
           Who&apos;s calling, and what is this regarding?
         </p>
         <p className="text-[10px] leading-relaxed text-ink/70">
-          <span className="mr-1.5 font-semibold text-ink/70">Caller</span>
-          I need the OTP to stop a pending debit…
+          <span className="mr-1.5 font-semibold text-ink/70">Caller</span>I need the OTP to stop a
+          pending debit…
         </p>
         <div className="flex gap-1 pt-1">
           <span className="border border-signal/30 bg-signal/10 px-1.5 py-0.5 text-[8.5px] text-signalInk">
             OTP request
           </span>
-          <span className="border border-line px-1.5 py-0.5 text-[8.5px] text-muted">High risk</span>
+          <span className="border border-line px-1.5 py-0.5 text-[8.5px] text-muted">
+            High risk
+          </span>
         </div>
       </div>
     ),
@@ -54,9 +58,15 @@ const steps = [
       <div className="border border-line bg-white px-3 py-2.5">
         <p className="text-[9.5px] uppercase tracking-[0.12em] text-muted">Your decision</p>
         <div className="mt-2 grid grid-cols-3 gap-1.5">
-          <span className="rounded-full bg-ink py-1 text-center text-[9px] font-medium text-ivory">Take over</span>
-          <span className="rounded-full border border-line py-1 text-center text-[9px] font-medium text-ink/70">Allow</span>
-          <span className="rounded-full bg-signal py-1 text-center text-[9px] font-medium text-ink">Block</span>
+          <span className="rounded-full bg-ink py-1 text-center text-[9px] font-medium text-ivory">
+            Take over
+          </span>
+          <span className="rounded-full border border-line py-1 text-center text-[9px] font-medium text-ink/70">
+            Allow
+          </span>
+          <span className="rounded-full bg-signal py-1 text-center text-[9px] font-medium text-ink">
+            Block
+          </span>
         </div>
       </div>
     ),
@@ -87,9 +97,7 @@ export function HowItWorks() {
               <div
                 key={step.number}
                 className={
-                  index === 0
-                    ? "md:pr-8"
-                    : "md:border-l md:border-line md:pl-8 md:pr-8 lg:pl-10"
+                  index === 0 ? "md:pr-8" : "md:border-l md:border-line md:pl-8 md:pr-8 lg:pl-10"
                 }
               >
                 <div className="flex items-center justify-between">

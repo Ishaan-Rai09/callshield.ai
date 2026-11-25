@@ -50,9 +50,7 @@ async function getDb(): Promise<Db> {
   const uri = process.env.MONGODB_URI;
   if (!uri?.trim()) throw new Error("MONGODB_URI is not configured");
 
-  const client =
-    globalForMongo.mongoClient ??
-    new MongoClient(uri, { appName: "callshield" });
+  const client = globalForMongo.mongoClient ?? new MongoClient(uri, { appName: "callshield" });
 
   if (!globalForMongo.mongoClient) {
     globalForMongo.mongoClient = client;
@@ -61,9 +59,7 @@ async function getDb(): Promise<Db> {
     // keep every per-user query bounded.
     await Promise.all([
       db.collection<UserDoc>("users").createIndex({ email: 1 }, { unique: true }),
-      db
-        .collection<UserDoc>("users")
-        .createIndex({ googleSub: 1 }, { unique: true, sparse: true }),
+      db.collection<UserDoc>("users").createIndex({ googleSub: 1 }, { unique: true, sparse: true }),
       db.collection<CallDoc>("calls").createIndex({ userId: 1, createdAt: -1 }),
       db.collection<BlockedDoc>("blocked").createIndex({ userId: 1, createdAt: -1 }),
       // Fixed-window counters expire automatically; the id is a hashed key.

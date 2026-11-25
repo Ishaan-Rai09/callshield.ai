@@ -1,4 +1,9 @@
-import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
 import Link from "next/link";
 import { cx } from "@/lib/utils";
 
@@ -11,11 +16,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClass: Record<Variant, string> = {
-  primary:
-    "bg-signal text-ink hover:bg-[#ff7a49] active:bg-[#f05f28] shadow-signal",
+  primary: "bg-signal text-ink hover:bg-[#ff7a49] active:bg-[#f05f28] shadow-signal",
   ink: "bg-ink text-ivory hover:bg-inkSoft active:bg-[#0f141c]",
-  outline:
-    "border border-ink/20 bg-transparent text-ink hover:border-ink/45 hover:bg-ink/[0.03]",
+  outline: "border border-ink/20 bg-transparent text-ink hover:border-ink/45 hover:bg-ink/[0.03]",
   ghost: "bg-transparent text-ink hover:bg-ink/[0.05]",
   quiet: "bg-white text-ink border border-line hover:border-ink/25 hover:bg-white",
 };
@@ -31,18 +34,13 @@ const baseClass =
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { className, variant = "ink", size = "md", type = "button", ...props },
-  ref
+  ref,
 ) {
   return (
     <button
       ref={ref}
       type={type}
-      className={cx(
-        baseClass,
-        variantClass[variant],
-        sizeClass[size],
-        className
-      )}
+      className={cx(baseClass, variantClass[variant], sizeClass[size], className)}
       {...props}
     />
   );

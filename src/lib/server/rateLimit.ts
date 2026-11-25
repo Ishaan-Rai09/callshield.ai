@@ -32,13 +32,12 @@ async function mongoIncrement(id: string, expiresAt: number): Promise<number> {
           $inc: { count: 1 },
           $setOnInsert: { expiresAt: new Date(expiresAt) },
         },
-        { upsert: true, returnDocument: "after" }
+        { upsert: true, returnDocument: "after" },
       );
       return doc?.count ?? 1;
     } catch (error) {
       // Two concurrent first requests can race the upsert's unique _id.
-      const duplicate =
-        error instanceof Error && (error as { code?: number }).code === 11000;
+      const duplicate = error instanceof Error && (error as { code?: number }).code === 11000;
       if (!duplicate || attempt === 1) throw error;
     }
   }
@@ -48,7 +47,7 @@ async function mongoIncrement(id: string, expiresAt: number): Promise<number> {
 export async function rateLimit(
   key: string,
   limit: number,
-  windowMs: number
+  windowMs: number,
 ): Promise<RateLimitResult> {
   const now = Date.now();
   const window = rateWindow(key, now, windowMs);

@@ -133,9 +133,10 @@ export function usePushToTalk({
             form.append("audio", wav, "reply.wav");
             form.append("language", sttLanguageCode(language));
             const response = await fetch("/api/voice/stt", { method: "POST", body: form });
-            const data = (await response.json().catch(() => null)) as
-              | { transcript?: string; message?: string }
-              | null;
+            const data = (await response.json().catch(() => null)) as {
+              transcript?: string;
+              message?: string;
+            } | null;
             return { response, data };
           };
 
@@ -154,7 +155,7 @@ export function usePushToTalk({
           const text = (data?.transcript ?? "").trim();
           if (!text) {
             setError(
-              "Gnani heard no clear words in that clip. Speak a little louder and closer to the mic — and if you're speaking Hindi, switch the assistant language to Hindi in settings."
+              "Gnani heard no clear words in that clip. Speak a little louder and closer to the mic — and if you're speaking Hindi, switch the assistant language to Hindi in settings.",
             );
             setState("error");
             return;
@@ -228,7 +229,7 @@ export function usePushToTalk({
       setError(
         name === "NotAllowedError" || name === "SecurityError"
           ? "Microphone access was denied. Allow it in your browser, or type your reply instead."
-          : "The microphone could not be started. You can type your reply instead."
+          : "The microphone could not be started. You can type your reply instead.",
       );
       setState("error");
     } finally {

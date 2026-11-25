@@ -43,7 +43,7 @@ async function audit(page, path, label) {
   });
 
   const serious = result.violations.filter(
-    (violation) => violation.impact === "serious" || violation.impact === "critical"
+    (violation) => violation.impact === "serious" || violation.impact === "critical",
   );
   const label2 = `${label} (${path})`;
   if (result.violations.length === 0) {
@@ -52,7 +52,7 @@ async function audit(page, path, label) {
   }
   for (const violation of result.violations) {
     console.log(
-      `\n${serious.includes(violation) ? "✗" : "!"} ${label2}: ${violation.id} [${violation.impact}] ${violation.help}`
+      `\n${serious.includes(violation) ? "✗" : "!"} ${label2}: ${violation.id} [${violation.impact}] ${violation.help}`,
     );
     for (const node of violation.nodes.slice(0, 5)) {
       const check = node.any?.[0];
@@ -74,7 +74,7 @@ try {
   const authed = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   await addSessionCookie(
     authed,
-    await createSessionToken({ uid: "a11y-check-user", email: "a11y@example.invalid" })
+    await createSessionToken({ uid: "a11y-check-user", email: "a11y@example.invalid" }),
   );
   const app = await authed.newPage();
   for (const [path, label] of APP_PAGES) await audit(app, path, label);

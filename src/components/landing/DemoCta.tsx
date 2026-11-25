@@ -23,7 +23,9 @@ export function DemoCta() {
             Sign in with Google
             <ArrowRight className="h-4 w-4" />
           </ButtonLink>
-          <span className="text-[10.5px] text-muted">Free · simulated callers, no real telephony</span>
+          <span className="text-[10.5px] text-muted">
+            Free · simulated callers, no real telephony
+          </span>
         </div>
       </div>
     </section>

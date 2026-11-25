@@ -47,11 +47,21 @@ export function RecentActivity() {
       ) : (
         <>
           <div className="hidden grid-cols-[minmax(0,1.6fr)_110px_70px_86px_82px_16px] items-center gap-3 border-b border-line/70 bg-white/40 px-5 py-2 md:grid">
-            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Caller</span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Risk</span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Length</span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">Action</span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">When</span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+              Caller
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+              Risk
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+              Length
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+              Action
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted">
+              When
+            </span>
             <span />
           </div>
 

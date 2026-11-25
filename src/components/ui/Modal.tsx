@@ -80,7 +80,7 @@ export function Modal({
               "relative z-10 max-h-[92vh] w-full overflow-y-auto rounded-t-2xl border border-line bg-paper shadow-panel sm:rounded-xl",
               size === "sm" && "sm:max-w-md",
               size === "md" && "sm:max-w-lg",
-              size === "lg" && "sm:max-w-2xl"
+              size === "lg" && "sm:max-w-2xl",
             )}
           >
             {(title || !hideClose) && (
@@ -88,7 +88,9 @@ export function Modal({
                 <div>
                   {title && <h2 className="text-lg font-semibold text-ink">{title}</h2>}
                   {description && (
-                    <p className="mt-1 max-w-md text-[13px] leading-relaxed text-muted">{description}</p>
+                    <p className="mt-1 max-w-md text-[13px] leading-relaxed text-muted">
+                      {description}
+                    </p>
                   )}
                 </div>
                 {!hideClose && (
@@ -109,6 +111,6 @@ export function Modal({
         </div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }

@@ -11,7 +11,9 @@ if (!secret) throw new Error("AUTH_SECRET not found");
 const USER_ID = process.env.CALLSHIELD_USER_ID;
 const EMAIL = process.env.CALLSHIELD_EMAIL;
 if (!USER_ID || !EMAIL) {
-  throw new Error("Set CALLSHIELD_USER_ID and CALLSHIELD_EMAIL to a real Mongo user before running.");
+  throw new Error(
+    "Set CALLSHIELD_USER_ID and CALLSHIELD_EMAIL to a real Mongo user before running.",
+  );
 }
 const BASE = process.env.CALLSHIELD_URL || "http://localhost:3000";
 const SALT = "authjs.session-token";
@@ -39,7 +41,9 @@ console.log("1. Reset to seed:", r.status === 200 ? "OK" : JSON.stringify(r));
 
 // 2. Read state back
 r = await call("/api/user/state");
-console.log(`2. State after reset: authenticated=${r.body?.authenticated}, calls=${r.body?.calls?.length}, blocked=${r.body?.blocklist?.length}`);
+console.log(
+  `2. State after reset: authenticated=${r.body?.authenticated}, calls=${r.body?.calls?.length}, blocked=${r.body?.blocklist?.length}`,
+);
 
 // 3. Clear history (Settings → "Clear history")
 r = await call("/api/user/calls", { method: "DELETE" });

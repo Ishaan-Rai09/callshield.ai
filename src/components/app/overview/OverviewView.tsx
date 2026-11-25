@@ -17,7 +17,7 @@ export function OverviewView() {
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const attention = calls.filter(
-    (call) => call.riskLevel !== "low" && call.action === "ended"
+    (call) => call.riskLevel !== "low" && call.action === "ended",
   ).length;
 
   return (
@@ -27,9 +27,7 @@ export function OverviewView() {
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[9.5px] font-semibold uppercase tracking-[0.16em] text-muted">
             <span>Workspace overview</span>
             <span className="h-2.5 w-px bg-ink/15" />
-            <span>
-              {formatDate(new Date().toISOString())}
-            </span>
+            <span>{formatDate(new Date().toISOString())}</span>
             <span className="border border-line bg-paper px-1.5 py-0.5 text-[8.5px] tracking-[0.1em]">
               Simulated calls
             </span>

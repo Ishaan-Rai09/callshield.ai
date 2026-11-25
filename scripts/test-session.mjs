@@ -27,7 +27,7 @@ export async function createSessionToken({ uid, email, name = "CallShield Test" 
   const secret = process.env.AUTH_SECRET;
   if (!secret) {
     throw new Error(
-      "AUTH_SECRET is required. Set it in the environment or .env.local before running authenticated checks."
+      "AUTH_SECRET is required. Set it in the environment or .env.local before running authenticated checks.",
     );
   }
   return encode({

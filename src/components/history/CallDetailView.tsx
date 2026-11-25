@@ -55,14 +55,18 @@ export function CallDetailView({ id }: { id: string }) {
           icon={<History className="h-5 w-5" />}
           title="Call record not found"
           description="This call isn't in your account history. It may have been cleared, or it was saved on another device."
-          action={<ButtonLink href="/app/history" variant="outline">Back to call history</ButtonLink>}
+          action={
+            <ButtonLink href="/app/history" variant="outline">
+              Back to call history
+            </ButtonLink>
+          }
         />
       </div>
     );
   }
 
   const alreadyBlocked = blocklist.some(
-    (item) => normalize(item.number) === normalize(call.number)
+    (item) => normalize(item.number) === normalize(call.number),
   );
 
   function blockNumber() {
@@ -110,7 +114,9 @@ export function CallDetailView({ id }: { id: string }) {
               <span className="h-2.5 w-px bg-ink/15" />
               <span>{formatDuration(call.durationSec)}</span>
               <span className="h-2.5 w-px bg-ink/15" />
-              <span>{call.liveScreened ? "Screened by AI assistant" : "Declined before screening"}</span>
+              <span>
+                {call.liveScreened ? "Screened by AI assistant" : "Declined before screening"}
+              </span>
             </p>
           </div>
         </div>
@@ -171,19 +177,27 @@ export function CallDetailView({ id }: { id: string }) {
                   );
                 }
                 return (
-                  <div key={entry.id} className={cx("flex gap-2.5", !isAi && !isUser && "flex-row-reverse")}>
+                  <div
+                    key={entry.id}
+                    className={cx("flex gap-2.5", !isAi && !isUser && "flex-row-reverse")}
+                  >
                     <span
                       className={cx(
                         "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-[9px] font-semibold",
                         isAi && "border-signal/40 bg-signal/10 text-signal",
                         isUser && "border-ink bg-ink text-ivory",
-                        !isAi && !isUser && "border-line bg-ash text-ink/70"
+                        !isAi && !isUser && "border-line bg-ash text-ink/70",
                       )}
                     >
                       {isAi ? "AI" : isUser ? "You" : "?"}
                     </span>
                     <div className={cx("max-w-[85%]", !isAi && !isUser && "text-right")}>
-                      <div className={cx("mb-1 flex items-baseline gap-2", !isAi && !isUser && "justify-end")}>
+                      <div
+                        className={cx(
+                          "mb-1 flex items-baseline gap-2",
+                          !isAi && !isUser && "justify-end",
+                        )}
+                      >
                         <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-ink/70">
                           {speakerLabel[entry.speaker]}
                         </span>
@@ -196,7 +210,7 @@ export function CallDetailView({ id }: { id: string }) {
                           "rounded-lg border px-3 py-2.5 text-left text-[12px] leading-relaxed",
                           isAi && "rounded-tl-none border-line bg-white text-ink/80",
                           isUser && "rounded-tl-none border-ink/20 bg-signal/[0.08] text-ink/80",
-                          !isAi && !isUser && "rounded-tr-none border-line bg-ash/70 text-ink/75"
+                          !isAi && !isUser && "rounded-tr-none border-line bg-ash/70 text-ink/75",
                         )}
                       >
                         {entry.text}
@@ -263,7 +277,7 @@ export function CallDetailView({ id }: { id: string }) {
                           key={level}
                           className={cx(
                             "h-2.5 w-[2px]",
-                            level <= indicator.severity ? "bg-signal" : "bg-ink/10"
+                            level <= indicator.severity ? "bg-signal" : "bg-ink/10",
                           )}
                         />
                       ))}
@@ -310,9 +324,7 @@ export function CallDetailView({ id }: { id: string }) {
             <p className="mt-2 text-[11.5px] font-medium text-ink/75">
               {call.callerName ?? "Name not provided"}
             </p>
-            <p className="text-[10px] text-muted">
-              {call.claimedOrg ?? "No organisation claimed"}
-            </p>
+            <p className="text-[10px] text-muted">{call.claimedOrg ?? "No organisation claimed"}</p>
             <div className="mt-2.5 h-1 w-full overflow-hidden rounded-full bg-ink/[0.06]">
               <div
                 className="h-full bg-ink/50"
@@ -335,14 +347,17 @@ export function CallDetailView({ id }: { id: string }) {
               {call.events.map((event, index) => (
                 <div key={event.id} className="relative flex gap-3 pb-3.5 last:pb-0">
                   {index < call.events.length - 1 && (
-                    <span className="absolute left-[3px] top-2 h-full w-px bg-line" aria-hidden="true" />
+                    <span
+                      className="absolute left-[3px] top-2 h-full w-px bg-line"
+                      aria-hidden="true"
+                    />
                   )}
                   <span
                     className={cx(
                       "relative mt-1 h-[7px] w-[7px] shrink-0 rounded-full",
                       event.tone === "signal" && "bg-signal",
                       event.tone === "positive" && "bg-ink",
-                      (!event.tone || event.tone === "neutral") && "border border-ink/30 bg-paper"
+                      (!event.tone || event.tone === "neutral") && "border border-ink/30 bg-paper",
                     )}
                   />
                   <div className="min-w-0">

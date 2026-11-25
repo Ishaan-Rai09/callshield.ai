@@ -37,11 +37,11 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(8px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "sheen": {
+        sheen: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(220%)" },
         },
-        "caret": {
+        caret: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0" },
         },

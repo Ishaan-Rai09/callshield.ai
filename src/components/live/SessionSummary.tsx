@@ -131,8 +131,8 @@ export function SessionSummary({
               {session.outcome === "blocked"
                 ? "This number is on your blocklist. You can remove it at any time, and the full transcript is available in call history."
                 : session.outcome === "allowed"
-                ? "The caller is marked as trusted for this simulation. Their transcript and your decision are saved."
-                : "The report is saved. Nothing was shared with the caller by the assistant, and every decision can be revisited."}
+                  ? "The caller is marked as trusted for this simulation. Their transcript and your decision are saved."
+                  : "The report is saved. Nothing was shared with the caller by the assistant, and every decision can be revisited."}
             </p>
 
             <div className="mt-4 space-y-2">

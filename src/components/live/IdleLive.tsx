@@ -1,6 +1,13 @@
 "use client";
 
-import { AlertTriangle, ArrowRight, Bot, MessageSquareText, PhoneIncoming, Radar } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Bot,
+  MessageSquareText,
+  PhoneIncoming,
+  Radar,
+} from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { RiskBadge } from "@/components/ui/RiskBadge";
@@ -50,7 +57,10 @@ export function IdleLive({ onOpenPicker }: { onOpenPicker: () => void }) {
 
       <div className="mt-5 grid gap-4 lg:grid-cols-[1.55fr_1fr]">
         <section className="relative overflow-hidden rounded-xl bg-ink p-6 text-ivory sm:p-8">
-          <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-24 h-[340px] w-[340px]">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-20 -top-24 h-[340px] w-[340px]"
+          >
             <span className="absolute inset-0 rounded-full border border-white/[0.07]" />
             <span className="absolute inset-12 rounded-full border border-white/[0.06]" />
             <span className="absolute inset-24 rounded-full border border-white/[0.05]" />
@@ -158,7 +168,7 @@ export function IdleLive({ onOpenPicker }: { onOpenPicker: () => void }) {
                 </span>
                 <span
                   className={cx(
-                    "inline-flex items-center gap-1 text-[10px] font-medium text-ink/70 transition-colors group-hover:text-ink"
+                    "inline-flex items-center gap-1 text-[10px] font-medium text-ink/70 transition-colors group-hover:text-ink",
                   )}
                 >
                   Start

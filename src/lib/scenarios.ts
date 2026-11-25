@@ -12,7 +12,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "dental-confirmation",
     name: "Appointment confirmation",
-    blurb: "A dental clinic confirming tomorrow's appointment. A good test of the assistant's normal-enquiry handling.",
+    blurb:
+      "A dental clinic confirming tomorrow's appointment. A good test of the assistant's normal-enquiry handling.",
     number: "+91 80 4120 7781",
     callerName: "Priya Nair",
     claimedOrg: "Bright Lane Dental",
@@ -30,20 +31,23 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Hi, good afternoon. This is Priya Nair from Bright Lane Dental. I'm calling to confirm your appointment booked for tomorrow at 4:30.",
-        hinglish: "Hi, good afternoon. Main Priya Nair bol rahi hoon Bright Lane Dental se. Aapki kal 4:30 wali appointment confirm karni thi.",
+        hinglish:
+          "Hi, good afternoon. Main Priya Nair bol rahi hoon Bright Lane Dental se. Aapki kal 4:30 wali appointment confirm karni thi.",
         identityConfidence: 74,
       },
       {
         at: 7,
         speaker: "ai",
         text: "Thanks, Priya. Could you confirm the appointment reference and the name the booking is under?",
-        hinglish: "Thank you Priya. Appointment reference number aur booking kis naam par hai, woh confirm kar sakti hain?",
+        hinglish:
+          "Thank you Priya. Appointment reference number aur booking kis naam par hai, woh confirm kar sakti hain?",
       },
       {
         at: 12,
         speaker: "caller",
         text: "Of course. The reference is BL-2041, booked last Tuesday. We also sent an email confirmation this morning.",
-        hinglish: "Haan bilkul. Reference hai BL-2041, pichle Tuesday book hua tha. Aaj subah email confirmation bhi bheja hai.",
+        hinglish:
+          "Haan bilkul. Reference hai BL-2041, pichle Tuesday book hua tha. Aaj subah email confirmation bhi bheja hai.",
         infoRequested: ["Appointment reference"],
         identityConfidence: 84,
       },
@@ -51,13 +55,15 @@ export const SCENARIOS: Scenario[] = [
         at: 17,
         speaker: "ai",
         text: "That matches something I can pass along. Is there anything you need from the account holder right now?",
-        hinglish: "Yeh details match kar rahi hain, main aage pass kar dungi. Kuch aur chahiye account holder se abhi?",
+        hinglish:
+          "Yeh details match kar rahi hain, main aage pass kar dungi. Kuch aur chahiye account holder se abhi?",
       },
       {
         at: 21,
         speaker: "caller",
         text: "No, just a yes or a no would help. If tomorrow doesn't work, we can reschedule by email.",
-        hinglish: "Nahi, bas haan ya na mein bata dijiye. Agar kal time nahi hai toh email par reschedule kar sakte hain.",
+        hinglish:
+          "Nahi, bas haan ya na mein bata dijiye. Agar kal time nahi hai toh email par reschedule kar sakte hain.",
         identityConfidence: 88,
       },
       {
@@ -77,7 +83,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "bank-impersonation",
     name: "Bank impersonation scam",
-    blurb: "A caller claims to be a fraud officer and asks for card details and an OTP to 'stop a pending debit'.",
+    blurb:
+      "A caller claims to be a fraud officer and asks for card details and an OTP to 'stop a pending debit'.",
     number: "+91 80 4712 9931",
     callerName: "Rahul Mehta (claimed)",
     claimedOrg: "Northbridge Bank (claimed)",
@@ -95,20 +102,23 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Good afternoon. I'm calling from Northbridge Bank's fraud prevention desk. Am I speaking with the account holder?",
-        hinglish: "Good afternoon, main Northbridge Bank ke fraud prevention desk se bol raha hoon. Kya main account holder se baat kar raha hoon?",
+        hinglish:
+          "Good afternoon, main Northbridge Bank ke fraud prevention desk se bol raha hoon. Kya main account holder se baat kar raha hoon?",
         identityConfidence: 52,
       },
       {
         at: 8,
         speaker: "ai",
         text: "This is the call assistant speaking on behalf of the account holder. May I take your name, your department, and the purpose of this call?",
-        hinglish: "Main account holder ki taraf se call assistant bol raha hoon. Aapka naam, department, aur call ka purpose bataiye?",
+        hinglish:
+          "Main account holder ki taraf se call assistant bol raha hoon. Aapka naam, department, aur call ka purpose bataiye?",
       },
       {
         at: 13,
         speaker: "caller",
         text: "Rahul Mehta, senior fraud officer. We've flagged a debit of ₹48,500 from an unrecognised device. I need to verify identity to stop it.",
-        hinglish: "Rahul Mehta, senior fraud officer. Aapke account se ₹48,500 ka debit ek unknown device se hua hai. Rokna hai toh identity verify karni padegi.",
+        hinglish:
+          "Rahul Mehta, senior fraud officer. Aapke account se ₹48,500 ka debit ek unknown device se hua hai. Rokna hai toh identity verify karni padegi.",
         reveals: ["institution_impersonation"],
         intentKey: "bank_impersonation",
         identityConfidence: 46,
@@ -123,7 +133,8 @@ export const SCENARIOS: Scenario[] = [
         at: 22,
         speaker: "caller",
         text: "The 16-digit card number and the OTP that's being sent now. Read both back to me and I'll cancel the transaction.",
-        hinglish: "16-digit card number aur jo OTP abhi bheja ja raha hai woh bhi. Dono mujhe bata dijiye, main transaction cancel kar dunga.",
+        hinglish:
+          "16-digit card number aur jo OTP abhi bheja ja raha hai woh bhi. Dono mujhe bata dijiye, main transaction cancel kar dunga.",
         reveals: ["banking_credentials", "otp_request"],
         infoRequested: ["16-digit card number", "One-time password (OTP)"],
         identityConfidence: 40,
@@ -132,13 +143,15 @@ export const SCENARIOS: Scenario[] = [
         at: 28,
         speaker: "ai",
         text: "The assistant can't share card details or one-time codes on an unverified call. Is there a case reference for this fraud alert?",
-        hinglish: "Main unverified call par card details ya OTP share nahi kar sakta. Is fraud alert ka koi case reference hai?",
+        hinglish:
+          "Main unverified call par card details ya OTP share nahi kar sakta. Is fraud alert ka koi case reference hai?",
       },
       {
         at: 33,
         speaker: "caller",
         text: "There's no case number yet — it's generated after verification. If this isn't done in ten minutes the account will be suspended and the funds may be gone.",
-        hinglish: "Abhi case number nahi banta, verification ke baad banta hai. Dus minute mein nahi kiya toh account suspend ho jayega aur paise ja sakte hain!",
+        hinglish:
+          "Abhi case number nahi banta, verification ke baad banta hai. Dus minute mein nahi kiya toh account suspend ho jayega aur paise ja sakte hain!",
         reveals: ["account_suspension", "pressure_tactics"],
         identityConfidence: 34,
       },
@@ -146,13 +159,15 @@ export const SCENARIOS: Scenario[] = [
         at: 39,
         speaker: "ai",
         text: "I understand the urgency. The account holder can call the number printed on their card to verify this independently.",
-        hinglish: "Aapki baat samajh raha hoon, lekin account holder card ke peeche likhe official number par khud call karke verify kar sakte hain.",
+        hinglish:
+          "Aapki baat samajh raha hoon, lekin account holder card ke peeche likhe official number par khud call karke verify kar sakte hain.",
       },
       {
         at: 44,
         speaker: "caller",
         text: "That will take too long. I can stay on the line, but you need to read the OTP now. Please don't hang up.",
-        hinglish: "Usme bahut time lagega! Main line par hoon, bas OTP abhi read kar dijiye. Phone mat kaatiye please.",
+        hinglish:
+          "Usme bahut time lagega! Main line par hoon, bas OTP abhi read kar dijiye. Phone mat kaatiye please.",
         reveals: ["pressure_tactics"],
         identityConfidence: 30,
       },
@@ -160,7 +175,8 @@ export const SCENARIOS: Scenario[] = [
         at: 49,
         speaker: "ai",
         text: "I won't be sharing any codes. I'll note this request and end the screening here.",
-        hinglish: "Main koi code share nahi karungi. Yeh request note karke screening yahin khatam karti hoon.",
+        hinglish:
+          "Main koi code share nahi karungi. Yeh request note karke screening yahin khatam karti hoon.",
       },
       {
         at: 52,
@@ -173,7 +189,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "kyc-expiry",
     name: "Fake KYC verification",
-    blurb: "A 'compliance team' threatens to disconnect the number unless identity documents and an OTP are shared.",
+    blurb:
+      "A 'compliance team' threatens to disconnect the number unless identity documents and an OTP are shared.",
     number: "+91 99714 22086",
     callerName: "Arjun (claimed)",
     claimedOrg: "TeleLink Mobile (claimed)",
@@ -191,20 +208,23 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Hello, this is TeleLink Mobile compliance. Your KYC verification expired yesterday and your number is scheduled for disconnection tonight.",
-        hinglish: "Hello, main TeleLink Mobile compliance se bol raha hoon. Aapka KYC kal expire ho gaya hai aur aaj raat number disconnect hone wala hai.",
+        hinglish:
+          "Hello, main TeleLink Mobile compliance se bol raha hoon. Aapka KYC kal expire ho gaya hai aur aaj raat number disconnect hone wala hai.",
         identityConfidence: 44,
       },
       {
         at: 9,
         speaker: "ai",
         text: "Thanks for calling. Can you share your name, employee ID, and the reference for this disconnection notice?",
-        hinglish: "Call karne ke liye dhanyavaad. Aapka naam, employee ID, aur is disconnection notice ka reference bataiye?",
+        hinglish:
+          "Call karne ke liye dhanyavaad. Aapka naam, employee ID, aur is disconnection notice ka reference bataiye?",
       },
       {
         at: 14,
         speaker: "caller",
         text: "I'm not supposed to give my ID, but my name is Arjun. There's no reference — it's an automated compliance queue. We can fix it in two minutes.",
-        hinglish: "ID deni allowed nahi hai, par mera naam Arjun hai. Reference nahi hota, yeh automatic compliance queue hai. Do minute mein fix ho jayega.",
+        hinglish:
+          "ID deni allowed nahi hai, par mera naam Arjun hai. Reference nahi hota, yeh automatic compliance queue hai. Do minute mein fix ho jayega.",
         reveals: ["vague_identity"],
         identityConfidence: 28,
       },
@@ -218,22 +238,29 @@ export const SCENARIOS: Scenario[] = [
         at: 24,
         speaker: "caller",
         text: "Just your Aadhaar number and the OTP I'll trigger. If the OTP fails, install QuickAssist so I can check your screen.",
-        hinglish: "Bas Aadhaar number aur OTP chahiye jo main trigger karunga. OTP fail hua toh QuickAssist install kar dijiye, main screen check kar lunga.",
+        hinglish:
+          "Bas Aadhaar number aur OTP chahiye jo main trigger karunga. OTP fail hua toh QuickAssist install kar dijiye, main screen check kar lunga.",
         reveals: ["otp_request", "remote_access"],
-        infoRequested: ["Aadhaar number", "One-time password (OTP)", "Remote access app: QuickAssist"],
+        infoRequested: [
+          "Aadhaar number",
+          "One-time password (OTP)",
+          "Remote access app: QuickAssist",
+        ],
         identityConfidence: 24,
       },
       {
         at: 30,
         speaker: "ai",
         text: "The assistant can't share identity numbers, one-time codes, or install remote-access tools. Is there an official number the account holder can call?",
-        hinglish: "Main identity numbers, OTP, ya remote-access app install nahi kar sakta. Koi official number hai jahan account holder khud call kar sake?",
+        hinglish:
+          "Main identity numbers, OTP, ya remote-access app install nahi kar sakta. Koi official number hai jahan account holder khud call kar sake?",
       },
       {
         at: 35,
         speaker: "caller",
         text: "If you hang up, the number is gone by midnight. This is your last chance to keep it active.",
-        hinglish: "Phone katate hi aadhi raat tak number gaya! Active rakhne ka yeh aakhri mauka hai.",
+        hinglish:
+          "Phone katate hi aadhi raat tak number gaya! Active rakhne ka yeh aakhri mauka hai.",
         reveals: ["account_suspension", "pressure_tactics"],
         identityConfidence: 22,
       },
@@ -241,7 +268,8 @@ export const SCENARIOS: Scenario[] = [
         at: 40,
         speaker: "ai",
         text: "I'll record that warning. The account holder will verify through the official app instead.",
-        hinglish: "Yeh warning main note kar raha hoon. Account holder official app se hi verification karenge.",
+        hinglish:
+          "Yeh warning main note kar raha hoon. Account holder official app se hi verification karenge.",
       },
       {
         at: 44,
@@ -254,7 +282,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "delivery-fee",
     name: "Fake delivery payment",
-    blurb: "A courier asks for a small redelivery fee through a link, then pushes for a UPI approval before it 'expires'.",
+    blurb:
+      "A courier asks for a small redelivery fee through a link, then pushes for a UPI approval before it 'expires'.",
     number: "+91 90045 11872",
     callerName: "Ravi (claimed)",
     claimedOrg: "SwiftShip Couriers (claimed)",
@@ -272,7 +301,8 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Hi, this is SwiftShip Couriers. We have a parcel for you but it's on hold because of an unpaid redelivery charge.",
-        hinglish: "Hi, SwiftShip Couriers se bol raha hoon. Aapka ek parcel aaya hai, par redelivery charge unpaid hai isliye hold par hai.",
+        hinglish:
+          "Hi, SwiftShip Couriers se bol raha hoon. Aapka ek parcel aaya hai, par redelivery charge unpaid hai isliye hold par hai.",
         identityConfidence: 38,
       },
       {
@@ -285,7 +315,8 @@ export const SCENARIOS: Scenario[] = [
         at: 13,
         speaker: "caller",
         text: "I'm Ravi from the local hub. Tracking is QS-8841. The charge is ₹35. I can send a payment link on WhatsApp right now.",
-        hinglish: "Main Ravi, local hub se. Tracking QS-8841 hai. Charge sirf ₹35 hai — WhatsApp par payment link bhej deta hoon abhi.",
+        hinglish:
+          "Main Ravi, local hub se. Tracking QS-8841 hai. Charge sirf ₹35 hai — WhatsApp par payment link bhej deta hoon abhi.",
         reveals: ["link_click"],
         infoRequested: ["₹35 redelivery fee", "Payment link"],
         identityConfidence: 33,
@@ -300,7 +331,8 @@ export const SCENARIOS: Scenario[] = [
         at: 23,
         speaker: "caller",
         text: "It's a reattempt fee — the driver came twice. If it's not paid in the next hour the parcel goes back to the sender.",
-        hinglish: "Yeh reattempt fee hai, driver do baar aaya tha. Ek ghante mein pay nahi hua toh parcel sender ke paas wapas chala jayega.",
+        hinglish:
+          "Yeh reattempt fee hai, driver do baar aaya tha. Ek ghante mein pay nahi hua toh parcel sender ke paas wapas chala jayega.",
         reveals: ["urgent_payment", "pressure_tactics"],
         identityConfidence: 29,
       },
@@ -308,13 +340,15 @@ export const SCENARIOS: Scenario[] = [
         at: 29,
         speaker: "ai",
         text: "The assistant can't open payment links on an unverified call. Can you confirm the sender's name and the delivery address?",
-        hinglish: "Main unverified call par payment link open nahi kar sakta. Sender ka naam aur delivery address confirm kar sakte hain?",
+        hinglish:
+          "Main unverified call par payment link open nahi kar sakta. Sender ka naam aur delivery address confirm kar sakte hain?",
       },
       {
         at: 34,
         speaker: "caller",
         text: "I can't see the sender details on my screen. Just approve the UPI collect request when it arrives — it expires soon.",
-        hinglish: "Sender details screen par nahi dikh rahi. Bas UPI collect request aaye toh approve kar dijiye — expire ho rahi hai!",
+        hinglish:
+          "Sender details screen par nahi dikh rahi. Bas UPI collect request aaye toh approve kar dijiye — expire ho rahi hai!",
         reveals: ["urgent_payment"],
         infoRequested: ["UPI collect approval"],
         identityConfidence: 24,
@@ -323,7 +357,8 @@ export const SCENARIOS: Scenario[] = [
         at: 39,
         speaker: "ai",
         text: "I'll pass this on without making a payment. The account holder can track the parcel in the official app.",
-        hinglish: "Bina payment kiye yeh main aage bhej raha hoon. Account holder official app se parcel track kar sakte hain.",
+        hinglish:
+          "Bina payment kiye yeh main aage bhej raha hoon. Account holder official app se parcel track kar sakte hain.",
       },
       {
         at: 42,
@@ -336,7 +371,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "prize-claim",
     name: "Lottery / prize scam",
-    blurb: "A 'rewards centre' claims a ₹12.5 lakh win and asks for a processing fee by gift card before the offer expires.",
+    blurb:
+      "A 'rewards centre' claims a ₹12.5 lakh win and asks for a processing fee by gift card before the offer expires.",
     number: "+91 88267 45019",
     callerName: "Vikram (claimed)",
     claimedOrg: "National Reward Centre (claimed)",
@@ -354,7 +390,8 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Congratulations! I'm calling from the National Reward Centre. Your mobile number has won ₹12,50,000 in our annual draw.",
-        hinglish: "Congratulations! Main National Reward Centre se bol raha hoon. Aapka mobile number hamare annual draw mein ₹12,50,000 jeeta hai!",
+        hinglish:
+          "Congratulations! Main National Reward Centre se bol raha hoon. Aapka mobile number hamare annual draw mein ₹12,50,000 jeeta hai!",
         reveals: ["unrealistic_reward"],
         identityConfidence: 24,
       },
@@ -362,13 +399,15 @@ export const SCENARIOS: Scenario[] = [
         at: 9,
         speaker: "ai",
         text: "The account holder didn't enter a draw. Could you share your name, organisation registration, and the claim reference?",
-        hinglish: "Account holder ne kisi draw mein entry nahi daali. Aapka naam, organisation registration, aur claim reference bataiye?",
+        hinglish:
+          "Account holder ne kisi draw mein entry nahi daali. Aapka naam, organisation registration, aur claim reference bataiye?",
       },
       {
         at: 14,
         speaker: "caller",
         text: "My name is Vikram from the claims team. The reference is NR-77219. The draw is automatic for all numbers, so no entry was needed.",
-        hinglish: "Mera naam Vikram hai, claims team se. Reference NR-77219 hai. Yeh draw sab numbers ke liye automatic hai, entry ki zaroorat nahi.",
+        hinglish:
+          "Mera naam Vikram hai, claims team se. Reference NR-77219 hai. Yeh draw sab numbers ke liye automatic hai, entry ki zaroorat nahi.",
         reveals: ["vague_identity", "institution_impersonation"],
         identityConfidence: 18,
       },
@@ -382,7 +421,8 @@ export const SCENARIOS: Scenario[] = [
         at: 24,
         speaker: "caller",
         text: "The processing fee is ₹4,999, payable by gift card or UPI. Once that's cleared the amount is transferred within an hour.",
-        hinglish: "Processing fee ₹4,999 hai — gift card ya UPI se de sakte hain. Yeh clear hote hi ek ghante mein pura amount transfer ho jayega.",
+        hinglish:
+          "Processing fee ₹4,999 hai — gift card ya UPI se de sakte hain. Yeh clear hote hi ek ghante mein pura amount transfer ho jayega.",
         reveals: ["urgent_payment"],
         infoRequested: ["₹4,999 processing fee", "Gift card code"],
         identityConfidence: 16,
@@ -397,7 +437,8 @@ export const SCENARIOS: Scenario[] = [
         at: 34,
         speaker: "caller",
         text: "Tax and processing. This is standard. Please keep the call confidential until the transfer is complete — otherwise the claim is void.",
-        hinglish: "Tax aur processing ka hai, standard procedure. Transfer hone tak call confidential rakhna — warna claim void ho jayega!",
+        hinglish:
+          "Tax aur processing ka hai, standard procedure. Transfer hone tak call confidential rakhna — warna claim void ho jayega!",
         reveals: ["secrecy_request", "pressure_tactics"],
         identityConfidence: 15,
       },
@@ -405,7 +446,8 @@ export const SCENARIOS: Scenario[] = [
         at: 40,
         speaker: "ai",
         text: "The assistant won't arrange a payment for an unverified prize. The account holder can verify through official channels.",
-        hinglish: "Main unverified prize ke liye payment arrange nahi karunga. Account holder official channels se verify kar sakte hain.",
+        hinglish:
+          "Main unverified prize ke liye payment arrange nahi karunga. Account holder official channels se verify kar sakte hain.",
       },
       {
         at: 44,
@@ -418,7 +460,8 @@ export const SCENARIOS: Scenario[] = [
   {
     id: "investment-offer",
     name: "Suspicious investment offer",
-    blurb: "A 'private allocation' promising 40% guaranteed returns needs a ₹50,000 transfer today, before documents are shared.",
+    blurb:
+      "A 'private allocation' promising 40% guaranteed returns needs a ₹50,000 transfer today, before documents are shared.",
     number: "+91 70219 33428",
     callerName: "Kabir Sethi (claimed)",
     claimedOrg: "Vertex Capital Advisors (claimed)",
@@ -436,20 +479,23 @@ export const SCENARIOS: Scenario[] = [
         at: 3,
         speaker: "caller",
         text: "Hello, I'm Kabir from Vertex Capital Advisors. I'm calling about a private investment allocation that's opening today.",
-        hinglish: "Hello, main Kabir bol raha hoon Vertex Capital Advisors se. Aaj ek private investment allocation khul raha hai, usi ke baare mein call kiya hai.",
+        hinglish:
+          "Hello, main Kabir bol raha hoon Vertex Capital Advisors se. Aaj ek private investment allocation khul raha hai, usi ke baare mein call kiya hai.",
         identityConfidence: 40,
       },
       {
         at: 8,
         speaker: "ai",
         text: "Could you share your full name, firm registration, and how you obtained this number?",
-        hinglish: "Aapka full name, firm registration, aur yeh number kaise mila — yeh bata sakte hain?",
+        hinglish:
+          "Aapka full name, firm registration, aur yeh number kaise mila — yeh bata sakte hain?",
       },
       {
         at: 13,
         speaker: "caller",
         text: "Kabir Sethi. We're a registered advisory. Your number came from a partner database. The allocation is a 40% guaranteed return in 60 days.",
-        hinglish: "Kabir Sethi. Hum registered advisory hain. Number partner database se mila. 60 din mein 40% guaranteed return ka allocation hai.",
+        hinglish:
+          "Kabir Sethi. Hum registered advisory hain. Number partner database se mila. 60 din mein 40% guaranteed return ka allocation hai.",
         reveals: ["unrealistic_reward", "vague_identity"],
         identityConfidence: 30,
       },
@@ -457,13 +503,15 @@ export const SCENARIOS: Scenario[] = [
         at: 19,
         speaker: "ai",
         text: "Guaranteed returns are unusual. What is the minimum investment, and who holds the funds?",
-        hinglish: "Guaranteed return bahut unusual hai. Minimum investment kitna hai, aur funds kis ke paas rehte hain?",
+        hinglish:
+          "Guaranteed return bahut unusual hai. Minimum investment kitna hai, aur funds kis ke paas rehte hain?",
       },
       {
         at: 24,
         speaker: "caller",
         text: "Minimum is ₹50,000. You transfer to our collection account and we handle the rest. Slots close once the book is full.",
-        hinglish: "Minimum ₹50,000 hai. Hamare collection account mein transfer kar dijiye, baaki hum sambhal lenge. Book full hote hi slots band.",
+        hinglish:
+          "Minimum ₹50,000 hai. Hamare collection account mein transfer kar dijiye, baaki hum sambhal lenge. Book full hote hi slots band.",
         reveals: ["urgent_payment", "pressure_tactics"],
         infoRequested: ["₹50,000 transfer", "Bank account details"],
         identityConfidence: 28,
@@ -478,7 +526,8 @@ export const SCENARIOS: Scenario[] = [
         at: 34,
         speaker: "caller",
         text: "The prospectus is only for confirmed investors. I can share it on WhatsApp after the first transfer. You'll need to act today — three slots left.",
-        hinglish: "Prospectus sirf confirmed investors ke liye hai. Pehle transfer ke baad WhatsApp par bhej dunga. Aaj hi karna padega — sirf teen slots bachi hain!",
+        hinglish:
+          "Prospectus sirf confirmed investors ke liye hai. Pehle transfer ke baad WhatsApp par bhej dunga. Aaj hi karna padega — sirf teen slots bachi hain!",
         reveals: ["pressure_tactics"],
         identityConfidence: 25,
       },
@@ -486,13 +535,15 @@ export const SCENARIOS: Scenario[] = [
         at: 39,
         speaker: "ai",
         text: "The assistant won't arrange a transfer without verifiable documents. The account holder can review this independently.",
-        hinglish: "Bina verify hue documents ke main transfer arrange nahi karunga. Account holder yeh sab khud review kar sakte hain.",
+        hinglish:
+          "Bina verify hue documents ke main transfer arrange nahi karunga. Account holder yeh sab khud review kar sakte hain.",
       },
       {
         at: 43,
         speaker: "caller",
         text: "By the time you verify, the allocation will be gone. This is a private window, not a public fund.",
-        hinglish: "Aap verify hote hote allocation khatam ho jayega! Yeh private window hai, koi public fund nahi.",
+        hinglish:
+          "Aap verify hote hote allocation khatam ho jayega! Yeh private window hai, koi public fund nahi.",
       },
     ],
   },
@@ -506,7 +557,7 @@ export function applyHinglish(scenario: Scenario): Scenario {
   return {
     ...scenario,
     script: scenario.script.map((step) =>
-      step.hinglish ? { ...step, text: step.hinglish } : step
+      step.hinglish ? { ...step, text: step.hinglish } : step,
     ),
   };
 }

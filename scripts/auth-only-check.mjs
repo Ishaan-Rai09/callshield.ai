@@ -30,7 +30,9 @@ const USER_ID = process.env.CALLSHIELD_USER_ID;
 const EMAIL = process.env.CALLSHIELD_EMAIL;
 const secret = process.env.AUTH_SECRET;
 if (!USER_ID || !EMAIL) {
-  throw new Error("Set CALLSHIELD_USER_ID and CALLSHIELD_EMAIL to a real Mongo user for this check.");
+  throw new Error(
+    "Set CALLSHIELD_USER_ID and CALLSHIELD_EMAIL to a real Mongo user for this check.",
+  );
 }
 if (!secret) throw new Error("AUTH_SECRET not found in .env.local");
 

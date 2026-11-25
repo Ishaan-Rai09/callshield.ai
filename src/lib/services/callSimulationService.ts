@@ -42,7 +42,11 @@ const ACTION_DETAIL: Record<CallAction, string> = {
   declined: "The call was declined before the assistant answered.",
 };
 
-function baseEvent(label: string, detail: string, tone: TimelineEvent["tone"] = "neutral"): TimelineEvent {
+function baseEvent(
+  label: string,
+  detail: string,
+  tone: TimelineEvent["tone"] = "neutral",
+): TimelineEvent {
   return { id: uid("evt"), at: new Date().toISOString(), label, detail, tone };
 }
 
@@ -69,7 +73,9 @@ export const callSimulationService = {
       riskLevel: "low",
       riskScore: 0,
       summary: "Waiting for the assistant to answer.",
-      events: [baseEvent("Incoming call received", `Unknown caller ${scenario.number} is calling.`)],
+      events: [
+        baseEvent("Incoming call received", `Unknown caller ${scenario.number} is calling.`),
+      ],
       activity: [],
       outcome: null,
     };
@@ -84,12 +90,24 @@ export const callSimulationService = {
       transcript: [conversationService.greetingLine(settings, 0)],
       events: [
         ...session.events,
-        { id: uid("evt"), at: now, label: "AI answered", detail: "The assistant introduced itself and asked who is calling.", tone: "neutral" },
+        {
+          id: uid("evt"),
+          at: now,
+          label: "AI answered",
+          detail: "The assistant introduced itself and asked who is calling.",
+          tone: "neutral",
+        },
       ],
       activity: [
-        { id: uid("act"), kind: "info", title: "AI screening started", detail: "The assistant is asking for the caller's name and purpose." },
+        {
+          id: uid("act"),
+          kind: "info",
+          title: "AI screening started",
+          detail: "The assistant is asking for the caller's name and purpose.",
+        },
       ],
-      summary: "The assistant is establishing who is calling. No suspicious signals have been detected yet.",
+      summary:
+        "The assistant is establishing who is calling. No suspicious signals have been detected yet.",
     };
   },
 
@@ -97,7 +115,7 @@ export const callSimulationService = {
     session: LiveSession,
     scenario: Scenario,
     elapsed: number,
-    maxSteps = Number.POSITIVE_INFINITY
+    maxSteps = Number.POSITIVE_INFINITY,
   ): LiveSession {
     if (session.phase !== "screening" && session.phase !== "user") return session;
     if (elapsed === session.elapsedSec) return session;
@@ -154,7 +172,8 @@ export const callSimulationService = {
       }
       if (step.infoRequested) {
         for (const item of step.infoRequested) {
-          if (!next.infoRequested.includes(item)) next.infoRequested = [...next.infoRequested, item];
+          if (!next.infoRequested.includes(item))
+            next.infoRequested = [...next.infoRequested, item];
         }
       }
       if (step.intentKey) intentKey = step.intentKey;
@@ -172,7 +191,7 @@ export const callSimulationService = {
     next.summary = riskAnalysisService.draftSummary(
       scenario,
       next.revealedIndicators,
-      next.infoRequested
+      next.infoRequested,
     );
 
     if (newIndicators.length > 0) {
@@ -189,14 +208,18 @@ export const callSimulationService = {
     }
 
     const lastAt = scenario.script[scenario.script.length - 1]?.at ?? 0;
-    if (elapsed >= lastAt && !session.events.some((event) => event.label === "Screening complete")) {
+    if (
+      elapsed >= lastAt &&
+      !session.events.some((event) => event.label === "Screening complete")
+    ) {
       next.events = [
         ...next.events,
         {
           id: uid("evt"),
           at: new Date().toISOString(),
           label: "Screening complete",
-          detail: "The scripted conversation has finished. The account holder can decide what happens next.",
+          detail:
+            "The scripted conversation has finished. The account holder can decide what happens next.",
           tone: "neutral",
         },
       ];
@@ -222,7 +245,10 @@ export const callSimulationService = {
       userTookOver: true,
       transcript: [
         ...session.transcript,
-        conversationService.systemLine("You joined the call. The AI assistant is listening and taking notes.", at),
+        conversationService.systemLine(
+          "You joined the call. The AI assistant is listening and taking notes.",
+          at,
+        ),
       ],
       events: [
         ...session.events,
@@ -236,16 +262,17 @@ export const callSimulationService = {
       ],
       activity: [
         ...session.activity,
-        { id: uid("act"), kind: "info", title: "You are handling this call", detail: "Type a reply below to continue the conversation." },
+        {
+          id: uid("act"),
+          kind: "info",
+          title: "You are handling this call",
+          detail: "Type a reply below to continue the conversation.",
+        },
       ],
     };
   },
 
-  speakAsUser(
-    session: LiveSession,
-    text: string,
-    scenario?: Scenario
-  ): LiveSession {
+  speakAsUser(session: LiveSession, text: string, scenario?: Scenario): LiveSession {
     const at = session.elapsedSec;
     const next: LiveSession = {
       ...session,
@@ -259,7 +286,7 @@ export const callSimulationService = {
     // is exhausted), so take-over mode stays a real back-and-forth.
     const cursor = session.scriptCursor;
     const callerIndex = scenario.script.findIndex(
-      (step, index) => index >= cursor && step.speaker === "caller"
+      (step, index) => index >= cursor && step.speaker === "caller",
     );
 
     if (callerIndex >= 0) {
@@ -277,11 +304,13 @@ export const callSimulationService = {
       }
       if (step.infoRequested) {
         for (const item of step.infoRequested) {
-          if (!next.infoRequested.includes(item)) next.infoRequested = [...next.infoRequested, item];
+          if (!next.infoRequested.includes(item))
+            next.infoRequested = [...next.infoRequested, item];
         }
       }
       if (step.intentKey) next.intentKey = step.intentKey;
-      if (typeof step.identityConfidence === "number") next.identityConfidence = step.identityConfidence;
+      if (typeof step.identityConfidence === "number")
+        next.identityConfidence = step.identityConfidence;
     } else {
       const pool = session.hinglish ? CALLER_FALLBACKS_HINGLISH : CALLER_FALLBACKS;
       const fallback = pool[session.transcript.length % pool.length];
@@ -297,17 +326,14 @@ export const callSimulationService = {
     next.summary = riskAnalysisService.draftSummary(
       scenario,
       next.revealedIndicators,
-      next.infoRequested
+      next.infoRequested,
     );
     return next;
   },
 
-  finalize(
-    session: LiveSession,
-    scenario: Scenario,
-    action: CallAction
-  ): CallRecord {
-    const untouched = session.phase === "ringing" || (action === "declined" && !session.answeredByAI);
+  finalize(session: LiveSession, scenario: Scenario, action: CallAction): CallRecord {
+    const untouched =
+      session.phase === "ringing" || (action === "declined" && !session.answeredByAI);
     const indicators = untouched ? [] : toIndicators(session.revealedIndicators);
     const assessment = untouched ? null : assessRisk(session.revealedIndicators);
     const completedScript = session.scriptCursor >= scenario.script.length;
@@ -318,7 +344,7 @@ export const callSimulationService = {
         : `${riskAnalysisService.draftSummary(
             scenario,
             session.revealedIndicators,
-            session.infoRequested
+            session.infoRequested,
           )} The account holder ended the screening before the full scripted conversation was reached.`;
 
     return {

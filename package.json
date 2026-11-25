@@ -8,7 +8,9 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "node --import tsx --test tests/unit/audio.test.ts tests/unit/rateLimit.test.ts tests/unit/http.test.ts tests/unit/validate.test.ts tests/unit/gnani.test.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node --import tsx --test \"tests/unit/*.test.ts\"",
     "test:demo": "node scripts/demo-check.mjs",
     "test:smoke": "node scripts/smoke-check.mjs",
     "test:a11y": "node scripts/a11y-check.mjs",
@@ -36,6 +38,7 @@
     "eslint-config-next": "^15.5.29",
     "playwright": "^1.65.0",
     "postcss": "^8.5.23",
+    "prettier": "^3.10.1",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.23.15",
     "typescript": "^5.7.0"

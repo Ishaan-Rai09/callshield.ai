@@ -1,15 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  Ban,
-  CalendarDays,
-  Plus,
-  Search,
-  ShieldCheck,
-  Trash2,
-  X,
-} from "lucide-react";
+import { Ban, CalendarDays, Plus, Search, ShieldCheck, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Modal } from "@/components/ui/Modal";
@@ -33,7 +25,7 @@ export function BlocklistView() {
     const needle = query.trim().toLowerCase();
     if (!needle) return blocklist;
     return blocklist.filter((item) =>
-      [item.number, item.label, item.reason].join(" ").toLowerCase().includes(needle)
+      [item.number, item.label, item.reason].join(" ").toLowerCase().includes(needle),
     );
   }, [blocklist, query]);
 
@@ -87,7 +79,9 @@ export function BlocklistView() {
           <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted">
             Blocked numbers
           </p>
-          <p className="mt-2 font-display text-[28px] leading-none tabular-nums">{blocklist.length}</p>
+          <p className="mt-2 font-display text-[28px] leading-none tabular-nums">
+            {blocklist.length}
+          </p>
           <p className="mt-1.5 text-[10px] text-muted">Stored on this device only</p>
         </div>
         <div className="rounded-xl border border-line bg-paper p-4">
@@ -200,8 +194,8 @@ export function BlocklistView() {
 
         <div className="border-t border-line/70 bg-white/40 px-4 py-2.5">
           <p className="text-[9px] leading-relaxed text-muted">
-            Prototype behaviour: blocklist entries are stored in local storage and can be removed
-            at any time. Nothing is reported to a carrier.
+            Prototype behaviour: blocklist entries are stored in local storage and can be removed at
+            any time. Nothing is reported to a carrier.
           </p>
         </div>
       </div>
@@ -229,7 +223,10 @@ export function BlocklistView() {
       >
         <form id="add-number-form" onSubmit={submit} className="space-y-4">
           <div>
-            <label htmlFor="block-number" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+            <label
+              htmlFor="block-number"
+              className="mb-1.5 block text-[11px] font-medium text-ink/70"
+            >
               Phone number
             </label>
             <input
@@ -246,7 +243,10 @@ export function BlocklistView() {
             />
           </div>
           <div>
-            <label htmlFor="block-label" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+            <label
+              htmlFor="block-label"
+              className="mb-1.5 block text-[11px] font-medium text-ink/70"
+            >
               Label <span className="font-normal text-muted">(optional)</span>
             </label>
             <input
@@ -258,7 +258,10 @@ export function BlocklistView() {
             />
           </div>
           <div>
-            <label htmlFor="block-reason" className="mb-1.5 block text-[11px] font-medium text-ink/70">
+            <label
+              htmlFor="block-reason"
+              className="mb-1.5 block text-[11px] font-medium text-ink/70"
+            >
               Reason <span className="font-normal text-muted">(optional)</span>
             </label>
             <textarea

@@ -18,7 +18,7 @@ export function EmptyState({
     <div
       className={cx(
         "flex flex-col items-center justify-center rounded-xl border border-dashed border-ink/15 bg-paper px-6 py-14 text-center",
-        className
+        className,
       )}
     >
       <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink/70">

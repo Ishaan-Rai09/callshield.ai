@@ -50,7 +50,7 @@ export function rateLimited(result: RateLimitResult, message: string): NextRespo
         ? "Request protection is temporarily unavailable. Try again shortly."
         : message,
     },
-    result.unavailable ? 503 : 429
+    result.unavailable ? 503 : 429,
   );
   response.headers.set("Retry-After", String(result.retryAfterSec));
   return response;

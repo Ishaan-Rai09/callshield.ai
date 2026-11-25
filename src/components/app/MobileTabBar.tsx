@@ -37,12 +37,7 @@ export function MobileTabBar() {
                   <span className="absolute -right-1 -top-0.5 h-1.5 w-1.5 rounded-full bg-signal ring-2 ring-paper" />
                 )}
               </span>
-              <span
-                className={cx(
-                  "text-[9px] font-medium",
-                  active ? "text-ink" : "text-ink/70"
-                )}
-              >
+              <span className={cx("text-[9px] font-medium", active ? "text-ink" : "text-ink/70")}>
                 {item.short}
               </span>
               {active && <span className="absolute -top-px h-0.5 w-7 bg-signal" />}

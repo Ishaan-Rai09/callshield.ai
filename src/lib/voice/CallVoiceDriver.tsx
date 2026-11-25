@@ -28,7 +28,7 @@ export function CallVoiceDriver() {
       holdRef.current = next;
       setSpeechHold(next);
     },
-    [setSpeechHold]
+    [setSpeechHold],
   );
 
   const voiceActive =
@@ -71,8 +71,7 @@ export function CallVoiceDriver() {
 
     const entry = transcript.find(
       (line) =>
-        (line.speaker === "ai" || line.speaker === "caller") &&
-        !spokenRef.current.has(line.id)
+        (line.speaker === "ai" || line.speaker === "caller") && !spokenRef.current.has(line.id),
     );
 
     if (!entry) {

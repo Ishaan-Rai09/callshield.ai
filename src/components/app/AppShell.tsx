@@ -47,9 +47,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="flex min-h-screen flex-col lg:pl-[248px]">
         <Topbar onOpenMenu={() => setMenuOpen(true)} />
-        <main className="flex-1 pb-24 lg:pb-8">
-          {hydrated ? children : <AppSkeleton />}
-        </main>
+        <main className="flex-1 pb-24 lg:pb-8">{hydrated ? children : <AppSkeleton />}</main>
       </div>
 
       <AnimatePresence>

@@ -17,7 +17,10 @@ export function AppSkeleton() {
       <div className="mt-7 grid gap-3 sm:grid-cols-2 xl:grid-cols-[1.45fr_1fr_1fr_1fr]">
         <div className="h-[154px] animate-pulse rounded-xl bg-ink/90" />
         {[0, 1, 2].map((item) => (
-          <div key={item} className="h-[154px] animate-pulse rounded-xl border border-line bg-paper" />
+          <div
+            key={item}
+            className="h-[154px] animate-pulse rounded-xl border border-line bg-paper"
+          />
         ))}
       </div>
 
@@ -28,7 +31,10 @@ export function AppSkeleton() {
         </div>
         <div className="space-y-3">
           {[0, 1, 2].map((item) => (
-            <div key={item} className="h-[150px] animate-pulse rounded-xl border border-line bg-paper" />
+            <div
+              key={item}
+              className="h-[150px] animate-pulse rounded-xl border border-line bg-paper"
+            />
           ))}
         </div>
       </div>

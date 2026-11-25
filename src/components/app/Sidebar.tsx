@@ -40,13 +40,13 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                   "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors duration-150",
                   active
                     ? "bg-signal text-ink"
-                    : "text-ivory/70 hover:bg-white/[0.05] hover:text-ivory"
+                    : "text-ivory/70 hover:bg-white/[0.05] hover:text-ivory",
                 )}
               >
                 <Icon
                   className={cx(
                     "h-[16px] w-[16px] shrink-0",
-                    active ? "text-ink" : "text-ivory/70 group-hover:text-ivory/70"
+                    active ? "text-ink" : "text-ivory/70 group-hover:text-ivory/70",
                   )}
                   strokeWidth={1.9}
                 />
@@ -80,7 +80,7 @@ export function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               <span
                 className={cx(
                   "h-1.5 w-1.5 rounded-full",
-                  assistant.screeningEnabled ? "bg-signal" : "bg-white/25"
+                  assistant.screeningEnabled ? "bg-signal" : "bg-white/25",
                 )}
               />
               <span className="text-[9.5px] uppercase tracking-[0.12em] text-ivory/70">

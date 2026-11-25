@@ -104,7 +104,7 @@ function makeIcon(size, scale, background) {
 
         const checkDistance = Math.min(
           segmentDistance(nx, ny, -0.33, 0.05, -0.07, 0.3),
-          segmentDistance(nx, ny, -0.07, 0.3, 0.38, -0.26)
+          segmentDistance(nx, ny, -0.07, 0.3, 0.38, -0.26),
         );
         if (checkDistance <= 0.095) checkHits++;
       }

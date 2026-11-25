@@ -17,7 +17,7 @@ export default function SignInPage() {
       const providers = (await response.json()) as Record<string, unknown>;
       if (Object.keys(providers).length === 0) {
         setError(
-          "Google sign-in isn't configured on this server yet. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env and restart."
+          "Google sign-in isn't configured on this server yet. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env and restart.",
         );
         setBusy(false);
         return;
@@ -38,7 +38,9 @@ export default function SignInPage() {
           </span>
           <div>
             <p className="text-[15px] font-semibold leading-none tracking-tight">CallShield</p>
-            <p className="mt-1 text-[9.5px] uppercase tracking-[0.14em] text-muted">AI call screening</p>
+            <p className="mt-1 text-[9.5px] uppercase tracking-[0.14em] text-muted">
+              AI call screening
+            </p>
           </div>
         </div>
 

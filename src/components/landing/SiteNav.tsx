@@ -35,7 +35,7 @@ export function SiteNav() {
     <header
       className={cx(
         "sticky top-0 z-50 w-full border-b transition-colors duration-200",
-        scrolled ? "border-line bg-ivory/95" : "border-transparent bg-ivory"
+        scrolled ? "border-line bg-ivory/95" : "border-transparent bg-ivory",
       )}
     >
       <div className="mx-auto flex h-[68px] w-full max-w-[1240px] items-center justify-between px-5 sm:px-8">

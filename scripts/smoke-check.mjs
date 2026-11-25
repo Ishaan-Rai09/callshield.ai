@@ -55,10 +55,7 @@ try {
   /* --------------------------- authenticated shell ------------------------ */
   const uid = `smoke-${Date.now().toString(36)}`;
   const authed = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
-  await addSessionCookie(
-    authed,
-    await createSessionToken({ uid, email: "smoke@example.invalid" })
-  );
+  await addSessionCookie(authed, await createSessionToken({ uid, email: "smoke@example.invalid" }));
   const app = await authed.newPage();
   app.on("pageerror", (error) => errors.push(error.message));
 

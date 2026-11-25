@@ -10,13 +10,7 @@ import { SCENARIOS } from "@/lib/scenarios";
 import { useCallShield } from "@/lib/store";
 import { cx } from "@/lib/utils";
 
-export function ScenarioPicker({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export function ScenarioPicker({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { startSimulation } = useCallShield();
   const router = useRouter();
   const [selected, setSelected] = useState("bank-impersonation");
@@ -56,11 +50,7 @@ export function ScenarioPicker({
         </div>
       }
     >
-      <div
-        role="radiogroup"
-        aria-label="Call scenario"
-        className="grid gap-2 sm:grid-cols-2"
-      >
+      <div role="radiogroup" aria-label="Call scenario" className="grid gap-2 sm:grid-cols-2">
         {SCENARIOS.map((scenario) => {
           const active = selected === scenario.id;
           return (
@@ -74,7 +64,7 @@ export function ScenarioPicker({
                 "group relative rounded-lg border p-3.5 text-left transition-all duration-150",
                 active
                   ? "border-ink bg-ivory shadow-[inset_0_0_0_1px_#151B26]"
-                  : "border-line bg-white hover:border-ink/25"
+                  : "border-line bg-white hover:border-ink/25",
               )}
             >
               <div className="flex items-start justify-between gap-2">
@@ -94,7 +84,7 @@ export function ScenarioPicker({
                 <span
                   className={cx(
                     "flex h-4 w-4 items-center justify-center rounded-full border transition-colors",
-                    active ? "border-signal bg-signal" : "border-ink/20 bg-white"
+                    active ? "border-signal bg-signal" : "border-ink/20 bg-white",
                   )}
                 >
                   {active && <span className="h-1.5 w-1.5 rounded-full bg-ink" />}

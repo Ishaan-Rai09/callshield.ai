@@ -62,7 +62,10 @@ export function Hero() {
           <HeroCallDemo />
           <div className="mt-10 flex items-center justify-between text-[10.5px] text-muted sm:mt-12">
             <span>Product preview · fictional callers</span>
-            <Link href="/signin" className="inline-flex items-center gap-1 font-medium text-ink/70 hover:text-ink">
+            <Link
+              href="/signin"
+              className="inline-flex items-center gap-1 font-medium text-ink/70 hover:text-ink"
+            >
               Open full experience
               <ArrowUpRight className="h-3 w-3" />
             </Link>

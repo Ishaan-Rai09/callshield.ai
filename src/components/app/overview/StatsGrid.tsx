@@ -19,10 +19,10 @@ export function StatsGrid({ calls }: { calls: CallRecord[] }) {
       call.action === "blocked" ||
       call.action === "allowed" ||
       call.action === "declined" ||
-      (call.action === "ended" && call.riskLevel === "low")
+      (call.action === "ended" && call.riskLevel === "low"),
   ).length;
   const attention = calls.filter(
-    (call) => call.riskLevel !== "low" && call.action === "ended"
+    (call) => call.riskLevel !== "low" && call.action === "ended",
   ).length;
   const week = buildWeek(calls);
   const weekMax = Math.max(1, ...week);
@@ -43,17 +43,15 @@ export function StatsGrid({ calls }: { calls: CallRecord[] }) {
         <div className="mt-5 flex items-end justify-between gap-4">
           <div>
             <p className="text-[10.5px] text-ivory/70">Last 7 days</p>
-            <p className="mt-0.5 text-[11px] font-medium text-ivory/70">{lastWeekTotal} simulated calls</p>
+            <p className="mt-0.5 text-[11px] font-medium text-ivory/70">
+              {lastWeekTotal} simulated calls
+            </p>
           </div>
           <div className="flex h-8 items-end gap-1" aria-hidden="true">
             {week.map((value, index) => (
               <span
                 key={index}
-                className={
-                  index === week.length - 1
-                    ? "w-[5px] bg-signal"
-                    : "w-[5px] bg-ivory/20"
-                }
+                className={index === week.length - 1 ? "w-[5px] bg-signal" : "w-[5px] bg-ivory/20"}
                 style={{ height: `${Math.max(3, (value / weekMax) * 32)}px` }}
               />
             ))}

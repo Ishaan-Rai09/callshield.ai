@@ -20,7 +20,10 @@ export function IncomingCall({
   return (
     <div className="mx-auto w-full max-w-[900px] px-4 py-8 sm:px-6 sm:py-12">
       <div className="relative overflow-hidden rounded-2xl bg-ink px-6 py-10 text-center text-ivory sm:px-10 sm:py-14">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        >
           <span className="absolute h-[320px] w-[320px] animate-ring-pulse rounded-full border border-signal/20" />
           <span
             className="absolute h-[440px] w-[440px] animate-ring-pulse rounded-full border border-white/[0.06]"
@@ -57,7 +60,9 @@ export function IncomingCall({
           </p>
 
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/12 px-3 py-1.5">
-            <span className="text-[9px] uppercase tracking-[0.12em] text-ivory/70">Demo scenario</span>
+            <span className="text-[9px] uppercase tracking-[0.12em] text-ivory/70">
+              Demo scenario
+            </span>
             <span className="h-2.5 w-px bg-white/15" />
             <span className="text-[10.5px] text-ivory/70">{scenario.name}</span>
           </div>
@@ -108,8 +113,8 @@ export function IncomingCall({
       </div>
 
       <p className="mt-4 text-center text-[10px] leading-relaxed text-muted">
-        This is a scripted demo call from a fictional caller. CallShield cannot access your phone
-        or cellular network.{" "}
+        This is a scripted demo call from a fictional caller. CallShield cannot access your phone or
+        cellular network.{" "}
         <Link href="/app/live" className="text-ink/70 underline underline-offset-4">
           Live screening
         </Link>{" "}

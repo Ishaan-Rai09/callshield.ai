@@ -19,7 +19,8 @@ export async function POST(request: Request) {
   if (!userId) return unauthorized();
 
   const limit = await rateLimit(`block-add:${userId}`, 60, 60_000);
-  if (!limit.ok) return rateLimited(limit, "Too many blocklist changes. Wait a moment and try again.");
+  if (!limit.ok)
+    return rateLimited(limit, "Too many blocklist changes. Wait a moment and try again.");
 
   const declared = Number(request.headers.get("content-length") ?? "0");
   if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
       number: entry.number,
       data: entry,
     },
-    { upsert: true }
+    { upsert: true },
   );
 
   return jsonNoStore({ ok: true });
@@ -71,7 +72,8 @@ export async function DELETE(request: Request) {
   if (!userId) return unauthorized();
 
   const limit = await rateLimit(`block-remove:${userId}`, 60, 60_000);
-  if (!limit.ok) return rateLimited(limit, "Too many blocklist changes. Wait a moment and try again.");
+  if (!limit.ok)
+    return rateLimited(limit, "Too many blocklist changes. Wait a moment and try again.");
 
   const id = new URL(request.url).searchParams.get("id");
   if (!id || !ID_RE.test(id)) {

@@ -20,16 +20,8 @@ export async function GET() {
   if (!userId) return unauthorized();
 
   const [callRows, blockedRows] = await Promise.all([
-    (await collections.calls)
-      .find({ userId })
-      .sort({ createdAt: -1 })
-      .limit(MAX_ROWS)
-      .toArray(),
-    (await collections.blocked)
-      .find({ userId })
-      .sort({ createdAt: -1 })
-      .limit(MAX_ROWS)
-      .toArray(),
+    (await collections.calls).find({ userId }).sort({ createdAt: -1 }).limit(MAX_ROWS).toArray(),
+    (await collections.blocked).find({ userId }).sort({ createdAt: -1 }).limit(MAX_ROWS).toArray(),
   ]);
 
   // Re-validate on read too: rows written before validation existed (or by a
@@ -71,10 +63,7 @@ export async function POST(request: Request) {
   const calls = await collections.calls;
   const blocked = await collections.blocked;
 
-  await Promise.all([
-    calls.deleteMany({ userId }),
-    blocked.deleteMany({ userId }),
-  ]);
+  await Promise.all([calls.deleteMany({ userId }), blocked.deleteMany({ userId })]);
 
   await Promise.all([
     calls.insertMany(
@@ -87,7 +76,7 @@ export async function POST(request: Request) {
         action: call.action,
         number: call.number,
         data: call,
-      }))
+      })),
     ),
     blocked.insertMany(
       seedBlocked.map((entry) => ({
@@ -96,7 +85,7 @@ export async function POST(request: Request) {
         createdAt: now,
         number: entry.number,
         data: entry,
-      }))
+      })),
     ),
   ]);
 

@@ -39,7 +39,7 @@ export function evaluateRateLimit(
   limit: number,
   resetAt: number,
   now: number,
-  unavailable = false
+  unavailable = false,
 ): RateLimitResult {
   const retryAfterSec = Math.max(1, Math.ceil((resetAt - now) / 1000));
   if (unavailable) {

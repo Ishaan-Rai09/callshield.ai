@@ -45,7 +45,7 @@ function Waveform({ active, level = 0 }: { active: boolean; level?: number }) {
             key={index}
             className={cx(
               "w-[2px] rounded-full transition-[height,background-color] duration-150",
-              active ? "animate-voice-bar bg-signal" : "bg-ivory/20"
+              active ? "animate-voice-bar bg-signal" : "bg-ivory/20",
             )}
             style={{
               height: `${height}px`,
@@ -69,13 +69,13 @@ function CaptionLine({ entry, live }: { entry: TranscriptEntry; live: boolean })
       className={cx(
         "flex gap-2.5 text-left",
         !ai && entry.speaker === "caller" && "opacity-60",
-        entry.speaker === "user" && "opacity-70"
+        entry.speaker === "user" && "opacity-70",
       )}
     >
       <span
         className={cx(
           "mt-1 h-1.5 w-1.5 shrink-0 rounded-full",
-          ai ? "bg-signal" : entry.speaker === "user" ? "bg-ivory/70" : "bg-ivory/30"
+          ai ? "bg-signal" : entry.speaker === "user" ? "bg-ivory/70" : "bg-ivory/30",
         )}
         aria-hidden="true"
       />
@@ -83,7 +83,7 @@ function CaptionLine({ entry, live }: { entry: TranscriptEntry; live: boolean })
         <p
           className={cx(
             "text-[8.5px] font-semibold uppercase tracking-[0.14em]",
-            ai ? "text-signal/80" : "text-ivory/70"
+            ai ? "text-signal/80" : "text-ivory/70",
           )}
         >
           {SPEAKER_LABEL[entry.speaker]}
@@ -91,7 +91,7 @@ function CaptionLine({ entry, live }: { entry: TranscriptEntry; live: boolean })
         <p
           className={cx(
             "mt-1 text-[12.5px] leading-relaxed",
-            live ? "text-ivory" : "text-ivory/70"
+            live ? "text-ivory" : "text-ivory/70",
           )}
         >
           {entry.text}
@@ -190,7 +190,16 @@ export function TranscriptPanel({
       return () => window.clearTimeout(timer);
     }
     return undefined;
-  }, [handling, handsFree, disabled, voice.configured, voice.speaking, pttState, pttError, startPtt]);
+  }, [
+    handling,
+    handsFree,
+    disabled,
+    voice.configured,
+    voice.speaking,
+    pttState,
+    pttError,
+    startPtt,
+  ]);
 
   // Leaving the call, disabling hands-free, or losing voice support stops the mic.
   useEffect(() => {
@@ -210,9 +219,13 @@ export function TranscriptPanel({
   const transcribing = pttState === "transcribing";
 
   let statusLabel = "Assistant is listening";
-  if (recording) statusLabel = handsFree ? "Mic is live — just speak, it auto-sends" : "Listening — pause to send";
+  if (recording)
+    statusLabel = handsFree
+      ? "Mic is live — just speak, it auto-sends"
+      : "Listening — pause to send";
   else if (transcribing) statusLabel = "Transcribing your reply…";
-  else if (voice.speaking && speakingEntry?.speaker === "caller") statusLabel = "Caller is speaking";
+  else if (voice.speaking && speakingEntry?.speaker === "caller")
+    statusLabel = "Caller is speaking";
   else if (voice.speaking) statusLabel = "CallShield AI is speaking";
   else if (handling && voice.configured)
     statusLabel = handsFree ? "Mic re-arming automatically…" : "Your turn — tap the mic to speak";
@@ -261,7 +274,11 @@ export function TranscriptPanel({
               aria-label={voice.enabled ? "Mute call audio" : "Play call audio"}
               title={voice.enabled ? "Mute call audio" : "Play call audio"}
             >
-              {voice.enabled ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
+              {voice.enabled ? (
+                <Volume2 className="h-3.5 w-3.5" />
+              ) : (
+                <VolumeX className="h-3.5 w-3.5" />
+              )}
             </button>
           )}
         </div>
@@ -270,7 +287,9 @@ export function TranscriptPanel({
       <div className="relative overflow-hidden bg-ink px-4 pb-4 pt-3.5 text-ivory">
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.16em] text-ivory/70">
-            <span className={cx("h-1.5 w-1.5 rounded-full", handling ? "bg-ivory/60" : "bg-signal")} />
+            <span
+              className={cx("h-1.5 w-1.5 rounded-full", handling ? "bg-ivory/60" : "bg-signal")}
+            />
             {handling ? "You're on the call" : "AI screening call"}
           </span>
           <span className="font-display text-[10px] tabular-nums text-ivory/70">
@@ -285,7 +304,7 @@ export function TranscriptPanel({
                 "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold transition-colors",
                 callerActive
                   ? "border-signal/60 bg-signal/15 text-signal"
-                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70"
+                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70",
               )}
             >
               {callerActive && (
@@ -308,7 +327,7 @@ export function TranscriptPanel({
             <p
               className={cx(
                 "mt-1.5 text-[9px] font-medium tracking-wide",
-                recording ? "text-signal" : "text-ivory/70"
+                recording ? "text-signal" : "text-ivory/70",
               )}
               aria-live="polite"
             >
@@ -322,7 +341,7 @@ export function TranscriptPanel({
                 "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors",
                 aiActive
                   ? "border-signal/60 bg-signal/15 text-signal"
-                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70"
+                  : "border-ivory/15 bg-ivory/[0.06] text-ivory/70",
               )}
             >
               {aiActive && (
@@ -332,12 +351,17 @@ export function TranscriptPanel({
             </span>
             <div className="min-w-0">
               <p className="truncate text-[11.5px] font-medium text-ivory/90">CallShield AI</p>
-              <p className="truncate text-[9px] text-ivory/70">{handling ? "Taking notes" : "Screening"}</p>
+              <p className="truncate text-[9px] text-ivory/70">
+                {handling ? "Taking notes" : "Screening"}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-3.5 min-h-[92px] space-y-2.5 rounded-lg border border-ivory/10 bg-ivory/[0.04] px-3 py-2.5" aria-live="polite">
+        <div
+          className="mt-3.5 min-h-[92px] space-y-2.5 rounded-lg border border-ivory/10 bg-ivory/[0.04] px-3 py-2.5"
+          aria-live="polite"
+        >
           {captions.length === 0 ? (
             <p className="text-[11.5px] text-ivory/70">Connecting call audio…</p>
           ) : (
@@ -390,7 +414,7 @@ export function TranscriptPanel({
                   recording
                     ? "bg-signal text-ink"
                     : "bg-ink text-ivory hover:bg-inkSoft disabled:opacity-30",
-                  transcribing && "bg-ink/80"
+                  transcribing && "bg-ink/80",
                 )}
                 aria-label={recording ? "Stop and transcribe your reply" : "Speak your reply"}
               >
@@ -425,7 +449,9 @@ export function TranscriptPanel({
                     : "Add the key to .env.local and restart the server. You can type below for now."}
                 </p>
               </div>
-              {recording && <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-signal" />}
+              {recording && (
+                <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-signal" />
+              )}
               {voice.configured && (
                 <button
                   type="button"
@@ -434,7 +460,7 @@ export function TranscriptPanel({
                     "hidden shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[9px] font-medium uppercase tracking-[0.08em] transition-colors sm:inline-flex",
                     handsFree
                       ? "border-signal/50 bg-signal/10 text-ink"
-                      : "border-line text-muted hover:border-ink/30 hover:text-ink"
+                      : "border-line text-muted hover:border-ink/30 hover:text-ink",
                   )}
                   aria-pressed={handsFree}
                   title={handsFree ? "Hands-free mic is on" : "Push-to-talk mode"}
@@ -485,9 +511,7 @@ export function TranscriptPanel({
             </form>
 
             {lastUserLine && (
-              <p className="truncate text-[9px] text-muted">
-                Last said: “{lastUserLine.text}”
-              </p>
+              <p className="truncate text-[9px] text-muted">Last said: “{lastUserLine.text}”</p>
             )}
           </div>
         ) : (

@@ -40,7 +40,11 @@ export function RingingBanner() {
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-[9px] font-semibold uppercase tracking-[0.14em] text-signal">
-                {session.phase === "ringing" ? "Incoming simulated call" : session.phase === "user" ? "You are handling this call" : "Live screening in progress"}
+                {session.phase === "ringing"
+                  ? "Incoming simulated call"
+                  : session.phase === "user"
+                    ? "You are handling this call"
+                    : "Live screening in progress"}
               </span>
               <span className="mt-0.5 block truncate text-[12.5px] font-medium">
                 {session.callerName ?? "Unknown caller"} · {formatClock(session.elapsedSec)}

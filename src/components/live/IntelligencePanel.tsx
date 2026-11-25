@@ -16,11 +16,7 @@ function Meter({ level }: { level: LiveSession["riskLevel"] }) {
           key={index}
           className={cx(
             "h-1 flex-1 rounded-full",
-            index < filled
-              ? level === "low"
-                ? "bg-ink/30"
-                : "bg-signal"
-              : "bg-ink/[0.08]"
+            index < filled ? (level === "low" ? "bg-ink/30" : "bg-signal") : "bg-ink/[0.08]",
           )}
         />
       ))}
@@ -52,7 +48,7 @@ export function IntelligencePanel({
             "rounded-full border px-2 py-0.5 text-[8.5px] font-medium uppercase tracking-[0.1em]",
             stillListening
               ? "border-line text-muted"
-              : "border-signal/30 bg-signal/[0.07] text-ink/70"
+              : "border-signal/30 bg-signal/[0.07] text-ink/70",
           )}
         >
           {stillListening ? "Assessing" : "Updated"}
@@ -111,7 +107,7 @@ export function IntelligencePanel({
                         key={level}
                         className={cx(
                           "h-2.5 w-[2px]",
-                          level <= indicator.severity ? "bg-signal" : "bg-ink/10"
+                          level <= indicator.severity ? "bg-signal" : "bg-ink/10",
                         )}
                       />
                     ))}
@@ -167,9 +163,7 @@ export function IntelligencePanel({
               <Fingerprint className="h-3 w-3 text-ink/70" />
               <p className="label-micro">Caller identity</p>
             </div>
-            <span className="text-[9px] font-medium text-muted">
-              {confidenceLabel} confidence
-            </span>
+            <span className="text-[9px] font-medium text-muted">{confidenceLabel} confidence</span>
           </div>
           <div className="mt-2.5 h-1 w-full overflow-hidden rounded-full bg-ink/[0.06]">
             <div

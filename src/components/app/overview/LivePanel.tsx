@@ -24,7 +24,10 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
 
   return (
     <section className="relative overflow-hidden rounded-xl bg-ink p-5 text-ivory sm:p-6">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-[300px] w-[300px]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 -top-24 h-[300px] w-[300px]"
+      >
         <span className="absolute inset-0 rounded-full border border-white/[0.07]" />
         <span className="absolute inset-10 rounded-full border border-white/[0.06]" />
         <span className="absolute inset-20 rounded-full border border-white/[0.05]" />
@@ -37,7 +40,9 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
         <div className="max-w-[430px]">
           <div className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5">
-              {active && <span className="absolute inline-flex h-full w-full animate-ring-pulse rounded-full bg-signal" />}
+              {active && (
+                <span className="absolute inline-flex h-full w-full animate-ring-pulse rounded-full bg-signal" />
+              )}
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal" />
             </span>
             <span className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ivory/70">
@@ -63,7 +68,11 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
               {latestLine && (
                 <div className="mt-4 border-l border-signal/40 pl-3">
                   <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
-                    {latestLine.speaker === "caller" ? "Caller" : latestLine.speaker === "user" ? "You" : "Assistant"}
+                    {latestLine.speaker === "caller"
+                      ? "Caller"
+                      : latestLine.speaker === "user"
+                        ? "You"
+                        : "Assistant"}
                   </p>
                   <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-ivory/70">
                     {latestLine.text}
@@ -81,8 +90,8 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
                 Unknown caller? Let the assistant answer first.
               </h2>
               <p className="mt-2 max-w-[390px] text-[12px] leading-relaxed text-ivory/70">
-                Start a scripted scenario and watch the assistant collect identity, intent, and
-                risk signals in real time.
+                Start a scripted scenario and watch the assistant collect identity, intent, and risk
+                signals in real time.
               </p>
 
               <div className="mt-4 flex flex-wrap items-center gap-1.5">
@@ -99,7 +108,7 @@ export function LivePanel({ onOpenPicker }: { onOpenPicker: () => void }) {
                       <span
                         className={cx(
                           "h-1 w-1 rounded-full",
-                          scenario.expectedRisk === "low" ? "bg-ivory/40" : "bg-signal"
+                          scenario.expectedRisk === "low" ? "bg-ivory/40" : "bg-signal",
                         )}
                       />
                       {scenario.category.replace(" fraud", "")}

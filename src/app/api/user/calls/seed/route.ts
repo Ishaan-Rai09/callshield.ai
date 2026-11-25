@@ -15,14 +15,17 @@ export async function POST(request: Request) {
   if (!userId) return unauthorized();
 
   const limit = await rateLimit(`calls-seed:${userId}`, 10, 60_000);
-  if (!limit.ok) return rateLimited(limit, "Too many sample-data requests. Wait a moment and try again.");
+  if (!limit.ok)
+    return rateLimited(limit, "Too many sample-data requests. Wait a moment and try again.");
 
   const seedCalls = buildSeedCalls();
   const now = new Date();
 
   // Upserts keep repeated "load samples" presses idempotent and avoid the
   // duplicate-key error the previous insertMany could throw.
-  await (await collections.calls).bulkWrite(
+  await (
+    await collections.calls
+  ).bulkWrite(
     seedCalls.map((call) => ({
       replaceOne: {
         filter: { _id: `${userId}:${call.id}` },
@@ -38,7 +41,7 @@ export async function POST(request: Request) {
         upsert: true,
       },
     })),
-    { ordered: false }
+    { ordered: false },
   );
 
   return jsonNoStore({ ok: true, count: seedCalls.length });

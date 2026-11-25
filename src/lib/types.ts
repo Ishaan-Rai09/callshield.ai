@@ -186,5 +186,11 @@ export interface Scenario {
   infoRequested: string[];
   script: ScriptStep[];
   durationSec: number;
-  category: "Safe enquiry" | "Bank fraud" | "KYC fraud" | "Delivery fraud" | "Prize fraud" | "Investment fraud";
+  category:
+    | "Safe enquiry"
+    | "Bank fraud"
+    | "KYC fraud"
+    | "Delivery fraud"
+    | "Prize fraud"
+    | "Investment fraud";
 }

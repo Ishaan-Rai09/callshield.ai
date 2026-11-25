@@ -59,10 +59,26 @@ const QUESTIONS: Array<{
   label: string;
   body: string;
 }> = [
-  { key: "name", label: "Ask for the caller's name", body: "Who is on the line, and what is their role?" },
-  { key: "organisation", label: "Ask which organisation they represent", body: "Capture a company or department name for the record." },
-  { key: "purpose", label: "Ask the reason for the call", body: "Establish intent before the conversation goes further." },
-  { key: "reference", label: "Ask for a reference or case number", body: "A verifiable identifier callers can be held to." },
+  {
+    key: "name",
+    label: "Ask for the caller's name",
+    body: "Who is on the line, and what is their role?",
+  },
+  {
+    key: "organisation",
+    label: "Ask which organisation they represent",
+    body: "Capture a company or department name for the record.",
+  },
+  {
+    key: "purpose",
+    label: "Ask the reason for the call",
+    body: "Establish intent before the conversation goes further.",
+  },
+  {
+    key: "reference",
+    label: "Ask for a reference or case number",
+    body: "A verifiable identifier callers can be held to.",
+  },
 ];
 
 const HANDLING: Array<{
@@ -88,16 +104,25 @@ const HANDLING: Array<{
 ];
 
 const NOTIFICATIONS: Array<{
-  key: keyof Pick<
-    AssistantSettings,
-    "notifySuspicious" | "notifySummaries" | "notifyBlocked"
-  >;
+  key: keyof Pick<AssistantSettings, "notifySuspicious" | "notifySummaries" | "notifyBlocked">;
   label: string;
   body: string;
 }> = [
-  { key: "notifySuspicious", label: "Suspicious caller alerts", body: "When a new high-risk signal appears during screening." },
-  { key: "notifySummaries", label: "Screening report ready", body: "When the assistant finishes and a summary is available." },
-  { key: "notifyBlocked", label: "Blocklist changes", body: "When a number is added to or removed from your blocklist." },
+  {
+    key: "notifySuspicious",
+    label: "Suspicious caller alerts",
+    body: "When a new high-risk signal appears during screening.",
+  },
+  {
+    key: "notifySummaries",
+    label: "Screening report ready",
+    body: "When the assistant finishes and a summary is available.",
+  },
+  {
+    key: "notifyBlocked",
+    label: "Blocklist changes",
+    body: "When a number is added to or removed from your blocklist.",
+  },
 ];
 
 export function AssistantView() {
@@ -121,7 +146,11 @@ export function AssistantView() {
 
   function resetGreeting() {
     updateAssistant({ greeting: DEFAULT_ASSISTANT.greeting });
-    pushToast({ title: "Greeting restored", description: "The default assistant introduction is back.", tone: "success" });
+    pushToast({
+      title: "Greeting restored",
+      description: "The default assistant introduction is back.",
+      tone: "success",
+    });
   }
 
   return (
@@ -172,7 +201,7 @@ export function AssistantView() {
                 "mt-4 rounded-lg border px-3.5 py-2.5 text-[10.5px] leading-relaxed",
                 assistant.screeningEnabled
                   ? "border-line bg-white/60 text-muted"
-                  : "border-signal/35 bg-signal/[0.06] text-ink/70"
+                  : "border-signal/35 bg-signal/[0.06] text-ink/70",
               )}
             >
               {assistant.screeningEnabled
@@ -186,7 +215,11 @@ export function AssistantView() {
             <p className="mt-0.5 text-[11px] text-muted">
               How much the assistant asks before it hands the decision to you.
             </p>
-            <div className="mt-4 grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Screening mode">
+            <div
+              className="mt-4 grid gap-2 sm:grid-cols-3"
+              role="radiogroup"
+              aria-label="Screening mode"
+            >
               {MODES.map((mode) => {
                 const active = assistant.screeningMode === mode.key;
                 return (
@@ -198,17 +231,22 @@ export function AssistantView() {
                     onClick={() => updateAssistant({ screeningMode: mode.key })}
                     className={cx(
                       "rounded-lg border p-3.5 text-left transition-colors",
-                      active ? "border-ink bg-ivory" : "border-line bg-white hover:border-ink/25"
+                      active ? "border-ink bg-ivory" : "border-line bg-white hover:border-ink/25",
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className={cx("text-[12px] font-semibold", active ? "text-ink" : "text-ink/70")}>
+                      <span
+                        className={cx(
+                          "text-[12px] font-semibold",
+                          active ? "text-ink" : "text-ink/70",
+                        )}
+                      >
                         {mode.label}
                       </span>
                       <span
                         className={cx(
                           "flex h-4 w-4 items-center justify-center rounded-full border",
-                          active ? "border-ink bg-ink text-ivory" : "border-ink/20 bg-white"
+                          active ? "border-ink bg-ink text-ivory" : "border-ink/20 bg-white",
                         )}
                       >
                         {active && <Check className="h-2.5 w-2.5" />}
@@ -255,7 +293,9 @@ export function AssistantView() {
               <p className="text-[9.5px] text-muted">
                 Spoken as the assistant&apos;s first line, in the voice selected below.
               </p>
-              <span className="text-[9px] tabular-nums text-muted">{assistant.greeting.length}/280</span>
+              <span className="text-[9px] tabular-nums text-muted">
+                {assistant.greeting.length}/280
+              </span>
             </div>
           </section>
 
@@ -337,9 +377,9 @@ export function AssistantView() {
                 <div>
                   <h3 className="text-[13.5px] font-semibold">Hinglish flavour</h3>
                   <p className="mt-0.5 max-w-[420px] text-[11px] leading-relaxed text-muted">
-                    Callers speak the natural, code-mixed way real spam calls sound —
-                    &ldquo;Aapka KYC expire ho gaya hai&rdquo; — while summaries and risk reports stay
-                    in formal English.
+                    Callers speak the natural, code-mixed way real spam calls sound — &ldquo;Aapka
+                    KYC expire ho gaya hai&rdquo; — while summaries and risk reports stay in formal
+                    English.
                   </p>
                 </div>
               </div>
@@ -403,20 +443,24 @@ export function AssistantView() {
                     onClick={() => updateAssistant({ handling: option.key })}
                     className={cx(
                       "flex w-full items-start gap-3 rounded-lg border p-3 text-left transition-colors",
-                      active ? "border-ink bg-ivory" : "border-line bg-white hover:border-ink/25"
+                      active ? "border-ink bg-ivory" : "border-line bg-white hover:border-ink/25",
                     )}
                   >
                     <span
                       className={cx(
                         "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border",
-                        active ? "border-ink bg-ink" : "border-ink/25 bg-white"
+                        active ? "border-ink bg-ink" : "border-ink/25 bg-white",
                       )}
                     >
                       {active && <span className="h-1.5 w-1.5 rounded-full bg-ivory" />}
                     </span>
                     <span>
-                      <span className="block text-[11.5px] font-medium text-ink/80">{option.label}</span>
-                      <span className="mt-0.5 block text-[10px] leading-relaxed text-muted">{option.body}</span>
+                      <span className="block text-[11.5px] font-medium text-ink/80">
+                        {option.label}
+                      </span>
+                      <span className="mt-0.5 block text-[10px] leading-relaxed text-muted">
+                        {option.body}
+                      </span>
                     </span>
                   </button>
                 );
@@ -456,7 +500,12 @@ export function AssistantView() {
             <div className="flex items-center justify-between">
               <p className="label-micro">Live greeting preview</p>
               <span className="inline-flex items-center gap-1 text-[9px] text-muted">
-                <span className={cx("h-1.5 w-1.5 rounded-full", assistant.screeningEnabled ? "bg-signal" : "bg-ink/20")} />
+                <span
+                  className={cx(
+                    "h-1.5 w-1.5 rounded-full",
+                    assistant.screeningEnabled ? "bg-signal" : "bg-ink/20",
+                  )}
+                />
                 {assistant.screeningEnabled ? "Screening on" : "Paused"}
               </span>
             </div>
@@ -494,7 +543,11 @@ export function AssistantView() {
                     <span
                       key={index}
                       className="w-[2px] animate-pulse rounded-full bg-signal/50"
-                      style={{ height: `${height}px`, animationDelay: `${index * 90}ms`, animationDuration: "1.2s" }}
+                      style={{
+                        height: `${height}px`,
+                        animationDelay: `${index * 90}ms`,
+                        animationDuration: "1.2s",
+                      }}
                     />
                   ))}
                 </div>
@@ -513,7 +566,10 @@ export function AssistantView() {
                         key={question.key}
                         className="rounded border border-white/12 px-1.5 py-0.5 text-[8.5px] text-ivory/70"
                       >
-                        {question.label.replace("Ask for the ", "").replace("Ask which ", "").replace("Ask the ", "")}
+                        {question.label
+                          .replace("Ask for the ", "")
+                          .replace("Ask which ", "")
+                          .replace("Ask the ", "")}
                       </span>
                     ))
                   )}
@@ -555,7 +611,7 @@ export function AssistantView() {
                   "rounded-full border px-2 py-0.5 text-[8.5px] font-medium uppercase tracking-[0.08em]",
                   voice.configured
                     ? "border-signal/40 bg-signal/10 text-ink/70"
-                    : "border-line text-muted"
+                    : "border-line text-muted",
                 )}
               >
                 {voice.checking ? "checking" : voice.configured ? "live voice" : "captions only"}
@@ -570,13 +626,13 @@ export function AssistantView() {
               <div className="flex items-center justify-between text-[9px] text-muted">
                 <span>Text-to-speech</span>
                 <span className="font-medium text-ink/70">
-                  {voice.configured ? voice.ttsModel ?? "Timbre" : "Not configured"}
+                  {voice.configured ? (voice.ttsModel ?? "Timbre") : "Not configured"}
                 </span>
               </div>
               <div className="flex items-center justify-between text-[9px] text-muted">
                 <span>Speech-to-text</span>
                 <span className="font-medium text-ink/70">
-                  {voice.configured ? voice.sttModel ?? "Prisma" : "Not configured"}
+                  {voice.configured ? (voice.sttModel ?? "Prisma") : "Not configured"}
                 </span>
               </div>
             </div>

@@ -60,7 +60,7 @@ export async function POST(request: Request) {
         error: "NOT_CONFIGURED",
         message: "Add GNANI_API_KEY to .env.local and restart the server to enable call audio.",
       },
-      503
+      503,
     );
   }
 
@@ -85,12 +85,9 @@ export async function POST(request: Request) {
     if (error instanceof GnaniError) {
       return jsonNoStore(
         { error: error.code, message: error.message },
-        error.status >= 400 && error.status < 600 ? error.status : 502
+        error.status >= 400 && error.status < 600 ? error.status : 502,
       );
     }
-    return jsonNoStore(
-      { error: "VOICE_FAILED", message: "Text-to-speech failed." },
-      502
-    );
+    return jsonNoStore({ error: "VOICE_FAILED", message: "Text-to-speech failed." }, 502);
   }
 }

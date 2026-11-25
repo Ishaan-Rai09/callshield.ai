@@ -5,7 +5,10 @@ export default function DashboardLoading() {
       <div className="mt-4 h-3 w-64 animate-pulse rounded bg-ink/[0.06]" />
       <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[0, 1, 2, 3].map((item) => (
-          <div key={item} className="h-[104px] animate-pulse rounded-xl border border-line bg-paper" />
+          <div
+            key={item}
+            className="h-[104px] animate-pulse rounded-xl border border-line bg-paper"
+          />
         ))}
       </div>
       <div className="mt-4 grid gap-4 lg:grid-cols-[1.6fr_1fr]">

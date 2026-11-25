@@ -45,7 +45,10 @@ try {
   assert.match(statText, /calls screened/i);
   assert.match(statText, /suspicious callers/i);
 
-  await page.getByRole("button", { name: /Simulate Incoming Call/ }).first().click();
+  await page
+    .getByRole("button", { name: /Simulate Incoming Call/ })
+    .first()
+    .click();
   await page.getByRole("heading", { name: "Simulate an incoming call" }).waitFor();
   assert.equal(await page.getByRole("radio").count(), 6);
   await page.getByRole("radio").filter({ hasText: "Bank impersonation scam" }).click();

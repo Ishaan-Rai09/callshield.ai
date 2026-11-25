@@ -1,15 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Ban,
-  Check,
-  PhoneOff,
-  Radio,
-  ShieldAlert,
-  UserCheck,
-} from "lucide-react";
+import { ArrowLeft, Ban, Check, PhoneOff, Radio, ShieldAlert, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { CallerAvatar } from "@/components/app/CallerAvatar";
@@ -81,7 +73,9 @@ export function ScreeningRoom({
               </div>
               <p className="mt-2 text-[11.5px] text-muted">
                 {session.callerName ?? "Unknown caller"}
-                {session.claimedOrg ? ` · claims ${session.claimedOrg}` : " · no organisation provided"}
+                {session.claimedOrg
+                  ? ` · claims ${session.claimedOrg}`
+                  : " · no organisation provided"}
               </p>
               <p className="mt-1 inline-flex items-center gap-1.5 text-[9.5px] text-muted">
                 <ShieldAlert className="h-3 w-3 text-signal/70" />
@@ -110,8 +104,8 @@ export function ScreeningRoom({
         {handling && (
           <div className="mt-4 rounded-lg border border-signal/30 bg-signal/[0.07] px-3.5 py-2.5">
             <p className="text-[11px] font-medium text-ink/70">
-              You are now handling this call. The assistant has stopped speaking and is taking
-              notes for the final summary.
+              You are now handling this call. The assistant has stopped speaking and is taking notes
+              for the final summary.
             </p>
           </div>
         )}
