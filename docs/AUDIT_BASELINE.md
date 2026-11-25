@@ -79,8 +79,7 @@ forwarded to Gnani.
 
 ### 4. Browser automation portability — HIGH
 
-`scripts/assistant-check.mjs`, `auth-only-check.mjs`, `demo-check.mjs`, and
-`signout-check.mjs` default to
+`auth-only-check.mjs`, `demo-check.mjs`, and `signout-check.mjs` default to
 `C:/Program Files/Google/Chrome/Application/chrome.exe`. Linux CI cannot run
 them. `scripts/demo-check.mjs` also still asserts the removed guest
 `localStorage` blob and an unauthenticated demo path, so it cannot pass against
