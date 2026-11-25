@@ -70,7 +70,8 @@ src/
     scenarios.ts             Six scripted scenarios
     risk.ts                  Indicator catalog and scoring
     services/                Conversation, risk, and call-simulation logic
-    store.tsx                Persisted client state and live-session engine
+    store/                   Client state, persistence, and live-session engine
+                             (CallShieldProvider, context, types, prefs)
     voice/                   Voice catalog, playback provider, speech driver, mic
     server/
       auth.ts session.ts     NextAuth + current user resolution
@@ -126,17 +127,17 @@ optional.
 
 Create `.env.local` (never commit it). See `.env.example`.
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `MONGODB_URI` | Yes, for sign-in and persistence | Atlas connection string |
-| `AUTH_SECRET` | Yes | Session signing key (`npx auth secret`) |
-| `GOOGLE_CLIENT_ID` | Yes, for sign-in | Google OAuth client |
-| `GOOGLE_CLIENT_SECRET` | Yes, for sign-in | Google OAuth secret |
-| `AUTH_TRUST_HOST` | Production outside Vercel | Set `true` only when the host is controlled |
-| `GNANI_API_KEY` | Optional | Enables call audio and transcription |
-| `GNANI_BASE_URL` | Optional | Must be https in production; defaults to Gnani |
-| `GNANI_TTS_MODEL` / `GNANI_STT_MODEL` | Optional | Default `timbre-v2.5` / `prisma-v2.5` |
-| `GNANI_CLONE_AUDIO` | Optional | Reference clip or data URI for voice cloning |
+| Variable                              | Required                         | Purpose                                        |
+| ------------------------------------- | -------------------------------- | ---------------------------------------------- |
+| `MONGODB_URI`                         | Yes, for sign-in and persistence | Atlas connection string                        |
+| `AUTH_SECRET`                         | Yes                              | Session signing key (`npx auth secret`)        |
+| `GOOGLE_CLIENT_ID`                    | Yes, for sign-in                 | Google OAuth client                            |
+| `GOOGLE_CLIENT_SECRET`                | Yes, for sign-in                 | Google OAuth secret                            |
+| `AUTH_TRUST_HOST`                     | Production outside Vercel        | Set `true` only when the host is controlled    |
+| `GNANI_API_KEY`                       | Optional                         | Enables call audio and transcription           |
+| `GNANI_BASE_URL`                      | Optional                         | Must be https in production; defaults to Gnani |
+| `GNANI_TTS_MODEL` / `GNANI_STT_MODEL` | Optional                         | Default `timbre-v2.5` / `prisma-v2.5`          |
+| `GNANI_CLONE_AUDIO`                   | Optional                         | Reference clip or data URI for voice cloning   |
 
 ### MongoDB setup
 
@@ -186,18 +187,18 @@ enabling cloning.
 
 ## Testing and verification
 
-| Command | What it covers | Requirements |
-| --- | --- | --- |
-| `npm run typecheck` | Strict TypeScript | none |
-| `npm run lint` | ESLint 9, Next core-web-vitals + TS | none |
-| `npm test` | 32 unit tests: audio sniffing/duration, rate-window maths, hashing, origin checks, sanitization, Gnani URL safety | none |
-| `npm run build` | Production build | `AUTH_SECRET` in production mode |
-| `npm run test:smoke` | Public pages, headers, signed-out redirect, forged-session dashboard/live/history/settings, mobile drawer, PWA manifest | server + `AUTH_SECRET` + Playwright Chromium |
-| `npm run test:a11y` | axe-core WCAG A/AA on 9 routes; fails on serious/critical | same |
-| `npm run test:demo` | Full account flow: seed, scenario, risk, block, history, takeover, voice settings, allow, filters, restore | server + MongoDB |
-| `npm run test:security` | Unauthenticated closure, CSRF origin, validation, no-store, headers, cleanup | server + MongoDB |
-| `npm run test:routes` | Every per-user route with a signed session | server + MongoDB + test user |
-| `npm run test:voice` | TTS → STT round trip | server + Gnani key |
+| Command                 | What it covers                                                                                                                                                                             | Requirements                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| `npm run typecheck`     | Strict TypeScript                                                                                                                                                                          | none                                         |
+| `npm run lint`          | ESLint 9, Next core-web-vitals + TS                                                                                                                                                        | none                                         |
+| `npm test`              | 51 unit tests: audio sniffing/duration, rate-window maths, hashing, origin checks, sanitization, Gnani URL safety, formatting, risk scoring, scenarios, call lifecycle, preference storage | none                                         |
+| `npm run build`         | Production build                                                                                                                                                                           | `AUTH_SECRET` in production mode             |
+| `npm run test:smoke`    | Public pages, headers, signed-out redirect, forged-session dashboard/live/history/settings, mobile drawer, PWA manifest                                                                    | server + `AUTH_SECRET` + Playwright Chromium |
+| `npm run test:a11y`     | axe-core WCAG A/AA on 9 routes; fails on serious/critical                                                                                                                                  | same                                         |
+| `npm run test:demo`     | Full account flow: seed, scenario, risk, block, history, takeover, voice settings, allow, filters, restore                                                                                 | server + MongoDB                             |
+| `npm run test:security` | Unauthenticated closure, CSRF origin, validation, no-store, headers, cleanup                                                                                                               | server + MongoDB                             |
+| `npm run test:routes`   | Every per-user route with a signed session                                                                                                                                                 | server + MongoDB + test user                 |
+| `npm run test:voice`    | TTS → STT round trip                                                                                                                                                                       | server + Gnani key                           |
 
 Browser scripts use Playwright-managed Chromium by default and accept
 `CHROME_EXECUTABLE_PATH` (or legacy `CHROME_PATH`) for a system browser. Install
@@ -213,10 +214,11 @@ for session/cache checks; the latter requires a real test user id and email.
 1. `npm ci`
 2. `npm run typecheck`
 3. `npm run lint`
-4. `npm test`
-5. `npm audit --omit=dev --audit-level=high`
-6. `npm run build` with a dummy `AUTH_SECRET`
-7. Playwright Chromium install, production server, `test:smoke`, `test:a11y`
+4. `npm run format:check`
+5. `npm test`
+6. `npm audit --omit=dev --audit-level=high`
+7. `npm run build` with a dummy `AUTH_SECRET`
+8. Playwright Chromium install, production server, `test:smoke`, `test:a11y`
 
 No real OAuth, Mongo, or Gnani credentials are used in CI. Authenticated
 database suites remain manual/integration checks.
@@ -229,7 +231,7 @@ database suites remain manual/integration checks.
 - **CSRF:** state-changing requests require a matching Origin (when a browser
   sends one). Session cookies are SameSite=Lax.
 - **Rate limiting:** fixed windows are stored in MongoDB and shared by all
-  instances. Keys are SHA-256 hashed before storage; limits are per user *and*
+  instances. Keys are SHA-256 hashed before storage; limits are per user _and_
   endpoint (TTS/STT/writes). Local development without Mongo falls back to
   memory; production refuses billable requests (`503`) if the shared limiter is
   unavailable.
@@ -269,6 +271,16 @@ database suites remain manual/integration checks.
 5. Keep Atlas network access as narrow as the deployment platform allows.
 6. Optional voice cloning requires `GNANI_CLONE_AUDIO`; do not commit personal
    reference audio to a public repository.
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md) — layers, state model, live-call engine,
+  security boundaries, and extension points.
+- [Security policy](SECURITY.md) — reporting, scope, and secret handling.
+- [Contributing](CONTRIBUTING.md) — setup, verification commands, and code
+  conventions.
+- [Baseline audit](docs/AUDIT_BASELINE.md), [remediation plan](docs/REMEDIATION_PLAN.md),
+  and [final audit report](docs/FINAL_AUDIT_REPORT.md).
 
 ## Known limitations
 

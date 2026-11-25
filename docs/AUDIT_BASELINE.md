@@ -5,35 +5,35 @@ Captured before remediation on commit `9156a406b2dc9a332e5c86a422edb6ac4cb9b769`
 
 ## Repository
 
-| Item | Value |
-| --- | --- |
-| Tracked size | 2.1 MB (`git ls-files` total) |
-| Branches | 1 local branch (`master`); `origin/master` tracking ref |
-| Largest tracked asset | `assets/generated-audio.wav` (1.3 MB) |
-| `.env.local` | Present locally, gitignored, never committed |
-| Secrets in tree | None observed; full scan scheduled in Phase 6 |
+| Item                  | Value                                                   |
+| --------------------- | ------------------------------------------------------- |
+| Tracked size          | 2.1 MB (`git ls-files` total)                           |
+| Branches              | 1 local branch (`master`); `origin/master` tracking ref |
+| Largest tracked asset | `assets/generated-audio.wav` (1.3 MB)                   |
+| `.env.local`          | Present locally, gitignored, never committed            |
+| Secrets in tree       | None observed; full scan scheduled in Phase 6           |
 
 ## Baseline commands
 
-| Command | Result |
-| --- | --- |
-| `npm run typecheck` | Pass (exit 0) |
-| `npm run build` | Pass; 14 routes generated |
-| `npm run lint` | Not available — no ESLint dependency or config |
-| Unit tests | None defined |
-| `npm audit` | 10 high, 0 critical/moderate/low |
-| `npm audit --omit=dev` | 0 vulnerabilities |
+| Command                | Result                                         |
+| ---------------------- | ---------------------------------------------- |
+| `npm run typecheck`    | Pass (exit 0)                                  |
+| `npm run build`        | Pass; 14 routes generated                      |
+| `npm run lint`         | Not available — no ESLint dependency or config |
+| Unit tests             | None defined                                   |
+| `npm audit`            | 10 high, 0 critical/moderate/low               |
+| `npm audit --omit=dev` | 0 vulnerabilities                              |
 
 ### Baseline first-load JS
 
-| Route | First load |
-| --- | --- |
-| `/` | 155 kB |
-| `/app` | 178 kB |
-| `/app/assistant` | 137 kB |
-| `/app/live` | 187 kB (heaviest) |
-| `/app/blocklist` | 175 kB |
-| `/app/settings` | 175 kB |
+| Route            | First load        |
+| ---------------- | ----------------- |
+| `/`              | 155 kB            |
+| `/app`           | 178 kB            |
+| `/app/assistant` | 137 kB            |
+| `/app/live`      | 187 kB (heaviest) |
+| `/app/blocklist` | 175 kB            |
+| `/app/settings`  | 175 kB            |
 
 Shared first-load JS: 103 kB.
 

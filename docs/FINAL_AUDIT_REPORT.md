@@ -11,7 +11,8 @@ security headers. The remediation focused on the gaps that were genuinely
 missing: shared rate limiting, real audio inspection, lint/CI infrastructure,
 portable browser tests, accessibility, and honest documentation.
 
-All local gates pass: strict TypeScript, ESLint with zero warnings, 32 unit
+All local gates pass: strict TypeScript, ESLint with zero warnings, Prettier,
+51 unit
 tests, production build, production dependency audit, runtime security checks,
 the full authenticated demo flow, and axe WCAG A/AA on nine routes. Two items
 remain outside what this environment can close: the unresolved build-time
@@ -110,15 +111,15 @@ read. Additional hardening:
 
 Measured, not assumed:
 
-| Route | Before | After |
-| --- | --- | --- |
-| `/` | 155 kB | 155 kB |
-| `/app` | 178 kB | 178 kB |
+| Route            | Before | After  |
+| ---------------- | ------ | ------ |
+| `/`              | 155 kB | 155 kB |
+| `/app`           | 178 kB | 178 kB |
 | `/app/assistant` | 137 kB | 137 kB |
-| `/app/live` | 187 kB | 187 kB |
+| `/app/live`      | 187 kB | 187 kB |
 | `/app/blocklist` | 175 kB | 175 kB |
-| `/app/settings` | 175 kB | 175 kB |
-| Shared JS | 103 kB | 103 kB |
+| `/app/settings`  | 175 kB | 175 kB |
+| Shared JS        | 103 kB | 103 kB |
 
 No feature removal or risky lazy-loading was introduced, because the measured
 bundle did not regress and the remaining weight is shared React/Next runtime,
@@ -129,10 +130,10 @@ not change HTML structure, styling, or hydration.
 
 Lighthouse (local production server, mobile emulation, 5 runs):
 
-| Preset | Performance | Accessibility | Best practices | SEO | LCP | CLS | TBT |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Mobile | 93 (91–94) | 100 | 100 | 100 | 2.9 s | 0.001 | 160 ms |
-| Desktop | 99 (99–100) | 100 | 100 | 100 | 0.8 s | 0 | 70 ms |
+| Preset  | Performance | Accessibility | Best practices | SEO | LCP   | CLS   | TBT    |
+| ------- | ----------- | ------------- | -------------- | --- | ----- | ----- | ------ |
+| Mobile  | 93 (91–94)  | 100           | 100            | 100 | 2.9 s | 0.001 | 160 ms |
+| Desktop | 99 (99–100) | 100           | 100            | 100 | 0.8 s | 0     | 70 ms  |
 
 Inlining the CSS moved FCP from 1.6 s to 1.4 s and LCP from 3.2–3.3 s to
 2.9–3.1 s. Measurement caveat: this workstation showed roughly 25% background
@@ -145,9 +146,10 @@ by network requests.
 
 ### 9. Tests and documentation
 
-- 32 unit tests added: audio signatures/durations, rate-window maths, hashed
+- 51 unit tests added: audio signatures/durations, rate-window maths, hashed
   keys, bounded fallback, concurrency, origin checks, call/blocklist
-  sanitization, Gnani URL safety.
+  sanitization, Gnani URL safety, formatting, risk thresholds, scenarios,
+  call lifecycle, and preference storage.
 - README rewritten to match reality (account-only mode, env matrix, setup,
   verification, security, deployment, limitations).
 - `.env.example` updated with trusted host and provider options.
@@ -172,23 +174,23 @@ removed.
 
 ## Verification results (executed locally, 2026-11-18)
 
-| Check | Result |
-| --- | --- |
-| `npm ci` from lockfile | Pass |
-| `npm run typecheck` | Pass |
-| `npm run lint` | Pass (0 errors, 0 warnings) |
-| `npm test` | 32/32 pass |
-| `npm audit --omit=dev --audit-level=high` | 0 vulnerabilities |
-| Full `npm audit` | 10 high (documented build-time advisory) |
-| `npm run build` | Pass, 14/14 pages |
-| `npm run test:smoke` (dev + prod/no-DB) | Pass |
-| `npm run test:a11y` (9 routes) | Pass, no serious/critical |
-| `npm run test:demo` (Mongo-backed) | Pass |
-| `node scripts/security-check.mjs` | All checks passed |
-| Gitleaks, tracked working tree | No leaks |
-| Gitleaks, Git history | 1 finding (see below) |
-| Tracked repository size | 2.3 MB |
-| Branches | 1 (`master`) |
+| Check                                     | Result                                   |
+| ----------------------------------------- | ---------------------------------------- |
+| `npm ci` from lockfile                    | Pass                                     |
+| `npm run typecheck`                       | Pass                                     |
+| `npm run lint`                            | Pass (0 errors, 0 warnings)              |
+| `npm test`                                | 51/51 pass                               |
+| `npm audit --omit=dev --audit-level=high` | 0 vulnerabilities                        |
+| Full `npm audit`                          | 10 high (documented build-time advisory) |
+| `npm run build`                           | Pass, 14/14 pages                        |
+| `npm run test:smoke` (dev + prod/no-DB)   | Pass                                     |
+| `npm run test:a11y` (9 routes)            | Pass, no serious/critical                |
+| `npm run test:demo` (Mongo-backed)        | Pass                                     |
+| `node scripts/security-check.mjs`         | All checks passed                        |
+| Gitleaks, tracked working tree            | No leaks                                 |
+| Gitleaks, Git history                     | 1 finding (see below)                    |
+| Tracked repository size                   | 2.3 MB                                   |
+| Branches                                  | 1 (`master`)                             |
 
 Not executed: live Google OAuth sign-in, real Gnani TTS/STT round trip
 (`npm run test:voice`), and the GitHub Actions run itself. These require
