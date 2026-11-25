@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import {
-  digitsOf,
-  sanitizeBlockedNumber,
-  sanitizeCallRecord,
-} from "../../src/lib/server/validate";
+import { digitsOf, sanitizeBlockedNumber, sanitizeCallRecord } from "../../src/lib/server/validate";
 
 const record = {
   id: "call-1",

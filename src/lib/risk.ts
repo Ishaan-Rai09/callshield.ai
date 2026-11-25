@@ -3,7 +3,8 @@ import type { Indicator, IndicatorKey, RiskLevel } from "@/lib/types";
 export const INDICATOR_CATALOG: Record<IndicatorKey, Omit<Indicator, "key">> = {
   otp_request: {
     label: "One-time password requested",
-    detail: "The caller asked for an OTP or verification code. Legitimate support staff do not ask for these.",
+    detail:
+      "The caller asked for an OTP or verification code. Legitimate support staff do not ask for these.",
     severity: 3,
     category: "Credential request",
   },
@@ -21,37 +22,43 @@ export const INDICATOR_CATALOG: Record<IndicatorKey, Omit<Indicator, "key">> = {
   },
   account_suspension: {
     label: "Account suspension threat",
-    detail: "The caller claimed the account or service will be suspended if the request is not followed.",
+    detail:
+      "The caller claimed the account or service will be suspended if the request is not followed.",
     severity: 2,
     category: "Coercion",
   },
   unrealistic_reward: {
     label: "Unrealistic reward",
-    detail: "A prize, windfall, or guaranteed return was offered for an entry or investment the user did not make.",
+    detail:
+      "A prize, windfall, or guaranteed return was offered for an entry or investment the user did not make.",
     severity: 3,
     category: "Financial pressure",
   },
   institution_impersonation: {
     label: "Institution impersonation signal",
-    detail: "The caller claimed to represent a bank or authority but offered no verifiable reference.",
+    detail:
+      "The caller claimed to represent a bank or authority but offered no verifiable reference.",
     severity: 2,
     category: "Identity",
   },
   remote_access: {
     label: "Remote-access software requested",
-    detail: "The caller asked the user to install software that would allow control of their device.",
+    detail:
+      "The caller asked the user to install software that would allow control of their device.",
     severity: 3,
     category: "Credential request",
   },
   pressure_tactics: {
     label: "Pressure and urgency",
-    detail: "Repeated deadlines, warnings, and refusals to let the user verify the caller independently.",
+    detail:
+      "Repeated deadlines, warnings, and refusals to let the user verify the caller independently.",
     severity: 1,
     category: "Coercion",
   },
   link_click: {
     label: "Suspicious link request",
-    detail: "The caller asked the user to open a link and complete a payment or verification outside an official app.",
+    detail:
+      "The caller asked the user to open a link and complete a payment or verification outside an official app.",
     severity: 2,
     category: "Financial pressure",
   },
@@ -67,16 +74,6 @@ export const INDICATOR_CATALOG: Record<IndicatorKey, Omit<Indicator, "key">> = {
     severity: 1,
     category: "Identity",
   },
-};
-
-export const INTENT_LABELS: Record<string, string> = {
-  appointment: "Appointment confirmation",
-  bank_impersonation: "Impersonated bank fraud check",
-  kyc_scam: "KYC expiration threat",
-  delivery_scam: "Parcel redelivery payment",
-  prize_scam: "Unsolicited prize claim",
-  investment_scam: "High-return investment offer",
-  unknown: "Not yet established",
 };
 
 export function toIndicators(keys: IndicatorKey[]): Indicator[] {
@@ -119,10 +116,7 @@ export function assessRisk(keys: IndicatorKey[]): RiskAssessment {
   return { score, level, label, rationale };
 }
 
-export const RISK_META: Record<
-  RiskLevel,
-  { label: string; short: string; description: string }
-> = {
+export const RISK_META: Record<RiskLevel, { label: string; short: string; description: string }> = {
   low: {
     label: "Low Risk",
     short: "Low",

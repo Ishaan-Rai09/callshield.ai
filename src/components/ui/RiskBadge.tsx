@@ -39,7 +39,7 @@ export function RiskBadge({
         "inline-flex items-center gap-1.5 rounded-full border font-semibold",
         size === "sm" ? "px-2 py-0.5 text-[11px]" : "px-3 py-1 text-xs",
         style[level],
-        className
+        className,
       )}
     >
       {showIcon ? (
@@ -49,19 +49,5 @@ export function RiskBadge({
       )}
       {RISK_META[level].label}
     </span>
-  );
-}
-
-export function RiskDot({ level, className }: { level: RiskLevel; className?: string }) {
-  return (
-    <span
-      className={cx(
-        "inline-block h-2 w-2 shrink-0 rounded-full",
-        level === "low" && "bg-ink/25",
-        level === "attention" && "bg-signal",
-        level === "high" && "bg-signal ring-2 ring-signal/25",
-        className
-      )}
-    />
   );
 }

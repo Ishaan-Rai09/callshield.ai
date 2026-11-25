@@ -71,10 +71,10 @@ test("memory fallback stays bounded under many live keys", () => {
 test("concurrent increments never reuse a count", async () => {
   const store = new MemoryWindowStore(100);
   const counts = await Promise.all(
-    Array.from({ length: 25 }, async () => store.increment("hot-key", 5_000, 1))
+    Array.from({ length: 25 }, async () => store.increment("hot-key", 5_000, 1)),
   );
   assert.deepEqual(
     [...counts].sort((a, b) => a - b),
-    Array.from({ length: 25 }, (_, i) => i + 1)
+    Array.from({ length: 25 }, (_, i) => i + 1),
   );
 });

@@ -18,7 +18,7 @@ const WINDOWS_CHROME_PATHS = [
   `${process.env.LOCALAPPDATA ?? ""}/Google/Chrome/Application/chrome.exe`,
 ];
 
-export function browserExecutable() {
+function browserExecutable() {
   const override = process.env.CHROME_EXECUTABLE_PATH || process.env.CHROME_PATH;
   if (override) return override;
   if (process.platform === "win32") {

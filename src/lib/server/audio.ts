@@ -10,7 +10,7 @@
  */
 
 export const MAX_AUDIO_SEC = 30;
-export const MIN_AUDIO_SEC = 0.2;
+const MIN_AUDIO_SEC = 0.2;
 
 export type AudioFormat = "wav" | "mp3";
 
@@ -40,17 +40,17 @@ function ascii(bytes: Uint8Array, offset: number, length: number): string {
 
 function u32le(bytes: Uint8Array, offset: number): number {
   return (
-    (bytes[offset] ?? 0) +
-    (bytes[offset + 1] ?? 0) * 0x100 +
-    (bytes[offset + 2] ?? 0) * 0x10000 +
-    (bytes[offset + 3] ?? 0) * 0x1000000
-  ) >>> 0;
+    ((bytes[offset] ?? 0) +
+      (bytes[offset + 1] ?? 0) * 0x100 +
+      (bytes[offset + 2] ?? 0) * 0x10000 +
+      (bytes[offset + 3] ?? 0) * 0x1000000) >>>
+    0
+  );
 }
 
 function u16le(bytes: Uint8Array, offset: number): number {
   return (bytes[offset] ?? 0) + (bytes[offset + 1] ?? 0) * 0x100;
 }
-
 
 function checkDuration(durationSec: number): void {
   if (!Number.isFinite(durationSec) || durationSec <= 0) {
@@ -63,7 +63,7 @@ function checkDuration(durationSec: number): void {
     throw new AudioValidationError(
       "AUDIO_TOO_LONG",
       `Recordings must be ${MAX_AUDIO_SEC} seconds or shorter.`,
-      422
+      422,
     );
   }
 }
@@ -102,7 +102,7 @@ function probeWav(bytes: Uint8Array): AudioProbe {
     throw new AudioValidationError(
       "UNSUPPORTED_AUDIO",
       "Use a mono or stereo WAV between 8 kHz and 192 kHz.",
-      415
+      415,
     );
   }
   if (bitsPerSample !== 0 && bitsPerSample % 8 !== 0) {
@@ -110,7 +110,7 @@ function probeWav(bytes: Uint8Array): AudioProbe {
   }
 
   const derivedRate =
-    byteRate > 0 ? byteRate : sampleRate * Math.max(1, channels) * Math.max(8, bitsPerSample) / 8;
+    byteRate > 0 ? byteRate : (sampleRate * Math.max(1, channels) * Math.max(8, bitsPerSample)) / 8;
   if (!Number.isFinite(derivedRate) || derivedRate <= 0) {
     throw new AudioValidationError("INVALID_AUDIO", "The WAV file has an invalid header.", 400);
   }
@@ -125,10 +125,7 @@ const MP3_BITRATES = [
 ];
 const MP3_RATES = [44_100, 48_000, 32_000];
 
-function mp3Frame(
-  bytes: Uint8Array,
-  offset: number
-): { length: number; duration: number } | null {
+function mp3Frame(bytes: Uint8Array, offset: number): { length: number; duration: number } | null {
   if (offset + 4 > bytes.length) return null;
   if (bytes[offset] !== 0xff || (bytes[offset + 1] & 0xe0) !== 0xe0) return null;
 
@@ -143,7 +140,9 @@ function mp3Frame(
 
   const mpeg1 = versionBits === 3;
   const bitrate = (mpeg1 ? MP3_BITRATES[0] : MP3_BITRATES[1])[bitrateIndex] * 1000;
-  const sampleRate = (mpeg1 ? MP3_RATES[rateIndex] : MP3_RATES[rateIndex] * (versionBits === 2 ? 0.5 : 0.25));
+  const sampleRate = mpeg1
+    ? MP3_RATES[rateIndex]
+    : MP3_RATES[rateIndex] * (versionBits === 2 ? 0.5 : 0.25);
   const samplesPerFrame = mpeg1 ? 1152 : 576;
   const length = Math.floor((samplesPerFrame / 8) * (bitrate / sampleRate)) + padding;
   if (length < 4) return null;
@@ -171,7 +170,11 @@ function probeMp3(bytes: Uint8Array): AudioProbe {
     }
   }
   if (first < 0) {
-    throw new AudioValidationError("INVALID_AUDIO", "The MP3 file has no readable audio frames.", 400);
+    throw new AudioValidationError(
+      "INVALID_AUDIO",
+      "The MP3 file has no readable audio frames.",
+      400,
+    );
   }
 
   let duration = 0;
@@ -204,7 +207,7 @@ export function probeAudio(bytes: Uint8Array): AudioProbe {
     throw new AudioValidationError(
       "UNSUPPORTED_AUDIO",
       "Use a WAV or MP3 recording. Other containers are not accepted.",
-      415
+      415,
     );
   } else {
     probe = probeMp3(bytes);

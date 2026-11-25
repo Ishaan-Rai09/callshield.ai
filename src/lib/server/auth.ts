@@ -13,14 +13,14 @@ const AUTH_SECRET = process.env.AUTH_SECRET?.trim();
 // lets anyone mint a valid session cookie and impersonate any account.
 if (!AUTH_SECRET && process.env.NODE_ENV === "production") {
   throw new Error(
-    "AUTH_SECRET is required in production. Generate one with `npx auth secret` and set it in the deployment environment."
+    "AUTH_SECRET is required in production. Generate one with `npx auth secret` and set it in the deployment environment.",
   );
 }
 
-export const googleConfigured = Boolean(
+const googleConfigured = Boolean(
   process.env.GOOGLE_CLIENT_ID?.trim() &&
-    process.env.GOOGLE_CLIENT_SECRET?.trim() &&
-    mongoConfigured
+  process.env.GOOGLE_CLIENT_SECRET?.trim() &&
+  mongoConfigured,
 );
 
 async function upsertGoogleUser(input: {
@@ -38,7 +38,7 @@ async function upsertGoogleUser(input: {
         $set: { name: input.name, image: input.image, googleSub: input.googleSub },
         $setOnInsert: { email: input.email, createdAt: now },
       },
-      { upsert: true, returnDocument: "after" }
+      { upsert: true, returnDocument: "after" },
     );
     return result?._id ? String(result._id) : null;
   } catch (error) {
@@ -52,7 +52,7 @@ async function upsertGoogleUser(input: {
   }
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const { handlers, auth } = NextAuth({
   // Only trust forwarded Host headers where the platform guarantees them. On
   // Vercel they are fixed; elsewhere require AUTH_TRUST_HOST=true explicitly.
   trustHost:

@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import {
-  AudioValidationError,
-  MAX_AUDIO_SEC,
-  probeAudio,
-} from "../../src/lib/server/audio";
+import { AudioValidationError, MAX_AUDIO_SEC, probeAudio } from "../../src/lib/server/audio";
 
 function wav(seconds: number, sampleRate = 16_000, channels = 1, bits = 16): Uint8Array {
   const dataSize = Math.round((seconds * sampleRate * channels * bits) / 8);
@@ -42,7 +38,7 @@ function mp3Frames(count: number): Uint8Array {
 function rejects(bytes: Uint8Array, code: string) {
   assert.throws(
     () => probeAudio(bytes),
-    (error: unknown) => error instanceof AudioValidationError && error.code === code
+    (error: unknown) => error instanceof AudioValidationError && error.code === code,
   );
 }
 

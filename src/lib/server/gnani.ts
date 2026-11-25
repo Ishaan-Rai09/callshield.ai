@@ -12,7 +12,7 @@
 
 const DEFAULT_BASE_URL = "https://api.vachana.ai";
 export const DEFAULT_TTS_MODEL = "timbre-v2.5";
-export const DEFAULT_STT_MODEL = "prisma-v2.5";
+const DEFAULT_STT_MODEL = "prisma-v2.5";
 
 export class GnaniError extends Error {
   readonly status: number;
@@ -63,7 +63,7 @@ export function gnaniConfig() {
 }
 
 /** The assistant voice id that triggers voice-cloned synthesis. */
-export const CLONED_VOICE_ID = "clone";
+const CLONED_VOICE_ID = "clone";
 /** Gnani's voice-cloning model — used instead of Timbre when a clone is requested. */
 const VC_MODEL = "vachana-vc-v1";
 
@@ -73,7 +73,7 @@ function requireKey(): { apiKey: string; baseUrl: string } {
     throw new GnaniError(
       "Gnani is not configured. Add GNANI_API_KEY to .env.local and restart the server.",
       503,
-      "NOT_CONFIGURED"
+      "NOT_CONFIGURED",
     );
   }
   return { apiKey: config.apiKey, baseUrl: config.baseUrl };
@@ -136,7 +136,7 @@ async function loadSpeakerEmbedding(): Promise<SpeakerEmbedding> {
     throw new GnaniError(
       "Voice cloning is not configured. Set GNANI_CLONE_AUDIO to a 5-30 second recording of the reference voice.",
       503,
-      "CLONE_NOT_CONFIGURED"
+      "CLONE_NOT_CONFIGURED",
     );
   }
 
@@ -152,7 +152,9 @@ async function loadSpeakerEmbedding(): Promise<SpeakerEmbedding> {
   } else {
     const { readFile } = await import("node:fs/promises");
     const path = await import("node:path");
-    const resolved = path.isAbsolute(cloneAudio) ? cloneAudio : path.join(process.cwd(), cloneAudio);
+    const resolved = path.isAbsolute(cloneAudio)
+      ? cloneAudio
+      : path.join(process.cwd(), cloneAudio);
     filename = path.basename(resolved);
     bytes = new Uint8Array(await readFile(resolved));
   }
@@ -164,8 +166,10 @@ async function loadSpeakerEmbedding(): Promise<SpeakerEmbedding> {
   const form = new FormData();
   form.append(
     "audio_file",
-    new Blob([bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer]),
-    filename
+    new Blob([
+      bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer,
+    ]),
+    filename,
   );
 
   let response: Response;
@@ -183,7 +187,7 @@ async function loadSpeakerEmbedding(): Promise<SpeakerEmbedding> {
         ? "Gnani voice-clone embedding request timed out."
         : "Could not reach the Gnani voice-clone service.",
       504,
-      "UPSTREAM_UNREACHABLE"
+      "UPSTREAM_UNREACHABLE",
     );
   }
   if (!response.ok) throw await failure(response);
@@ -217,12 +221,18 @@ export async function synthesizeSpeech(input: SynthesisInput): Promise<{
     throw new GnaniError(
       "The cloned voice is not configured on the server. Set GNANI_CLONE_AUDIO to enable it.",
       503,
-      "CLONE_NOT_CONFIGURED"
+      "CLONE_NOT_CONFIGURED",
     );
   }
   const language = input.language || "auto";
   const speed = Math.min(1.15, Math.max(0.85, input.speed ?? 1));
-  const cacheKey = [cloned ? "clone" : config.ttsModel, input.voice, language, speed, input.text].join("|");
+  const cacheKey = [
+    cloned ? "clone" : config.ttsModel,
+    input.voice,
+    language,
+    speed,
+    input.text,
+  ].join("|");
 
   const hit = ttsCache.get(cacheKey);
   if (hit) return { ...hit, cached: true };
@@ -276,7 +286,7 @@ export async function synthesizeSpeech(input: SynthesisInput): Promise<{
         ? "Gnani text-to-speech timed out."
         : "Could not reach Gnani text-to-speech.",
       504,
-      "UPSTREAM_UNREACHABLE"
+      "UPSTREAM_UNREACHABLE",
     );
   }
 
@@ -305,7 +315,7 @@ export interface TranscriptionResult {
 /** Transcribe a short clip (≤ 30 s) with Gnani Prisma. */
 export async function transcribeSpeech(
   file: File,
-  languageCode: string
+  languageCode: string,
 ): Promise<TranscriptionResult> {
   const { apiKey, baseUrl } = requireKey();
   const config = gnaniConfig();
@@ -334,7 +344,7 @@ export async function transcribeSpeech(
         ? "Gnani speech-to-text timed out."
         : "Could not reach Gnani speech-to-text.",
       504,
-      "UPSTREAM_UNREACHABLE"
+      "UPSTREAM_UNREACHABLE",
     );
   }
 
@@ -355,6 +365,9 @@ export async function transcribeSpeech(
     transcript: (body.transcript ?? "").trim(),
     detectedLanguage: body.detected_language_code ?? null,
     model: body.model ?? config.sttModel,
-    latencyMs: typeof body.end_to_end_latency === "number" ? Math.round(body.end_to_end_latency * 1000) : null,
+    latencyMs:
+      typeof body.end_to_end_latency === "number"
+        ? Math.round(body.end_to_end_latency * 1000)
+        : null,
   };
 }

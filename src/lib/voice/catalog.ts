@@ -18,7 +18,12 @@ export const ASSISTANT_VOICES: VoiceOption[] = [
   { id: "Shlok", label: "Shlok", persona: "Warm, conversational", language: "en-IN" },
   { id: "Girish", label: "Girish", persona: "Expressive, energetic", language: "en-IN" },
   { id: "Devika", label: "Devika", persona: "Authoritative", language: "en-IN" },
-  { id: "clone", label: "Your Voice", persona: "Cloned from your reference audio via Gnani VC", language: "auto" },
+  {
+    id: "clone",
+    label: "Your Voice",
+    persona: "Cloned from your reference audio via Gnani VC",
+    language: "auto",
+  },
 ];
 
 /** Caller voices are assigned per scenario so two callers never sound alike. */
@@ -31,7 +36,7 @@ export function callerVoiceFor(scenarioId: string): string {
   return CALLER_VOICES[hash % CALLER_VOICES.length];
 }
 
-export function isAssistantVoice(voice: string): boolean {
+function isAssistantVoice(voice: string): boolean {
   return ASSISTANT_VOICES.some((option) => option.id === voice);
 }
 
@@ -64,15 +69,13 @@ export function speechText(input: string): string {
     .replace(/\bINR\b/g, "rupees")
     .replace(/₹\s?/g, "rupees ")
     .replace(/\b\d{8,}\b/g, (digits) => digits.split("").join(" "))
-    .replace(/\b([A-Z]{2,4})-(\d{3,6})\b/g, (_match, letters: string, digits: string) =>
-      `${letters.split("").join(" ")} ${digits.split("").join(" ")}`
+    .replace(
+      /\b([A-Z]{2,4})-(\d{3,6})\b/g,
+      (_match, letters: string, digits: string) =>
+        `${letters.split("").join(" ")} ${digits.split("").join(" ")}`,
     )
     .replace(/\s+/g, " ")
     .trim();
-}
-
-export function voiceLabel(voice: string): string {
-  return ASSISTANT_VOICES.find((option) => option.id === voice)?.label ?? voice;
 }
 
 export function defaultAssistantVoice(settings: Pick<AssistantSettings, "voice">): string {

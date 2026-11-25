@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import { initials } from "@/lib/format";
 import { cx } from "@/lib/utils";
 
 export function CallerAvatar({
@@ -10,12 +11,7 @@ export function CallerAvatar({
   size?: "sm" | "md" | "lg";
   className?: string;
 }) {
-  const initials = name
-    ?.split(" ")
-    .filter((part) => !part.startsWith("("))
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase())
-    .join("");
+  const avatarInitials = initials(name ?? "");
 
   return (
     <span
@@ -24,10 +20,12 @@ export function CallerAvatar({
         size === "sm" && "h-8 w-8 text-[10px]",
         size === "md" && "h-9 w-9 text-[11px]",
         size === "lg" && "h-12 w-12 text-[13px]",
-        className
+        className,
       )}
     >
-      {initials || <Phone className={size === "lg" ? "h-4 w-4" : "h-3.5 w-3.5"} strokeWidth={1.7} />}
+      {avatarInitials || (
+        <Phone className={size === "lg" ? "h-4 w-4" : "h-3.5 w-3.5"} strokeWidth={1.7} />
+      )}
     </span>
   );
 }

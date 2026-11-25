@@ -49,14 +49,11 @@ export function relativeTime(iso: string): string {
   return formatDate(iso);
 }
 
-export function shortNumber(number: string): string {
-  return number.replace(/\s+/g, " ").trim();
-}
-
+/** First letters of the first two name parts, skipping parenthesised notes. */
 export function initials(name: string): string {
   return name
     .split(" ")
-    .filter(Boolean)
+    .filter((part) => Boolean(part) && !part.startsWith("("))
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? "")
     .join("");

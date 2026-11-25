@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Bot, PhoneIncoming, RotateCcw, ShieldCheck, TriangleAlert } from "lucide-react";
 import { assessRisk, INDICATOR_CATALOG, RISK_META, toIndicators } from "@/lib/risk";
+import { formatClock } from "@/lib/format";
 import type { IndicatorKey, Speaker } from "@/lib/types";
 import { cx } from "@/lib/utils";
 
@@ -32,11 +33,26 @@ const DEMOS: DemoScenario[] = [
     intent: "Impersonated bank fraud check",
     confidence: 34,
     lines: [
-      { speaker: "ai", text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?" },
-      { speaker: "caller", text: "Northbridge Bank fraud prevention. There's a ₹48,500 debit pending on your account.", reveals: ["institution_impersonation"] },
+      {
+        speaker: "ai",
+        text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?",
+      },
+      {
+        speaker: "caller",
+        text: "Northbridge Bank fraud prevention. There's a ₹48,500 debit pending on your account.",
+        reveals: ["institution_impersonation"],
+      },
       { speaker: "ai", text: "What do you need from the account holder to verify this?" },
-      { speaker: "caller", text: "The 16-digit card number and the OTP being sent now. Read them back and I'll stop the transaction.", reveals: ["banking_credentials", "otp_request"] },
-      { speaker: "caller", text: "If this isn't done in ten minutes the account will be suspended.", reveals: ["account_suspension", "pressure_tactics"] },
+      {
+        speaker: "caller",
+        text: "The 16-digit card number and the OTP being sent now. Read them back and I'll stop the transaction.",
+        reveals: ["banking_credentials", "otp_request"],
+      },
+      {
+        speaker: "caller",
+        text: "If this isn't done in ten minutes the account will be suspended.",
+        reveals: ["account_suspension", "pressure_tactics"],
+      },
     ],
   },
   {
@@ -47,11 +63,25 @@ const DEMOS: DemoScenario[] = [
     intent: "KYC expiration threat",
     confidence: 22,
     lines: [
-      { speaker: "ai", text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?" },
-      { speaker: "caller", text: "TeleLink compliance. Your KYC expired yesterday — the number will be disconnected tonight." },
+      {
+        speaker: "ai",
+        text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?",
+      },
+      {
+        speaker: "caller",
+        text: "TeleLink compliance. Your KYC expired yesterday — the number will be disconnected tonight.",
+      },
       { speaker: "ai", text: "Can you share an employee ID and a reference for this notice?" },
-      { speaker: "caller", text: "No reference. Just your Aadhaar number and the OTP I'll trigger.", reveals: ["vague_identity", "otp_request"] },
-      { speaker: "caller", text: "If the OTP fails, install QuickAssist so I can see your screen.", reveals: ["remote_access", "account_suspension"] },
+      {
+        speaker: "caller",
+        text: "No reference. Just your Aadhaar number and the OTP I'll trigger.",
+        reveals: ["vague_identity", "otp_request"],
+      },
+      {
+        speaker: "caller",
+        text: "If the OTP fails, install QuickAssist so I can see your screen.",
+        reveals: ["remote_access", "account_suspension"],
+      },
     ],
   },
   {
@@ -62,11 +92,29 @@ const DEMOS: DemoScenario[] = [
     intent: "Unsolicited prize claim",
     confidence: 15,
     lines: [
-      { speaker: "ai", text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?" },
-      { speaker: "caller", text: "Congratulations! Your number has won ₹12,50,000 in our annual draw.", reveals: ["unrealistic_reward"] },
-      { speaker: "ai", text: "The account holder didn't enter a draw. Could you share a claim reference?" },
-      { speaker: "caller", text: "Reference NR-77219. The processing fee is ₹4,999 by gift card, then we transfer the prize.", reveals: ["urgent_payment", "vague_identity"] },
-      { speaker: "caller", text: "Keep this confidential until the transfer — otherwise the claim is void.", reveals: ["secrecy_request"] },
+      {
+        speaker: "ai",
+        text: "Hello, this is the call assistant. May I know who's calling and what this is regarding?",
+      },
+      {
+        speaker: "caller",
+        text: "Congratulations! Your number has won ₹12,50,000 in our annual draw.",
+        reveals: ["unrealistic_reward"],
+      },
+      {
+        speaker: "ai",
+        text: "The account holder didn't enter a draw. Could you share a claim reference?",
+      },
+      {
+        speaker: "caller",
+        text: "Reference NR-77219. The processing fee is ₹4,999 by gift card, then we transfer the prize.",
+        reveals: ["urgent_payment", "vague_identity"],
+      },
+      {
+        speaker: "caller",
+        text: "Keep this confidential until the transfer — otherwise the claim is void.",
+        reveals: ["secrecy_request"],
+      },
     ],
   },
 ];
@@ -82,24 +130,24 @@ export function HeroCallDemo() {
 
   const scenario = DEMOS[scenarioIndex];
   const shown = scenario.lines.slice(0, visible);
-  const revealed = useMemo(
-    () => shown.flatMap((line) => line.reveals ?? []),
-    [shown]
-  );
+  const revealed = useMemo(() => shown.flatMap((line) => line.reveals ?? []), [shown]);
   const risk = assessRisk(revealed);
   const complete = visible >= scenario.lines.length;
   const elapsed = 8 + visible * 4;
 
   useEffect(() => {
     if (paused) return;
-    const timer = window.setTimeout(() => {
-      if (visible < scenario.lines.length) {
-        setVisible((value) => value + 1);
-      } else {
-        setScenarioIndex((value) => (value + 1) % DEMOS.length);
-        setVisible(1);
-      }
-    }, complete ? 4200 : LINE_INTERVAL);
+    const timer = window.setTimeout(
+      () => {
+        if (visible < scenario.lines.length) {
+          setVisible((value) => value + 1);
+        } else {
+          setScenarioIndex((value) => (value + 1) % DEMOS.length);
+          setVisible(1);
+        }
+      },
+      complete ? 4200 : LINE_INTERVAL,
+    );
     return () => window.clearTimeout(timer);
   }, [visible, scenario.lines.length, paused, complete, scenarioIndex]);
 
@@ -128,7 +176,10 @@ export function HeroCallDemo() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div className="absolute -right-3 -top-3 hidden h-full w-full rounded-2xl border border-signal/35 sm:block" aria-hidden="true" />
+      <div
+        className="absolute -right-3 -top-3 hidden h-full w-full rounded-2xl border border-signal/35 sm:block"
+        aria-hidden="true"
+      />
 
       <div className="relative overflow-hidden rounded-2xl border border-ink bg-ink shadow-panel">
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
@@ -145,7 +196,7 @@ export function HeroCallDemo() {
             </span>
           </div>
           <span className="font-display text-[11px] tabular-nums text-ivory/70">
-            {String(Math.floor(elapsed / 60)).padStart(2, "0")}:{String(elapsed % 60).padStart(2, "0")}
+            {formatClock(elapsed)}
           </span>
         </div>
 
@@ -166,7 +217,7 @@ export function HeroCallDemo() {
               "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-semibold",
               risk.level === "high" && "border-signal/60 bg-signal/15 text-ivory",
               risk.level === "attention" && "border-signal/40 bg-signal/10 text-ivory",
-              risk.level === "low" && "border-white/15 text-ivory/70"
+              risk.level === "low" && "border-white/15 text-ivory/70",
             )}
           >
             {risk.level === "high" ? (
@@ -197,7 +248,7 @@ export function HeroCallDemo() {
                       "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold",
                       line.speaker === "ai"
                         ? "bg-signal text-ink"
-                        : "border border-white/20 text-ivory/70"
+                        : "border border-white/20 text-ivory/70",
                     )}
                   >
                     {line.speaker === "ai" ? <Bot className="h-3 w-3" /> : "C"}
@@ -207,7 +258,7 @@ export function HeroCallDemo() {
                       "max-w-[85%] rounded-lg px-3 py-2 text-[12px] leading-relaxed",
                       line.speaker === "ai"
                         ? "bg-white/[0.06] text-ivory/80"
-                        : "border border-white/10 text-ivory/70"
+                        : "border border-white/10 text-ivory/70",
                     )}
                   >
                     <span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/70">
@@ -266,7 +317,9 @@ export function HeroCallDemo() {
                 ))}
             </AnimatePresence>
             {revealed.length === 0 && (
-              <span className="text-[10.5px] text-ivory/70">Listening for suspicious requests…</span>
+              <span className="text-[10.5px] text-ivory/70">
+                Listening for suspicious requests…
+              </span>
             )}
           </div>
         </div>
@@ -283,7 +336,9 @@ export function HeroCallDemo() {
                 onClick={() => selectScenario(index)}
                 className={cx(
                   "rounded-full px-2 py-1 text-[9.5px] font-medium transition-colors",
-                  index === scenarioIndex ? "bg-white/10 text-ivory/80" : "text-ivory/70 hover:text-ivory/70"
+                  index === scenarioIndex
+                    ? "bg-white/10 text-ivory/80"
+                    : "text-ivory/70 hover:text-ivory/70",
                 )}
               >
                 {demo.tab}

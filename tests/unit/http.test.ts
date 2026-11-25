@@ -31,7 +31,11 @@ test("rejects an Origin that is not a URL", () => {
 test("honours the forwarded host behind a trusted proxy", () => {
   const forwarded = new Request("https://app.example/api", {
     method: "POST",
-    headers: { host: "internal:3000", "x-forwarded-host": "app.example", origin: "https://app.example" },
+    headers: {
+      host: "internal:3000",
+      "x-forwarded-host": "app.example",
+      origin: "https://app.example",
+    },
   });
   assert.equal(isSameOrigin(forwarded), true);
 });

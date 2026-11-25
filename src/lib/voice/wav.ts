@@ -1,5 +1,5 @@
 /** Convert decoded microphone audio into 16-bit mono PCM WAV at 16 kHz. */
-export function audioBufferToWav(buffer: AudioBuffer, targetRate = 16_000): Blob {
+function audioBufferToWav(buffer: AudioBuffer, targetRate = 16_000): Blob {
   const source = buffer.getChannelData(0);
   const ratio = buffer.sampleRate / targetRate;
   const length = Math.max(1, Math.floor(source.length / ratio));
